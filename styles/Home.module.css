@@ -114,6 +114,11 @@
   height: 1em;
 }
 
+.themeImg
+{
+  height: 20em;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
