@@ -1,0 +1,33 @@
+.Container
+{
+
+}
+
+.imagesContainer
+{
+    -webkit-column-count: 4;
+    -moz-column-count: 4;
+    column-count: 4;
+    column-gap: 1em;
+    padding: 1em;
+}
+
+
+.images
+{
+    margin-bottom: 1em;
+    position: relative;
+    overflow: hidden;
+    z-index: 100;
+}
+
+.voteContainer
+{
+    width: max-content;
+    margin: auto;
+
+}
+.voteImage
+{
+    margin-right: 2em;
+}
