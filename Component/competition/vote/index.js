@@ -1,6 +1,7 @@
 import styles from "./vote.module.css";
 import {Button} from "react-bootstrap";
 import {useEffect, useState} from "react";
+import {AiOutlineLoading3Quarters} from "react-icons/ai";
 
 export default function Vote(){
 
@@ -45,7 +46,7 @@ export default function Vote(){
 
     useEffect(
         () => {
-            ajax('https://jsonplaceholder.typicode.com/photos?_page=0&_limit=12')
+            ajax('https://picsum.photos/v2/list?page=2&limit=11')
                 .then(function (response) {
                     let json = JSON.parse(response);
                     setImages(json);
@@ -69,7 +70,11 @@ export default function Vote(){
                 :
                 images.map(function(item, i){
                     console.log('test');
-                    return <img key={i} src={item.url} className={styles.images}/>
+                    return <div key={i} className={styles.item}>
+                        <img src={item.download_url} className={styles.item_image}/>
+                    </div>
+
+
                 })
             }
 
@@ -81,7 +86,19 @@ export default function Vote(){
 
 
     return <div className={styles.Container}>
-        <h2>Vote pour tes créations favorites</h2>
+        <div className={styles.actionBar}>
+
+            <div className={styles.actionBar_alignleft}>
+                <h2>Vote pour tes créations favorites</h2>
+            </div>
+
+            <div className={styles.actionBar_alignright}>
+                <div className={styles.actionBar_reload}>
+                    <AiOutlineLoading3Quarters size={32}/>
+                </div>
+            </div>
+
+        </div>
         <div className={styles.imagesContainer}>
             <CreateTable />
         </div>
