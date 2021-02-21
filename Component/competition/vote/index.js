@@ -6,7 +6,18 @@ export default function Vote(){
 
     const[images, setImages] = useState("loading...")
 
-    let img = "loading...";
+
+    let consoleLogActive = true;
+
+    const consoleLog = (message, active) =>{
+
+        if(active || consoleLogActive)
+        {
+            console.log(message);
+        }
+
+    }
+
 
     let ajax = function (url) {
 
@@ -34,11 +45,11 @@ export default function Vote(){
 
     useEffect(
         () => {
-            ajax('https://jsonplaceholder.typicode.com/photos/1')
+            ajax('https://jsonplaceholder.typicode.com/photos?_page=0&_limit=12')
                 .then(function (response) {
-                    let test = JSON.parse(response);
-                    setImages(test);
-                    console.log(test);
+                    let json = JSON.parse(response);
+                    setImages(json);
+                    consoleLog(json);
                 }).catch(function(req){
                 console.log("Error");
             })
@@ -51,8 +62,18 @@ export default function Vote(){
 
     const CreateTable = () => {
 
+        return <>
 
-        return <></>;
+            {!Array.isArray(images) ?
+                <h2>Loading ...</h2>
+                :
+                images.map(function(item, i){
+                    console.log('test');
+                    return <img key={i} src={item.url} className={styles.images}/>
+                })
+            }
+
+        </>;
 
 
 
@@ -60,6 +81,7 @@ export default function Vote(){
 
 
     return <div className={styles.Container}>
+        <h2>Vote pour tes créations favorites</h2>
         <div className={styles.imagesContainer}>
             <CreateTable />
         </div>
