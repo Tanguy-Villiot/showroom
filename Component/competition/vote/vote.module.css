@@ -34,6 +34,8 @@
     -moz-column-count: 4;
     column-count: 4;
     column-gap: 1em;
+
+    margin-bottom: 2em;
 }
 
 

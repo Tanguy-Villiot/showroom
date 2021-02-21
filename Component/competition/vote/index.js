@@ -3,9 +3,12 @@ import {Button} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {AiOutlineLoading3Quarters} from "react-icons/ai";
 
+
 export default function Vote(){
 
     const[images, setImages] = useState("loading...")
+
+    const[count, setCount] = useState(0);
 
 
     let consoleLogActive = true;
@@ -29,7 +32,11 @@ export default function Vote(){
             req.onreadystatechange = function (aEvt) {
                 if (req.readyState === 4) {
                     if (req.status === 200)
-                        resolve(req.responseText)
+                    {
+                        let json = JSON.parse(req.responseText);
+
+                        resolve(json)
+                    }
                     else
                         reject(req)
                 }
@@ -39,29 +46,75 @@ export default function Vote(){
         })
     }
 
+    let getImages = function (list) {
 
+        return new Promise(function (resolve, reject) {
 
+            let x = [];
+
+            for(let i = 0; i <= 9; i++)
+            {
+                let item = list[Math.floor(Math.random() * list.length)];
+
+                x.push(item);
+
+            }
+
+            if(x.length === 10)
+            {
+                resolve(x)
+            }
+            else
+            {
+                reject("List not contains 10 images");
+            }
+
+        })
+    }
 
 
 
     useEffect(
         () => {
-            ajax('https://picsum.photos/v2/list?page=2&limit=11')
+
+            ajax('https://picsum.photos/v2/list?page=1&limit=100')
                 .then(function (response) {
-                    let json = JSON.parse(response);
-                    setImages(json);
-                    consoleLog(json);
+
+                    consoleLog(response);
+
+                    getImages(response)
+                        .then(function (res){
+
+                            setImages(res);
+
+                            consoleLog(res);
+
+                        }).catch(function (res){
+
+                    });
+
+
+
+
+
                 }).catch(function(req){
                 console.log("Error");
             })
-
         },
-        [],
+        [count],
     );
+
+
+    const handleClick = () =>{
+
+        setCount(count + 1);
+
+    }
 
 
 
     const CreateTable = () => {
+
 
         return <>
 
@@ -69,7 +122,6 @@ export default function Vote(){
                 <h2>Loading ...</h2>
                 :
                 images.map(function(item, i){
-                    console.log('test');
                     return <div key={i} className={styles.item}>
                         <img src={item.download_url} className={styles.item_image}/>
                     </div>
@@ -93,7 +145,7 @@ export default function Vote(){
             </div>
 
             <div className={styles.actionBar_alignright}>
-                <div className={styles.actionBar_reload}>
+                <div className={styles.actionBar_reload} onClick={handleClick}>
                     <AiOutlineLoading3Quarters size={32}/>
                 </div>
             </div>
