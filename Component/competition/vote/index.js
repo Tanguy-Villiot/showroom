@@ -4,14 +4,66 @@ import {useEffect, useState} from "react";
 import {AiOutlineLoading3Quarters} from "react-icons/ai";
 
 
-export default function Vote(){
+
+
+let ajax = function (url) {
+
+    return new Promise(function (resolve, reject) {
+
+        let req = new XMLHttpRequest()
+        req.open('GET', url, true)
+        req.onreadystatechange = function (aEvt) {
+            if (req.readyState === 4) {
+                if (req.status === 200)
+                {
+                    let json = JSON.parse(req.responseText);
+
+                    resolve(json)
+                }
+                else
+                    reject(req)
+            }
+        };
+        req.send(null)
+
+    })
+}
+
+let getImages = function (list) {
+
+    return new Promise(function (resolve, reject) {
+
+        let x = [];
+
+        for(let i = 0; i <= 9; i++)
+        {
+            let item = list[Math.floor(Math.random() * list.length)];
+
+            x.push(item);
+
+        }
+
+        if(x.length === 10)
+        {
+            resolve(x)
+        }
+        else
+        {
+            reject("List not contains 10 images");
+        }
+
+    })
+}
+
+
+export default function Vote({ data }){
 
     const[images, setImages] = useState("loading...")
 
     const[count, setCount] = useState(0);
 
 
-    let consoleLogActive = true;
+    let consoleLogActive = false;
 
     const consoleLog = (message, active) =>{
 
@@ -23,85 +75,38 @@ export default function Vote(){
     }
 
 
-    let ajax = function (url) {
 
-        return new Promise(function (resolve, reject) {
-
-            let req = new XMLHttpRequest()
-            req.open('GET', url, true)
-            req.onreadystatechange = function (aEvt) {
-                if (req.readyState === 4) {
-                    if (req.status === 200)
-                    {
-                        let json = JSON.parse(req.responseText);
-
-                        resolve(json)
-                    }
-                    else
-                        reject(req)
-                }
-            };
-            req.send(null)
-
-        })
-    }
-
-    let getImages = function (list) {
-
-        return new Promise(function (resolve, reject) {
-
-            let x = [];
-
-            for(let i = 0; i <= 9; i++)
-            {
-                let item = list[Math.floor(Math.random() * list.length)];
-
-                x.push(item);
-
-            }
-
-            if(x.length === 10)
-            {
-                resolve(x)
-            }
-            else
-            {
-                reject("List not contains 10 images");
-            }
-
-        })
-    }
 
 
 
     useEffect(
         () => {
 
-            ajax('https://picsum.photos/v2/list?page=1&limit=100')
-                .then(function (response) {
-
-                    consoleLog(response);
-
-                    getImages(response)
-                        .then(function (res){
-
-                            setImages(res);
-
-                            consoleLog(res);
-
-                        }).catch(function (res){
-
-                    });
-
-
-
-
-
-                }).catch(function(req){
-                console.log("Error");
-            })
+            // ajax('https://picsum.photos/v2/list?page=1&limit=100')
+            //     .then(function (response) {
+            //
+            //         consoleLog(response);
+            //
+            //         getImages(response)
+            //             .then(function (res){
+            //
+            //                 setImages(res);
+            //
+            //                 consoleLog(res);
+            //
+            //             }).catch(function (res){
+            //
+            //         });
+            //
+            //
+            //
+            //
+            //
+            //     }).catch(function(req){
+            //     console.log("Error");
+            // })
         },
-        [count],
+        [count, data],
     );
 
 
@@ -137,29 +142,19 @@ export default function Vote(){
     }
 
 
-    return <div className={styles.Container}>
-        <div className={styles.actionBar}>
+    return
 
-            <div className={styles.actionBar_alignleft}>
-                <h2>Vote pour tes créations favorites</h2>
-            </div>
+}
 
-            <div className={styles.actionBar_alignright}>
-                <div className={styles.actionBar_reload} onClick={handleClick}>
-                    <AiOutlineLoading3Quarters size={32}/>
-                </div>
-            </div>
+// This gets called on every request
+export async function getServerSideProps() {
+    // Fetch data from external API
+    const res = await fetch(`https://picsum.photos/v2/list?page=1&limit=100`)
+    const data = await res.json()
 
-        </div>
-        <div className={styles.imagesContainer}>
-            <CreateTable />
-        </div>
-        <div className={styles.voteContainer}>
-            <img className={styles.voteImage} src="https://via.placeholder.com/125"/>
-            <img className={styles.voteImage} src="https://via.placeholder.com/125"/>
-            <img className={styles.voteImage} src="https://via.placeholder.com/125"/>
-            <Button name="Vote" className="mr-2" variant="primary">Submit</Button>
-        </div>
-    </div>
+    const datas = await getImages(data);
 
+
+    // Pass data to the page via props
+    return { props: { datas } }
 }
