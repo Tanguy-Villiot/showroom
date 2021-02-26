@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -13,7 +14,9 @@ export default function Home() {
         <h2>Bienvenue !</h2>
         <h1>Thème du mois: Les carottes.</h1>
         <img className={styles.themeImg} src="/carottes.jpg" alt="Des carottes"/>
-        <a href="/competition">Concours</a>
+        <Link href="/competition">
+            <a>Concours</a>
+        </Link>
       </main>
 
       <footer className={styles.footer}>
