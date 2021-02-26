@@ -1,4 +1,5 @@
 import {Nav, Navbar, NavDropdown} from "react-bootstrap";
+import Link from 'next/link'
 
 export default function NavBar(){
 
@@ -6,11 +7,17 @@ export default function NavBar(){
     return(
         <div>
             <Navbar>
-                <Navbar.Brand href="#home">Showroom</Navbar.Brand>
+                <Link href="/">
+                    <Navbar.Brand href="#home">Showroom</Navbar.Brand>
+                </Link>
                 <Navbar.Toggle />
                 <Nav className="mr-auto">
-                    <Nav.Link href="#home">Home</Nav.Link>
-                    <Nav.Link href="#link">Competition</Nav.Link>
+                    <Link href="/">
+                        <Nav.Link href="#home">Home</Nav.Link>
+                    </Link>
+                    <Link href="/competition">
+                        <Nav.Link href="#link">Competition</Nav.Link>
+                    </Link>
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">
                     <Nav.Link href="#home">Connection</Nav.Link>
