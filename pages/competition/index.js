@@ -3,6 +3,7 @@ import styles from '../../styles/competition.module.css';
 import {useEffect, useState} from "react";
 import {AiOutlineLoading3Quarters} from "react-icons/ai";
 import Image from 'next/image'
+import UploadImage from "../../Component/competition/uploadImage";
 
 function Competition({ data }){
 
@@ -151,9 +152,11 @@ function Competition({ data }){
                                 <Image
                                 alt={i}
                                 src={item.download_url}
+                                sizes="(max-width: 600px) 100vw, (max-width: 1023px) 48vw, 23vw"                                objectFit="cover"
                                 layout="fill"
-                                objectFit="cover"
                                 quality={75}
+                                className={styles.item_image}
+                                loading="lazy"
                                 />
                             </div>
                 })
@@ -193,10 +196,15 @@ function Competition({ data }){
                         </div>
 
                         <div className={styles.actionBar_alignright}>
-                            <div className={styles.actionBar_reload} onClick={handleClickReload}>
-                                <AiOutlineLoading3Quarters size={32}/>
+                            <div className={styles.actionBar_reload}>
+                                <UploadImage/>
+
+                                <div onClick={handleClickReload}>
+                                    <AiOutlineLoading3Quarters size={32}/>
+                                </div>
                             </div>
                         </div>
+
 
                     </div>
                     <div className={styles.imagesContainer}>
