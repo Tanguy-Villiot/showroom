@@ -14,8 +14,8 @@ function Competition({ data }){
         image2: "https://place-hold.it/125x125?text=125x125",
         image3: "https://place-hold.it/125x125?text=125x125"
     })
+    const[countVote, setCountVote] = useState(0);
 
-    let countVote = 0;
 
     let consoleLogActive = true;
     const consoleLog = (message, active) =>{
@@ -72,16 +72,16 @@ function Competition({ data }){
         switch (countVote)
         {
             case 0:
-                x.image1 = e.target.getAttribute("data-src");
-                countVote++;
+                x.image1 = images[e.target.alt];
+                setCountVote(countVote + 1);
                 break;
             case 1:
-                x.image2 = e.target.getAttribute("data-src");
-                countVote++;
+                x.image2 = images[e.target.alt];
+                setCountVote(countVote + 1);
                 break;
             case 2:
-                x.image3 = e.target.getAttribute("data-src");
-                countVote++;
+                x.image3 = images[e.target.alt];
+                setCountVote(countVote + 1);
                 break;
             default:
 
@@ -89,9 +89,7 @@ function Competition({ data }){
         }
 
         setImageChoose(x);
-
-        consoleLog(imageChoose);
-
+        
         setCount(count + 1);
 
     }
@@ -139,16 +137,29 @@ function Competition({ data }){
             {!Array.isArray(images) ?
                 <h2>Loading ...</h2>
                 :
+
+            //     <div key={i} onClick={handleClickVote} data-src={item.download_url}>
+            //
+            //     <Image src={item.download_url} alt={item.title} layout="fill"/>
+            //
+            // {/*<img key={i} src={item.download_url} data-src={item.download_url} className={styles.item_image}/>*/}
+            //     </div>
+
+
                 images.map(function(item, i){
-                    return <div key={i} className={styles.item} onClick={handleClickVote} data-src={item.download_url}>
-
-                        <Image src={item.download_url} alt={item.title} height={500} width={500}/>
-
-                        {/*<img key={i} src={item.download_url} data-src={item.download_url} className={styles.item_image}/>*/}
-                    </div>
-
-
+                    return <div key={i} onClick={handleClickVote} data-src={item.download_url} style={{ position: 'relative', width: '100%', height: '300px', marginBottom: '1em' }}>
+                                <Image
+                                alt={i}
+                                src={item.download_url}
+                                layout="fill"
+                                objectFit="cover"
+                                quality={75}
+                                />
+                            </div>
                 })
+
+
+
             }
 
         </>;
@@ -159,9 +170,9 @@ function Competition({ data }){
 
         return(
             <>
-                <img className={styles.voteImage} src={imageChoose.image1}/>
-                <img className={styles.voteImage} src={imageChoose.image2}/>
-                <img className={styles.voteImage} src={imageChoose.image3}/>
+                <img className={styles.voteImage} src={imageChoose.image1.download_url}/>
+                <img className={styles.voteImage} src={imageChoose.image2.download_url}/>
+                <img className={styles.voteImage} src={imageChoose.image3.download_url}/>
                 <Button name="Vote" className="mr-2" variant="primary">Submit</Button>
             </>
         )
