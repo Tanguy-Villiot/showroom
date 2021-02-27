@@ -2,12 +2,20 @@ import {Button} from "react-bootstrap";
 import styles from '../../styles/competition.module.css';
 import {useEffect, useState} from "react";
 import {AiOutlineLoading3Quarters} from "react-icons/ai";
+import Image from 'next/image'
 
 function Competition({ data }){
 
     const[count, setCount] = useState(0);
     const[refreshImage, setRefreshImage] = useState(true);
     const[images, setImages] = useState({})
+    const[imageChoose, setImageChoose] = useState({
+        image1: "https://place-hold.it/125x125?text=125x125",
+        image2: "https://place-hold.it/125x125?text=125x125",
+        image3: "https://place-hold.it/125x125?text=125x125"
+    })
+
+    let countVote = 0;
 
     let consoleLogActive = true;
     const consoleLog = (message, active) =>{
@@ -57,6 +65,38 @@ function Competition({ data }){
     }
 
 
+    const handleClickVote = (e) =>{
+
+        let x = imageChoose;
+
+        switch (countVote)
+        {
+            case 0:
+                x.image1 = e.target.getAttribute("data-src");
+                countVote++;
+                break;
+            case 1:
+                x.image2 = e.target.getAttribute("data-src");
+                countVote++;
+                break;
+            case 2:
+                x.image3 = e.target.getAttribute("data-src");
+                countVote++;
+                break;
+            default:
+
+                break;
+        }
+
+        setImageChoose(x);
+
+        consoleLog(imageChoose);
+
+        setCount(count + 1);
+
+    }
+
+
 
     useEffect(
         () => {
@@ -94,15 +134,17 @@ function Competition({ data }){
 
     const CreateTable = () => {
 
-
         return <>
 
             {!Array.isArray(images) ?
                 <h2>Loading ...</h2>
                 :
                 images.map(function(item, i){
-                    return <div key={i} className={styles.item}>
-                        <img src={item.download_url} className={styles.item_image}/>
+                    return <div key={i} className={styles.item} onClick={handleClickVote} data-src={item.download_url}>
+
+                        <Image src={item.download_url} alt={item.title} height={500} width={500}/>
+
+                        {/*<img key={i} src={item.download_url} data-src={item.download_url} className={styles.item_image}/>*/}
                     </div>
 
 
@@ -111,9 +153,21 @@ function Competition({ data }){
 
         </>;
 
+    }
 
+    const Vote = () =>{
+
+        return(
+            <>
+                <img className={styles.voteImage} src={imageChoose.image1}/>
+                <img className={styles.voteImage} src={imageChoose.image2}/>
+                <img className={styles.voteImage} src={imageChoose.image3}/>
+                <Button name="Vote" className="mr-2" variant="primary">Submit</Button>
+            </>
+        )
 
     }
+
 
 
     return (
@@ -138,10 +192,8 @@ function Competition({ data }){
                         <CreateTable />
                     </div>
                     <div className={styles.voteContainer}>
-                        {/*<img className={styles.voteImage} src="https://via.placeholder.com/125"/>*/}
-                        {/*<img className={styles.voteImage} src="https://via.placeholder.com/125"/>*/}
-                        {/*<img className={styles.voteImage} src="https://via.placeholder.com/125"/>*/}
-                        <Button name="Vote" className="mr-2" variant="primary">Submit</Button>
+
+                        <Vote />
                     </div>
                 </div>
 
