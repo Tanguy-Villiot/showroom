@@ -20,7 +20,9 @@ export default function NavBar(){
                     </Link>
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">
-                    <Nav.Link href="#home">Connection</Nav.Link>
+                    <Link href="/register">
+                        <Nav.Link href="#home">Register</Nav.Link>
+                    </Link>
                 </Navbar.Collapse>
             </Navbar>
         </div>
