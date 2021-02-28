@@ -38,3 +38,11 @@ export async function allUser(){
 
     return db.collection("user").find().toArray()
 }
+
+export async function signInUser(email){
+
+    let client = await initDatabase()
+    let db = await client.db()
+
+    return db.collection("user").find({email: email}).toArray()
+}

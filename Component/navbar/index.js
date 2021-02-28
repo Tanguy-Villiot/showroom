@@ -12,7 +12,7 @@ export default function NavBar(){
 
     const [modalShow, setModalShow] = useState(false);
 
-
+    //Connection
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -27,7 +27,11 @@ export default function NavBar(){
 
         if (response.ok) {
             setModalShow(false);
-            return router.push("/private");
+            return router.push("/profil");
+        }
+        else
+        {
+            console.log("ca marche po");
         }
     };
 
