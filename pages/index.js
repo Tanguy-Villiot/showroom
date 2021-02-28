@@ -11,7 +11,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h2>Bienvenue !</h2>
+        <h2>Bienvenue ! </h2>
         <h1>Thème du mois: Les carottes.</h1>
         <img className={styles.themeImg} src="/carottes.jpg" alt="Des carottes"/>
         <Link href="/competition">
