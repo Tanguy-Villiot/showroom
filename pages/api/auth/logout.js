@@ -6,7 +6,7 @@ function handler(req, res, session) {
 }
 
 export default withIronSession(handler, {
-    cookieName: "MYSITECOOKIE",
+    cookieName: "Showroom",
     cookieOptions: {
         secure: process.env.NODE_ENV === "production" ? true : false
     },

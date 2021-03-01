@@ -19,19 +19,24 @@ export default function NavBar(){
         const email = emailInput.current.value;
         const password = passwordInput.current.value;
 
-        const response = await fetch("../api/auth/sessions", {
+        const response = await fetch("../api/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password })
         });
 
         if (response.ok) {
+            console.log(response.status);
             setModalShow(false);
             return router.push("/profil");
         }
         else
         {
-            console.log("ca marche po");
+           if(response.status === 404)
+           {
+               console.log("Email or password wrong");
+           }
+
         }
     };
 

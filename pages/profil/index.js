@@ -21,10 +21,11 @@ export default function Page({user}){
 
     };
 
+    console.log(user);
 
     return(
         <div>
-            <h1>Hello {user.email}</h1>
+            <h1>Hello {user.name}</h1>
             <p>Secret things live here...</p>
 
 
@@ -42,10 +43,9 @@ export const getServerSideProps = withIronSession(
     async ({ req, res }) => {
         const user = req.session.get("user");
 
+        console.log(user);
 
         if (!user) {
-            res.statusCode = 404;
-            res.end();
             return { props: {} };
         }
 
@@ -54,7 +54,7 @@ export const getServerSideProps = withIronSession(
         };
     },
     {
-        cookieName: "MYSITECOOKIE",
+        cookieName: "Showroom",
         cookieOptions: {
             secure: process.env.NODE_ENV === "production" ? true : false
         },
