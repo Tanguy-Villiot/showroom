@@ -1,28 +1,38 @@
 import { withIronSession } from "next-iron-session";
-import {signInUser} from "../../../Component/security/controller/security-utils";
+import {initFirebase} from "../../../Component/firebase/firebase-utils";
 
 
 async function handler(req, res) {
+
+    let firestore = initFirebase().firestore();
 
 
     if (req.method === "POST") {
         const { email, password } = req.body;
 
-        let users = await signInUser(email)
-            .then(async (result) =>{
+        firestore.collection("user").where("email", "==", email)
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach(async (doc) => {
+                    // doc.data() is never undefined for query doc snapshots
 
-                if (email === result[0].email && password === result[0].password) {
-                    req.session.set("user", {
-                        id: result[0]._id,
-                        name: result[0].name,
-                    });
-                    await req.session.save();
-                    return res.send("Logged in");
-                }
+                    if (password === doc.data().password) {
+                        req.session.set("user", {
+                            id: "123456789",
+                            name: doc.data().name,
+                        });
+                        await req.session.save();
+                        return res.send("Logged in");
+                    }
 
-                res.status(404).send({success: false, error: {message: 'No blah Found'}});
+                    res.status(404).send({success: false, error: {message: 'No blah Found'}});
 
+                });
+            })
+            .catch((error) => {
+                console.log(error)
             });
+
 
 
     }

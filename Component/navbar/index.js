@@ -19,6 +19,8 @@ export default function NavBar(){
         const email = emailInput.current.value;
         const password = passwordInput.current.value;
 
+
+
         const response = await fetch("../api/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
