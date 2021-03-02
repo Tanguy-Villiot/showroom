@@ -1,6 +1,6 @@
 import styles from './uploadImage.module.css';
-import {Button, Modal} from "react-bootstrap";
-import {useState} from "react";
+import {Button, Modal, ProgressBar} from "react-bootstrap";
+import {useEffect, useState} from "react";
 import firebase from "./controller/competition-utils";
 
 
@@ -8,8 +8,20 @@ function MyVerticallyCenteredModal(props) {
 
 
     const [image, setImage] = useState(null);
+    const [percent, setPercent] = useState(0);
 
 
+    useEffect(
+        () => {
+
+
+
+
+        },
+        [percent],
+    );
+
+    //Effects methods
     const handleChangeFile = (files) => {
 
         setImage(files);
@@ -27,9 +39,33 @@ function MyVerticallyCenteredModal(props) {
         let file = image[0];
         let storageRef = firebase.storage().ref(`${bucketName}/${file.name}`);
         let uploadTask = storageRef.put(file);
-        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-            ()=>{
-                let downloadURL = uploadTask.snapshot.downloadURL
+        uploadTask.on('state_changed',
+            (snapshot) => {
+
+
+
+                var progress = Math.round(((snapshot.bytesTransferred / snapshot.totalBytes) * 100) * 10) / 10;
+                setPercent(progress);
+                console.log('Upload is ' + progress + '% done');
+                switch (snapshot.state) {
+                    case firebase.storage.TaskState.PAUSED: // or 'paused'
+                        console.log('Upload is paused');
+                        break;
+                    case firebase.storage.TaskState.RUNNING: // or 'running'
+                        console.log('Upload is running');
+                        break;
+                }
+
+            }, (err) => {
+                //catches the errors
+                console.log(err)
+            }, () => {
+                // gets the functions from storage refences the image storage in firebase by the children
+                // gets the download url then sets the image from firebase as the value for the imgUrl key:
+                storageRef.getDownloadURL()
+                    .then(fireBaseUrl => {
+                        console.log(fireBaseUrl);
+                    })
             })
     }
 
@@ -56,9 +92,12 @@ function MyVerticallyCenteredModal(props) {
 
                         <input type="file" className="upload-input" onChange={(e) => handleChangeFile(e.target.files)}/>
 
+
                     </div>
 
                     <button type="button" onClick={handleClickUpload}>Upload file</button>
+                    <ProgressBar className={styles.progressBar} now={percent} label={`${percent}%`}/>
+
                 </div>
             </Modal.Body>
         </Modal>

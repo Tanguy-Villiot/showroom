@@ -71,3 +71,9 @@
     background: rebeccapurple;
     box-shadow: 0 3px 0 0 deeppink;
 }
+
+.progressBar
+{
+    width: 100%;
+    margin-top: 3em;
+}
