@@ -13,10 +13,16 @@ const config = {
 
 }
 
-if (!firebase.apps.length) {
-    firebase.initializeApp(config);
-}else {
-    firebase.app(); // if already initialized, use that one
-}
 
-export default firebase
+export function initFirebase(){
+
+    if (!firebase.apps.length) {
+        firebase.initializeApp(config);
+    }else {
+        firebase.app(); // if already initialized, use that one
+    }
+
+    return firebase;
+
+
+}
