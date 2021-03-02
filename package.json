@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.6.0",
+    "firebase": "^8.2.9",
     "jquery": "^3.5.1",
     "mdbreact": "^5.0.1",
     "mongodb": "^3.6.4",

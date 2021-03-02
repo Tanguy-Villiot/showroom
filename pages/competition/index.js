@@ -208,7 +208,7 @@ function Competition({ data }){
 
                     </div>
                     <div className={styles.imagesContainer}>
-                        <CreateTable />
+                        {/*<CreateTable />*/}
                     </div>
                     <div className={styles.voteContainer}>
 

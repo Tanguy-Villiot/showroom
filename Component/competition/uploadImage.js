@@ -1,11 +1,39 @@
 import styles from './uploadImage.module.css';
 import {Button, Modal} from "react-bootstrap";
 import {useState} from "react";
-
-
+import firebase from "./controller/competition-utils";
 
 
 function MyVerticallyCenteredModal(props) {
+
+
+    const [image, setImage] = useState(null);
+
+
+    const handleChangeFile = (files) => {
+
+        setImage(files);
+
+        console.log("ouiii");
+
+    }
+
+    const handleClickUpload = () => {
+
+
+        console.log("upload");
+
+        let bucketName = 'images'
+        let file = image[0];
+        let storageRef = firebase.storage().ref(`${bucketName}/${file.name}`);
+        let uploadTask = storageRef.put(file);
+        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+            ()=>{
+                let downloadURL = uploadTask.snapshot.downloadURL
+            })
+    }
+
+
     return (
         <Modal
             {...props}
@@ -26,11 +54,11 @@ function MyVerticallyCenteredModal(props) {
 
                         <img src="https://100dayscss.com/codepen/upload.svg" alt="Dropzone image"/>
 
-                        <input type="file" className="upload-input" />
+                        <input type="file" className="upload-input" onChange={(e) => handleChangeFile(e.target.files)}/>
 
                     </div>
 
-                    <button type="button">Upload file</button>
+                    <button type="button" onClick={handleClickUpload}>Upload file</button>
                 </div>
             </Modal.Body>
         </Modal>
@@ -48,6 +76,8 @@ export default function UploadImage(){
     const handleClickUpload = () =>{
         setModalShow(true);
     }
+
+
 
     return(
         <>
