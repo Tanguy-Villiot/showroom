@@ -65,9 +65,35 @@ function MyVerticallyCenteredModal(props) {
                 // gets the download url then sets the image from firebase as the value for the imgUrl key:
                 storageRef.getDownloadURL()
                     .then(fireBaseUrl => {
-                        console.log(fireBaseUrl);
+
+                        test(fireBaseUrl);
                     })
             })
+    }
+
+    const test = async(url) =>{
+
+        console.log(url);
+
+        const response = await fetch("../../api/creation/addCreation", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ url })
+        });
+
+        if (response.ok) {
+            console.log(response.status);
+        }
+        else
+        {
+            if(response.status === 404)
+            {
+                console.log("Email or password wrong");
+            }
+
+        }
+
+
     }
 
 
@@ -115,6 +141,7 @@ export default function UploadImage(){
     //Effects Methods
     const handleClickUpload = () =>{
         setModalShow(true);
+
     }
 
 
