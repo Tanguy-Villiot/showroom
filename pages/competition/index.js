@@ -80,8 +80,15 @@ export default function Competition({data})
 export async function getServerSideProps()
 {
 
+    const dev = process.env.NODE_ENV !== 'production';
 
-    const res = await fetch(`http://localhost:3000/api/creation/getCreation`)
+    const server = dev ? 'http://localhost:3000' : 'https://showroom-fawn.vercel.app';
+
+    const res = await fetch(`${server}/api/creation/getCreation`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+    });
+
     const data = await res.json()
 
 
