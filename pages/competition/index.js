@@ -16,6 +16,8 @@ export default function Competition({data})
     const [count, setCount] = useState(0);
 
 
+    //EFFECTS METHODS
+
     const handleClickReload = async () => {
 
         const dev = process.env.NODE_ENV !== 'production';
@@ -33,8 +35,28 @@ export default function Competition({data})
 
     }
 
+
+    const handleClickVote = async (e) => {
+
+
+        console.log(e.target.alt);
+
+        const res = await fetch('http://localhost:3000/api/creation/voteCreation', {
+
+            method: 'post',
+
+            body: JSON.stringify(e.target.alt)
+
+        })
+
+
+    }
+
+
     useEffect(() =>{
 
+
+        console.log(data);
 
         if(refresh)
         {
@@ -64,9 +86,9 @@ export default function Competition({data})
             {typeof(images) !== "undefined" &&
             images.map(function (item, i) {
                 return (
-                        <div key={i} data-src={item.url} style={{ position: 'relative', width: '100%', height: '301px', marginBottom: '1em' }}>
+                        <div key={i} data-src={item.url} onClick={handleClickVote} style={{ position: 'relative', width: '100%', height: '301px', marginBottom: '1em' }}>
                             <Image
-                                alt={i}
+                                alt={item._id}
                                 src={item.url}
                                 sizes="(max-width: 600px) 100vw, (max-width: 1023px) 48vw, 23vw"                                objectFit="cover"
                                 layout="fill"
