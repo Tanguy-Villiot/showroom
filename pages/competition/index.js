@@ -39,9 +39,12 @@ export default function Competition({data})
     const handleClickVote = async (e) => {
 
 
-        console.log(e.target.alt);
+        const dev = process.env.NODE_ENV !== 'production';
 
-        const res = await fetch('http://localhost:3000/api/creation/voteCreation', {
+        const server = dev ? 'http://localhost:3000' : 'https://showroom-fawn.vercel.app';
+
+
+        const res = await fetch(`${server}/api/creation/voteCreation`, {
 
             method: 'post',
 

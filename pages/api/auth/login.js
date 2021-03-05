@@ -2,41 +2,37 @@ import { withIronSession } from "next-iron-session";
 import {initFirebase} from "../../../Component/firebase/firebase-utils";
 
 
-async function handler(req, res) {
 
-    let firestore = initFirebase().firestore();
+import nextConnect from 'next-connect';
 
+import middleware from '../../../Component/bdd/database_user';
 
-    if (req.method === "POST") {
-        const { email, password } = req.body;
+const handler = nextConnect();
 
-        firestore.collection("user").where("email", "==", email)
-            .get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach(async (doc) => {
-                    // doc.data() is never undefined for query doc snapshots
+handler.use(middleware);
 
-                    if (password === doc.data().password) {
-                        req.session.set("user", {
-                            id: "123456789",
-                            name: doc.data().name,
-                        });
-                        await req.session.save();
-                        return res.send("Logged in");
-                    }
+handler.post(async (req, res) => {
 
-                    res.status(404).send({success: false, error: {message: 'No blah Found'}});
-
-                });
-            })
-            .catch((error) => {
-                console.log(error)
-            });
+    const { email, password } = req.body;
 
 
+    let doc = await req.db.collection("user").findOne({ email: email });
 
+    if(password === doc.password)
+    {
+        console.log("yesss");
     }
-}
+
+    req.session.set("user", {
+        id: doc._id,
+        name: doc.name,
+        email: email
+    });
+    await req.session.save();
+
+    res.send("Logged in");
+
+});
 
 export default withIronSession(handler, {
     cookieName: "Showroom",
@@ -45,4 +41,6 @@ export default withIronSession(handler, {
     },
     password: process.env.APPLICATION_SECRET
 });
+
+
 
