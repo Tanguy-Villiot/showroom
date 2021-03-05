@@ -18,10 +18,18 @@ export default function Competition({data})
 
     const handleClickReload = async () => {
 
-        const res = await fetch(`http://localhost:3000/api/creation/getCreation`)
-        const x = await res.json()
+        const dev = process.env.NODE_ENV !== 'production';
 
-        setImages(x);
+        const server = dev ? 'http://localhost:3000' : 'https://showroom-fawn.vercel.app';
+
+        const res = await fetch(`${server}/api/creation/getCreation`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+        });
+
+        const data = await res.json()
+
+        setImages(data);
 
     }
 
@@ -56,10 +64,10 @@ export default function Competition({data})
             {typeof(images) !== "undefined" &&
             images.map(function (item, i) {
                 return (
-                        <div key={i} data-src={item.name} style={{ position: 'relative', width: '100%', height: '301px', marginBottom: '1em' }}>
+                        <div key={i} data-src={item.url} style={{ position: 'relative', width: '100%', height: '301px', marginBottom: '1em' }}>
                             <Image
                                 alt={i}
-                                src={item.name}
+                                src={item.url}
                                 sizes="(max-width: 600px) 100vw, (max-width: 1023px) 48vw, 23vw"                                objectFit="cover"
                                 layout="fill"
                                 quality={75}
@@ -91,7 +99,6 @@ export async function getServerSideProps()
 
     const data = await res.json()
 
-
-    return { props : {data} }
+    return { props : { data} }
 }
 

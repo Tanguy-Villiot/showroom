@@ -1,51 +1,26 @@
-import {initFirebase} from "../../../Component/firebase/firebase-utils";
+import nextConnect from 'next-connect';
 
-function makeid(length) {
-    let result           = '';
-    let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let charactersLength = characters.length;
-    for ( let i = 0; i < length; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-}
+import middleware from '../../../Component/bdd/databse';
 
+const handler = nextConnect();
 
+handler.use(middleware);
 
-export default async function addCreation(req, res){
+handler.post(async (req, res) => {
 
-    let firebase = initFirebase();
+    let data = req.body;
+
+    data = JSON.parse(data);
 
 
-    if (req.method === "POST") {
+    let doc = await req.db.collection('creation').insertOne({
 
-        const { url } = req.body;
+        url: data
 
-        const title = makeid(10);
+    })
 
-            firebase.firestore().collection("competition").doc("cyberpunk").collection("creations").doc(title).set({
-                name: url,
-                state: "CA",
-                country: "USA"
-            })
-                .then((doc) => {
+    res.json({message : "OK"});
 
-                    firebase.firestore().collection("competition")
-                        .doc("cyberpunk")
-                        .update({
-                            count: firebase.firestore.FieldValue.arrayUnion(title)
-                        }).then(r => res.send("Document successfully written!"));
+});
 
-
-
-                })
-                .catch((error) => {
-                    res.status(405).send({success: false, error: {message: 'No blah Found'}});
-                });
-
-
-
-    }
-
-
-}
+export default handler;

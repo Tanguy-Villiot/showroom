@@ -75,23 +75,32 @@ function MyVerticallyCenteredModal(props) {
 
         console.log(url);
 
-        const response = await fetch("../../api/creation/addCreation", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ url })
-        });
 
-        if (response.ok) {
-            console.log(response.status);
-        }
-        else
-        {
-            if(response.status === 404)
-            {
-                console.log("Email or password wrong");
-            }
+        const res = await fetch('http://localhost:3000/api/creation/addCreation', {
 
-        }
+            method: 'post',
+
+            body: JSON.stringify(url)
+
+        })
+
+        // const response = await fetch("../../api/creation/addCreation", {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify({ url })
+        // });
+        //
+        // if (response.ok) {
+        //     console.log(response.status);
+        // }
+        // else
+        // {
+        //     if(response.status === 404)
+        //     {
+        //         console.log("Email or password wrong");
+        //     }
+        //
+        // }
 
 
     }
