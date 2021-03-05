@@ -1,7 +1,6 @@
 import styles from './uploadImage.module.css';
 import {Button, Modal, ProgressBar} from "react-bootstrap";
 import {useEffect, useState} from "react";
-import {initFirebase} from "../firebase/firebase-utils";
 
 
 function MyVerticallyCenteredModal(props) {
@@ -32,7 +31,6 @@ function MyVerticallyCenteredModal(props) {
 
     const handleClickUpload = () => {
 
-        let firebase = initFirebase();
 
         console.log("upload");
 

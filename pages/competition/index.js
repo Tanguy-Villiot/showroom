@@ -1,12 +1,10 @@
 import {useEffect, useState} from "react";
-import {initFirebase} from "../../Component/firebase/firebase-utils";
 import styles from '../../styles/competition.module.css';
 import Image from 'next/image'
 import UploadImage from "../../Component/competition/uploadImage";
 import {MDBBtn} from "mdbreact";
 import {Button} from "react-bootstrap";
 
-let firebase = initFirebase();
 
 export default function Competition({data})
 {

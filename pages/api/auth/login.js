@@ -1,7 +1,4 @@
 import { withIronSession } from "next-iron-session";
-import {initFirebase} from "../../../Component/firebase/firebase-utils";
-
-
 
 import nextConnect from 'next-connect';
 
