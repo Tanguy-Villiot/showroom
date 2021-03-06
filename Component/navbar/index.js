@@ -1,8 +1,9 @@
 import {Button, Modal, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import Link from 'next/link'
-import {useRef, useState} from "react";
+import {useContext, useRef, useState} from "react";
 import {MDBBtn} from "mdbreact";
 import {useRouter} from "next/router";
+import ToastifyContext from "../toastify/context";
 
 export default function NavBar(){
 
@@ -11,6 +12,8 @@ export default function NavBar(){
     const passwordInput = useRef();
 
     const [modalShow, setModalShow] = useState(false);
+
+    const toastify = useContext(ToastifyContext);
 
     //Connection
     const handleSubmit = async (e) => {
@@ -30,6 +33,8 @@ export default function NavBar(){
         if (response.ok) {
             console.log(response.status);
             setModalShow(false);
+            
+            toastify.Success("Bonjour !");
             return router.push("/profil");
         }
         else

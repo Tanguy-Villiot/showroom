@@ -5,7 +5,6 @@ import UploadImage from "../../Component/competition/uploadImage";
 import {MDBBtn} from "mdbreact";
 import {Button} from "react-bootstrap";
 
-
 export default function Competition({data})
 {
 
@@ -37,18 +36,21 @@ export default function Competition({data})
     const handleClickVote = async (e) => {
 
 
-        const dev = process.env.NODE_ENV !== 'production';
-
-        const server = dev ? 'http://localhost:3000' : 'https://showroom-fawn.vercel.app';
 
 
-        const res = await fetch(`${server}/api/creation/voteCreation`, {
-
-            method: 'post',
-
-            body: JSON.stringify(e.target.alt)
-
-        })
+        //
+        // const dev = process.env.NODE_ENV !== 'production';
+        //
+        // const server = dev ? 'http://localhost:3000' : 'https://showroom-fawn.vercel.app';
+        //
+        //
+        // const res = await fetch(`${server}/api/creation/voteCreation`, {
+        //
+        //     method: 'post',
+        //
+        //     body: JSON.stringify(e.target.alt)
+        //
+        // })
 
 
     }
@@ -56,8 +58,6 @@ export default function Competition({data})
 
     useEffect(() =>{
 
-
-        console.log(data);
 
         if(refresh)
         {
@@ -121,6 +121,7 @@ export async function getServerSideProps()
     });
 
     const data = await res.json()
+
 
     return { props : { data} }
 }

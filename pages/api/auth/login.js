@@ -1,8 +1,9 @@
 import { withIronSession } from "next-iron-session";
-
+import {useContext} from "react";
 import nextConnect from 'next-connect';
 
 import middleware from '../../../Component/bdd/database_user';
+
 
 const handler = nextConnect();
 
@@ -18,16 +19,18 @@ handler.post(async (req, res) => {
     if(password === doc.password)
     {
         console.log("yesss");
+
+
+        req.session.set("user", {
+            id: doc._id,
+            name: doc.name,
+            email: email
+        });
+        await req.session.save();
+
+        res.send("Logged in");
     }
 
-    req.session.set("user", {
-        id: doc._id,
-        name: doc.name,
-        email: email
-    });
-    await req.session.save();
-
-    res.send("Logged in");
 
 });
 
