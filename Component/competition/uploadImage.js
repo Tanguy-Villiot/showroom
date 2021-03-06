@@ -1,6 +1,11 @@
 import styles from './uploadImage.module.css';
 import {Button, Modal, ProgressBar} from "react-bootstrap";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import checkUser, {checkCreation} from "./security/security-utils";
+import ToastifyContext from "../toastify/context";
+import {initFirebase} from "../firebase/firebase-utils";
+
+let firebase = initFirebase();
 
 
 function MyVerticallyCenteredModal(props) {
@@ -73,33 +78,23 @@ function MyVerticallyCenteredModal(props) {
 
         console.log(url);
 
+        const user = await checkUser();
 
-        const res = await fetch('http://localhost:3000/api/creation/addCreation', {
+        if (!user.connected) {
+            toastify.Warning("You must be logged in to upload creation !");
+        } else
+        {
 
-            method: 'post',
+            const userId = user.user.id;
 
-            body: JSON.stringify(url)
+            const res = await fetch('http://localhost:3000/api/creation/addCreation', {
 
-        })
+                method: 'post',
 
-        // const response = await fetch("../../api/creation/addCreation", {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify({ url })
-        // });
-        //
-        // if (response.ok) {
-        //     console.log(response.status);
-        // }
-        // else
-        // {
-        //     if(response.status === 404)
-        //     {
-        //         console.log("Email or password wrong");
-        //     }
-        //
-        // }
+                body:JSON.stringify({ url, userId })
 
+            })
+        }
 
     }
 
@@ -143,11 +138,37 @@ function MyVerticallyCenteredModal(props) {
 export default function UploadImage(){
 
     const [modalShow, setModalShow] = useState(false);
+    const toastify = useContext(ToastifyContext);
+
 
 
     //Effects Methods
-    const handleClickUpload = () =>{
-        setModalShow(true);
+    const handleClickUpload = async () => {
+
+        const user = await checkUser();
+
+
+        if (!user.connected) {
+            toastify.Warning("You must be logged in to upload creation !");
+        } else
+        {
+
+            const creationExist = await checkCreation(user.user.id);
+
+            console.log(creationExist);
+
+            if(creationExist.find !== false)
+            {
+                toastify.Warning("You have already upload your creation !");
+            }
+            else
+            {
+                setModalShow(true);
+            }
+
+
+        }
+
 
     }
 

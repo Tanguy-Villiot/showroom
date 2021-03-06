@@ -12,10 +12,10 @@ handler.post(async (req, res) => {
 
     data = JSON.parse(data);
 
-
     let doc = await req.db.collection('creation').insertOne({
 
-        url: data
+        url: data.url,
+        user_id: data.userId
 
     })
 

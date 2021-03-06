@@ -1,9 +1,12 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import styles from '../../styles/competition.module.css';
 import Image from 'next/image'
 import UploadImage from "../../Component/competition/uploadImage";
 import {MDBBtn} from "mdbreact";
 import {Button} from "react-bootstrap";
+import checkUser, {checkCreation, checkVote} from "../../Component/competition/security/security-utils";
+import ToastifyContext from "../../Component/toastify/context";
+
 
 export default function Competition({data})
 {
@@ -11,6 +14,7 @@ export default function Competition({data})
     const [images, setImages] = useState(data);
     const [refresh, setRefresh] = useState(true);
     const [count, setCount] = useState(0);
+    const toastify = useContext(ToastifyContext);
 
 
     //EFFECTS METHODS
@@ -35,22 +39,50 @@ export default function Competition({data})
 
     const handleClickVote = async (e) => {
 
+        const idCreation = e.target.alt;
+
+
+        const user = await checkUser();
+
+        if(!user.connected)
+        {
+            toastify.Warning("You must be logged in to vote !");
+        }
+        else
+        {
+            const idUser = user.user.id;
+
+
+            const voteExist = await checkVote(idUser);
+
+            console.log(voteExist);
+
+            if(voteExist.find !== false)
+            {
+                toastify.Warning("You have already voted !");
+            }
+            else
+            {
+                const dev = process.env.NODE_ENV !== 'production';
+
+                const server = dev ? 'http://localhost:3000' : 'https://showroom-fawn.vercel.app';
+
+
+                const res = await fetch(`${server}/api/creation/voteCreation`, {
+
+                    method: 'post',
+
+                    body:JSON.stringify({ idCreation, idUser })
+
+                })
+            }
 
 
 
-        //
-        // const dev = process.env.NODE_ENV !== 'production';
-        //
-        // const server = dev ? 'http://localhost:3000' : 'https://showroom-fawn.vercel.app';
-        //
-        //
-        // const res = await fetch(`${server}/api/creation/voteCreation`, {
-        //
-        //     method: 'post',
-        //
-        //     body: JSON.stringify(e.target.alt)
-        //
-        // })
+        }
+
+
+
 
 
     }
@@ -119,6 +151,7 @@ export async function getServerSideProps()
         method: "POST",
         headers: { "Content-Type": "application/json" },
     });
+
 
     const data = await res.json()
 
