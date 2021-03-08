@@ -9,7 +9,7 @@ class Toastify{
 
     Information = (message) => (
         toast.info(message, {
-            position: "top-right",
+            position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -20,7 +20,7 @@ class Toastify{
 
     Success = (message) => (
         toast.success(message, {
-            position: "top-right",
+            position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -31,7 +31,7 @@ class Toastify{
 
     Warning = (message) => (
         toast.warn(message, {
-            position: "top-right",
+            position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -42,7 +42,7 @@ class Toastify{
 
     Error = (message) => (
         toast.error(message, {
-            position: "top-right",
+            position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -53,7 +53,7 @@ class Toastify{
 
     Default = (message) => (
         toast(message, {
-            position: "top-right",
+            position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -64,7 +64,7 @@ class Toastify{
 
     Dark = (message) => (
         toast.dark(message, {
-            position: "top-right",
+            position: "bottom-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,

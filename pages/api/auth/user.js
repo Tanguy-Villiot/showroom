@@ -23,12 +23,16 @@ handler.use(session).get((req, res) => {
         element.connected = false;
 
 
-        res.status(404).send(element);
+        console.log(element);
+
+        res.json(element);
     }
     else
     {
         element.connected = true;
         element.user = x;
+
+        console.log(element);
 
 
         res.json(element);

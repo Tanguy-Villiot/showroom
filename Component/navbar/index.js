@@ -1,9 +1,11 @@
-import {Button, Modal, Nav, Navbar, NavDropdown} from "react-bootstrap";
+import {Button, DropdownButton, Modal, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import Link from 'next/link'
-import {useContext, useRef, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import {MDBBtn} from "mdbreact";
 import {useRouter} from "next/router";
 import ToastifyContext from "../toastify/context";
+import checkUser from "../competition/security/security-utils";
+import {withIronSession} from "next-iron-session";
 
 export default function NavBar(){
 
@@ -12,6 +14,7 @@ export default function NavBar(){
     const passwordInput = useRef();
 
     const [modalShow, setModalShow] = useState(false);
+    const [user, setUser] = useState({});
 
     const toastify = useContext(ToastifyContext);
 
@@ -33,6 +36,12 @@ export default function NavBar(){
         if (response.ok) {
             console.log(response.status);
             setModalShow(false);
+
+            checkUser()
+                .then(res => {
+                    setUser(res);
+
+                })
             
             toastify.Success("Bonjour !");
             return router.push("/profil");
@@ -53,6 +62,50 @@ export default function NavBar(){
     }
 
 
+
+    useEffect(() =>{
+
+
+        },
+        [user],
+    );
+
+
+
+    //VIEW METHODS
+
+    const ButtonUser = () => {
+
+        // if (Object.keys(user).length === 0) {
+        //
+            return(
+                <>
+                    <Link href="/register">
+                        <Nav.Link href="#home">Register</Nav.Link>
+                    </Link>
+                    /
+                    <Nav.Link onClick={handleClickConnection}>Connection</Nav.Link>
+                 </>
+            )
+        //
+        //
+        // } else {
+        //     return(
+        //         <>
+        //             <DropdownButton id="dropdown-basic-button" title={user.user.name}>
+        //                 <DropdownButton.Item href="#/action-1">Profil</DropdownButton.Item>
+        //                 <DropdownButton.Item href="#/action-2">Admin</DropdownButton.Item>
+        //                 <DropdownButton.Item href="#/action-3">Logout</DropdownButton.Item>
+        //             </DropdownButton>
+        //
+        //         </>
+        //     )
+        // }
+
+
+    }
+
+
     return(
         <div>
             <Navbar>
@@ -69,11 +122,13 @@ export default function NavBar(){
                     </Link>
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">
-                    <Link href="/register">
-                        <Nav.Link href="#home">Register</Nav.Link>
-                    </Link>
-                    /
-                    <Nav.Link onClick={handleClickConnection}>Connection</Nav.Link>
+
+                    <ButtonUser/>
+
+
+
+
+
                 </Navbar.Collapse>
             </Navbar>
 
@@ -106,4 +161,5 @@ export default function NavBar(){
 
 
 }
+
 

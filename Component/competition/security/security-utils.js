@@ -9,6 +9,8 @@ export default async function checkUser(){
         headers: { "Content-Type": "application/json" },
     });
 
+    console.log(res_user);
+
     return await res_user.json();
 
 }
