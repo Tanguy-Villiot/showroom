@@ -10,10 +10,9 @@ import { PageTransition } from 'next-page-transitions'
 import Loader from "../Component/Loader";
 
 
-
 const TIMEOUT = 400
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, router }) {
     return <div className="App">
         <ToastifyContext.Provider value={new Toastify()}>
 
@@ -32,7 +31,7 @@ function MyApp({ Component, pageProps }) {
                 loadingClassNames="loading-indicator"
             >
 
-                <Component {...pageProps} />
+                <Component {...pageProps} key={router.route} />
             </PageTransition>
             <style jsx global>{`
         .page-transition-enter {
