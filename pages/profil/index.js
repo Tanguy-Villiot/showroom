@@ -21,8 +21,6 @@ export default function Page({user}){
 
     };
 
-    console.log(user);
-
     return(
         <div>
             <h1>Hello {user.name}</h1>

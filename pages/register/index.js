@@ -1,7 +1,16 @@
 import {MDBBtn, MDBCol, MDBContainer, MDBInput, MDBRow} from "mdbreact";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {Button, Form, InputGroup} from "react-bootstrap";
+import ToastifyContext from "../../Component/toastify/context";
+import checkUser from "../../Component/competition/security/security-utils";
+import {router} from "next/client";
 
 export default function Page(){
+
+    const toastify = useContext(ToastifyContext);
+
+
+    const [validated, setValidated] = useState(false);
 
     const [value, setValue] = useState({
         name: "",
@@ -21,13 +30,90 @@ export default function Page(){
             [evt.target.name]: val
         });
 
-        console.log(value);
     }
 
-    function handleSumbit(e) {
+
+    // const handleSubmit = (event) => {
+    //     const form = event.currentTarget;
+    //     if (form.checkValidity() === false) {
+    //         event.preventDefault();
+    //         event.stopPropagation();
+    //     }
+    //
+    // };
+
+
+    async function handleSubmit (e) {
 
         e.preventDefault();
-        console.log(value);
+
+
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        else
+        {
+            setValidated(true);
+
+            if(value.psdw === value.confirmpswd)
+            {
+
+                console.log("send");
+
+                console.log(value);
+
+                const res = await fetch('http://localhost:3000/api/auth/register', {
+
+                    method: 'post',
+
+                    body:JSON.stringify({ value })
+
+                })
+
+                if (res.ok) {
+                    console.log(res.status);
+
+                    const email = value.email;
+                    const password = value.psdw;
+
+
+                    const response = await fetch("../api/auth/login", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email, password })
+                    });
+
+                    if (response.ok) {
+                        console.log(response.status);
+
+
+                        toastify.Information(`Bonjour ${value.name}!`);
+
+                        return router.push("/profil");
+                    }
+
+
+                }
+
+            }
+            else
+            {
+                toastify.Warning("Passwords do not match");
+
+            }
+
+
+
+
+        }
+
+
+        setValidated(true);
+
+
+
     }
 
     return(
@@ -35,60 +121,112 @@ export default function Page(){
             <MDBContainer className="mt-5">
                 <MDBRow>
                     <MDBCol md="6" className="m-auto">
-                        <form>
+                        <Form noValidate validated={validated} onSubmit={handleSubmit}>
                             <p className="h4 text-center mb-4">Sign up</p>
 
                             <MDBRow>
                                 <MDBCol>
-                                    <label htmlFor="defaultFormRegisterNameEx" className="grey-text">
-                                        Your name
-                                    </label>
-                                    <input name="name" type="text" id="defaultFormRegisterNameEx" className="form-control" value={value.name} onChange={handleChange}/>
+                                    <Form.Label>First name</Form.Label>
+                                    <Form.Control
+                                        required
+                                        type="text"
+                                        name="name"
+                                        placeholder="First name"
+                                        value={value.name}
+                                        onChange={handleChange}
+                                    />
+                                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                     <br />
                                 </MDBCol>
                                 <MDBCol>
-                                    <label htmlFor="defaultFormRegisterNameEx" className="grey-text">
-                                        Your surname
-                                    </label>
-                                    <input name="surname" type="text" id="defaultFormRegisterNameEx" className="form-control" value={value.surname} onChange={handleChange}/>
+                                    <Form.Label>Last name</Form.Label>
+                                    <Form.Control
+                                        required
+                                        type="text"
+                                        name="surname"
+                                        placeholder="First name"
+                                        value={value.surname}
+                                        onChange={handleChange}
+                                    />
+                                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                     <br />
                                 </MDBCol>
 
                             </MDBRow>
 
-                            <label htmlFor="defaultFormRegisterNameEx" className="grey-text">
-                                Your pseudo
-                            </label>
-                            <input name="pseudo" type="text" id="defaultFormRegisterNameEx" className="form-control" value={value.pseudo} onChange={handleChange}/>
+                            <Form.Label>Pseudo</Form.Label>
+                            <Form.Control
+                                required
+                                type="text"
+                                name="pseudo"
+                                placeholder="Pseudo"
+                                value={value.pseudo}
+                                onChange={handleChange}
+                            />
+                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             <br />
-                            <label htmlFor="defaultFormRegisterEmailEx" className="grey-text">
-                                Your email
-                            </label>
-                            <input name="email" type="email" id="defaultFormRegisterEmailEx" className="form-control" value={value.email} onChange={handleChange}/>
+
+
+                            <Form.Label>Email</Form.Label>
+                            <InputGroup hasValidation>
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <Form.Control
+                                    type="email"
+                                    name="email"
+                                    placeholder="michel.delacompta@gmail.com"
+                                    aria-describedby="inputGroupPrepend"
+                                    value={value.email}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Please enter a valid email.
+                                </Form.Control.Feedback>
+                            </InputGroup>
                             <br />
 
                             <MDBRow>
                                 <MDBCol>
-                                    <label htmlFor="defaultFormRegisterConfirmEx" className="grey-text">
-                                        your password
-                                    </label>
-                                    <input name="psdw" type="password" id="defaultFormRegisterConfirmEx" className="form-control" value={value.psdw} onChange={handleChange}/>
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control
+                                        required
+                                        type="password"
+                                        name="psdw"
+                                        value={value.psdw}
+                                        onChange={handleChange}
+                                    />
+                                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                     <br />
                                 </MDBCol>
                                 <MDBCol>
-                                    <label htmlFor="defaultFormRegisterPasswordEx" className="grey-text">
-                                        Confirm your password
-                                    </label>
-                                    <input name="confirmpswd" type="password" id="defaultFormRegisterPasswordEx" className="form-control" value={value.confirmpswd} onChange={handleChange} />
+                                    <Form.Label>Confirm your password</Form.Label>
+                                    <Form.Control
+                                        required
+                                        type="password"
+                                        name="confirmpswd"
+                                        value={value.confirmpswd}
+                                        onChange={handleChange}
+                                    />
+                                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                    <br />
                                 </MDBCol>
+
                             </MDBRow>
 
+                            <Form.Group>
+                                <Form.Check
+                                    required
+                                    label="Agree to CGU"
+                                    feedback="You must agree before submitting."
+                                />
+                            </Form.Group>
+
                             <div className="text-center mt-4">
-                                <MDBBtn color="primary" type="submit" onClick={handleSumbit}>
-                                    Register
-                                </MDBBtn>
+                                <Button type="submit">Submit form</Button>
                             </div>
-                        </form>
+                        </Form>
                     </MDBCol>
                 </MDBRow>
             </MDBContainer>

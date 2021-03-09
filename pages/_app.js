@@ -8,15 +8,37 @@ import NavBar from "../Component/navbar";
 import Toastify, {ToastifyContext} from "../Component/toastify";
 import { PageTransition } from 'next-page-transitions'
 import Loader from "../Component/Loader";
+import {useEffect, useState} from "react";
+import checkUser from "../Component/competition/security/security-utils";
 
 
 const TIMEOUT = 400
 
 function MyApp({ Component, pageProps, router }) {
+
+    const[user, setUser] = useState({});
+
+
+    useEffect(() =>{
+
+
+            checkUser()
+                .then(res => {
+                    setUser(res);
+                })
+
+
+
+        },
+        [Component],
+    );
+
+
+
     return <div className="App">
         <ToastifyContext.Provider value={new Toastify()}>
 
-            <NavBar/>
+            <NavBar userData={user}/>
 
 
             <PageTransition

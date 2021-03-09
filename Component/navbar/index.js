@@ -9,14 +9,14 @@ import {useRouter} from "next/router";
 import ToastifyContext from "../toastify/context";
 import checkUser from "../competition/security/security-utils";
 
-export default function NavBar(){
+export default function NavBar({userData}){
 
     const router = useRouter();
     const emailInput = useRef();
     const passwordInput = useRef();
 
     const [modalShow, setModalShow] = useState(false);
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(userData);
     const [changeConnection, setChangeConnection] = useState(0);
 
 
@@ -96,7 +96,7 @@ export default function NavBar(){
 
 
         },
-        [changeConnection],
+        [changeConnection, userData],
     );
 
 
