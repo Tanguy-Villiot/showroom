@@ -2,6 +2,10 @@ import React from 'react'
 
 const Loader = () => (
     <div className="loader">
+
+        <h1>LE LOADING</h1>
+
+
         <style jsx>{`
       .loader {
         border: 8px solid #f3f3f3; /* Light grey */

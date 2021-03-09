@@ -1,11 +1,13 @@
-import {Button, DropdownButton, Modal, Nav, Navbar, NavDropdown} from "react-bootstrap";
+import styles from './navbar.module.css'
+
+
+import {Button, Dropdown, DropdownButton, Modal, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import Link from 'next/link'
 import {useContext, useEffect, useRef, useState} from "react";
 import {MDBBtn} from "mdbreact";
 import {useRouter} from "next/router";
 import ToastifyContext from "../toastify/context";
 import checkUser from "../competition/security/security-utils";
-import {withIronSession} from "next-iron-session";
 
 export default function NavBar(){
 
@@ -15,6 +17,8 @@ export default function NavBar(){
 
     const [modalShow, setModalShow] = useState(false);
     const [user, setUser] = useState({});
+    const [changeConnection, setChangeConnection] = useState(0);
+
 
     const toastify = useContext(ToastifyContext);
 
@@ -43,7 +47,7 @@ export default function NavBar(){
 
                 })
             
-            toastify.Success("Bonjour !");
+            toastify.Information("Bonjour !");
             return router.push("/profil");
         }
         else
@@ -61,13 +65,38 @@ export default function NavBar(){
         setModalShow(true);
     }
 
+    const handleClickLogout = async (e) => {
+
+        e.preventDefault();
+
+        const response = await fetch("../api/auth/logout", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" }
+        });
+
+        if (response.ok) {
+            setChangeConnection(changeConnection + 1);
+
+            toastify.Information("You have been logout");
+            return router.push("/");
+        }
+
+
+    };
+
 
 
     useEffect(() =>{
 
 
+        checkUser()
+            .then(res => {
+                setUser(res);
+            })
+
+
         },
-        [user],
+        [changeConnection],
     );
 
 
@@ -76,8 +105,8 @@ export default function NavBar(){
 
     const ButtonUser = () => {
 
-        // if (Object.keys(user).length === 0) {
-        //
+        if (!user.user) {
+
             return(
                 <>
                     <Link href="/register">
@@ -87,79 +116,92 @@ export default function NavBar(){
                     <Nav.Link onClick={handleClickConnection}>Connection</Nav.Link>
                  </>
             )
-        //
-        //
-        // } else {
-        //     return(
-        //         <>
-        //             <DropdownButton id="dropdown-basic-button" title={user.user.name}>
-        //                 <DropdownButton.Item href="#/action-1">Profil</DropdownButton.Item>
-        //                 <DropdownButton.Item href="#/action-2">Admin</DropdownButton.Item>
-        //                 <DropdownButton.Item href="#/action-3">Logout</DropdownButton.Item>
-        //             </DropdownButton>
-        //
-        //         </>
-        //     )
-        // }
+
+
+        } else {
+            return(
+                <>
+                    <DropdownButton
+                        menuAlign={{ lg: 'right' }}
+                        title={"Bonjour " + user.user.name}
+                        id="dropdown-menu-align-right"
+                    >
+                        <Link href="/profil">
+                            <Dropdown.Item>Profil</Dropdown.Item>
+                        </Link>
+                        <Link href="/profil">
+                            <Dropdown.Item>Admin</Dropdown.Item>
+                        </Link>
+                        <Dropdown.Divider />
+                        <Dropdown.Item onClick={handleClickLogout}>Logout</Dropdown.Item>
+                    </DropdownButton>
+
+                </>
+            )
+        }
 
 
     }
 
-
     return(
-        <div>
-            <Navbar>
-                <Link href="/">
-                    <Navbar.Brand href="#home">Showroom</Navbar.Brand>
-                </Link>
-                <Navbar.Toggle />
-                <Nav className="mr-auto">
+
+        <div className="container navbar-showroom" style={{ maxWidth: 1700 }}>
+
+            <div>
+
+                <Navbar>
                     <Link href="/">
-                        <Nav.Link href="#home">Home</Nav.Link>
+                        <Navbar.Brand href="#home">Showroom</Navbar.Brand>
                     </Link>
-                    <Link href="/competition">
-                        <Nav.Link href="#link">Competition</Nav.Link>
-                    </Link>
-                </Nav>
-                <Navbar.Collapse className="justify-content-end">
+                    <Navbar.Toggle />
+                    <Nav className="mr-auto">
+                        <Link href="/">
+                            <Nav.Link href="#home">Home</Nav.Link>
+                        </Link>
+                        <Link href="/competition">
+                            <Nav.Link href="#link">Competition</Nav.Link>
+                        </Link>
+                    </Nav>
+                    <Navbar.Collapse className="justify-content-end">
 
-                    <ButtonUser/>
+                        <ButtonUser/>
 
 
 
 
 
-                </Navbar.Collapse>
-            </Navbar>
+                    </Navbar.Collapse>
+                </Navbar>
 
-            {/*Sign in modal*/}
-            <Modal show={modalShow} onHide={() => setModalShow(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        Sign in
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <form onSubmit={handleSubmit}>
-                        <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
-                            Your email
-                        </label>
-                        <input type="email" id="defaultFormLoginEmailEx" className="form-control" ref={emailInput}/>
-                        <br />
-                        <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">
-                            Your password
-                        </label>
-                        <input type="password" id="defaultFormLoginPasswordEx" className="form-control" ref={passwordInput}/>
-                        <div className="text-center mt-4">
-                            <MDBBtn color="primary" type="submit">Login</MDBBtn>
-                        </div>
-                    </form>
-                </Modal.Body>
-            </Modal>
+                {/*Sign in modal*/}
+                <Modal show={modalShow} onHide={() => setModalShow(false)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            Sign in
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <form onSubmit={handleSubmit}>
+                            <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
+                                Your email
+                            </label>
+                            <input type="email" id="defaultFormLoginEmailEx" className="form-control" ref={emailInput}/>
+                            <br />
+                            <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">
+                                Your password
+                            </label>
+                            <input type="password" id="defaultFormLoginPasswordEx" className="form-control" ref={passwordInput}/>
+                            <div className="text-center mt-4">
+                                <MDBBtn color="primary" type="submit">Login</MDBBtn>
+                            </div>
+                        </form>
+                    </Modal.Body>
+                </Modal>
+            </div>
+
         </div>
+
     )
 
 
 }
-
-

@@ -16,7 +16,9 @@ const TIMEOUT = 400
 function MyApp({ Component, pageProps }) {
     return <div className="App">
         <ToastifyContext.Provider value={new Toastify()}>
+
             <NavBar/>
+
 
             <PageTransition
                 timeout={TIMEOUT}
@@ -29,6 +31,7 @@ function MyApp({ Component, pageProps }) {
                 }}
                 loadingClassNames="loading-indicator"
             >
+
                 <Component {...pageProps} />
             </PageTransition>
             <style jsx global>{`
