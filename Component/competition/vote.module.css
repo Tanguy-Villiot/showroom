@@ -1,0 +1,54 @@
+.Container
+{
+
+}
+
+
+.frame
+{
+
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    margin-top: 1em;
+}
+
+.frame>.title
+{
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #999;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 300;
+    color: #666;
+    margin-bottom: 2em;
+}
+
+
+.imagesContainer
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.images
+{
+    height: 20em;
+    width: 18em;
+    border-radius: 4px;
+    object-fit: contain;
+}
+
+.image_click
+{
+    height: 20em;
+    width: 18em;
+    border-radius: 4px;
+    object-fit: contain;
+    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+}

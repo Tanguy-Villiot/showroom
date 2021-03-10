@@ -9,10 +9,6 @@ export default function ShowCreation({data}){
 
 
     const [images, setImages] = useState(data);
-    const [imageVote, setImageVote] = useState({
-        id: null,
-        url: "https://via.placeholder.com/125"
-    });
 
 
     const fetchImage = async () => {
@@ -48,19 +44,6 @@ export default function ShowCreation({data}){
         const data = await res.json()
 
         setImages(data);
-
-    }
-
-    const handleClickVote = (image) => {
-
-        const img = {
-            id: image.target.getAttribute("alt"),
-            url: image.target.getAttribute("src")
-        }
-
-        console.log(img);
-
-        setImageVote(img);
 
     }
 
@@ -125,7 +108,7 @@ export default function ShowCreation({data}){
     return (
         <>
 
-            <View images={images} handleClickReload={handleClickReload} handleClickVote={handleClickVote} imageVote={imageVote}/>
+            <View images={images} handleClickReload={handleClickReload}/>
 
         </>
     )
