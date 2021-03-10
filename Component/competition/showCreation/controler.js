@@ -11,7 +11,7 @@ export default function ShowCreation({data}){
     const [images, setImages] = useState(data);
     const [imageVote, setImageVote] = useState({
         id: null,
-        url: "https://via.placeholder.com/250"
+        url: "https://via.placeholder.com/125"
     });
 
 

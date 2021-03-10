@@ -38,6 +38,7 @@
 .item_image
 {
     border-radius: 4px;
+    width: 16em;
 }
 
 
@@ -46,9 +47,9 @@
 
 .voteContainer
 {
-    width: max-content;
-    margin: auto;
-
+    /*position: fixed;*/
+    /*bottom: 0;*/
+    /*width: 125px;*/
 }
 .voteImage
 {
