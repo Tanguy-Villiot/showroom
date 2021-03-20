@@ -8,7 +8,7 @@ import {useState} from "react";
 
 
 
-export default function View({images, handleClickReload}) {
+export default function View({images, handleClickReload, competition}) {
 
 
     const[imageVoted, setImageVoted] = useState([])
@@ -39,6 +39,15 @@ export default function View({images, handleClickReload}) {
             </Head>
 
             <div className="container-md mt-5">
+
+                <div className="mb-5 text-center">
+
+                    <h1>{competition.theme}</h1>
+                    <h5 className="font-italic">"{competition.history}"</h5>
+
+                </div>
+
+
                 <div className="mb-5">
                     <UploadImage/>
 

@@ -8,8 +8,25 @@ export default function ShowCreation({data}){
     const toastify = useContext(ToastifyContext);
 
 
+    const [competition, setCompetition] = useState({})
     const [images, setImages] = useState(data);
 
+
+    const fetchCompetition = async () => {
+
+        const dev = process.env.NODE_ENV !== 'production';
+
+        const server = dev ? 'http://localhost:3000' : 'https://showroom-fawn.vercel.app';
+
+        const res = await fetch(`${server}/api/competition/getActualCompetition`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+        });
+
+
+        return await res.json();
+
+    }
 
     const fetchImage = async () => {
 
@@ -93,6 +110,11 @@ export default function ShowCreation({data}){
 
             console.log('render');
 
+            fetchCompetition()
+                .then(res => {
+                    setCompetition(res[0])
+                })
+
 
             fetchImage()
                 .then(res => {
@@ -108,7 +130,7 @@ export default function ShowCreation({data}){
     return (
         <>
 
-            <View images={images} handleClickReload={handleClickReload}/>
+            <View competition={competition} images={images} handleClickReload={handleClickReload}/>
 
         </>
     )
