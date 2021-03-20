@@ -41,7 +41,8 @@ handler.post(async (req, res) => {
 
                 url: data.url,
                 user_id: data.userId,
-                competition_id: competitionId
+                competition_id: competitionId,
+                countVote: 0
 
             })
 

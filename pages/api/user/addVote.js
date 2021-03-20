@@ -1,7 +1,6 @@
 import nextConnect from 'next-connect';
 
 import middleware from '../../../Component/bdd/databse';
-import mongo from "mongodb";
 
 const handler = nextConnect();
 
@@ -14,8 +13,12 @@ handler.post(async (req, res) => {
     data = JSON.parse(data);
 
 
+    let doc = await req.db.collection('vote').insertOne({
 
-    let doc = await req.db.collection(data.competitionId).updateOne({_id: new mongo.ObjectID(data.imageId)}, {$inc: {countVote: 1 }})
+        userId: data.idUser,
+        competitionId: data.competitionId
+
+    })
 
     res.json({message : "OK"});
 

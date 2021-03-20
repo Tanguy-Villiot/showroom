@@ -3,6 +3,8 @@ import View from "./view";
 import checkUser, {checkVote} from "../security/security-utils";
 import ToastifyContext from "../../toastify/context";
 import {getVoteByCompetition} from "../../bdd/user/dataUser";
+import {voteForCreation} from "../../bdd/creation/actionCreation";
+import {addVoteUser} from "../../bdd/user/actionUser";
 
 export default function ShowCreation({data}){
 
@@ -70,18 +72,11 @@ export default function ShowCreation({data}){
             if (voteExist.find !== false) {
                 toastify.Warning("You have already voted !");
             } else {
-                const dev = process.env.NODE_ENV !== 'production';
-
-                const server = dev ? 'http://localhost:3000' : 'https://showroom-fawn.vercel.app';
 
 
-                const res = await fetch(`${server}/api/creation/voteCreation`, {
+                await voteForCreation(imageId, competitionId);
 
-                    method: 'post',
-
-                    body: JSON.stringify({imageId, idUser, competitionId})
-
-                })
+                await addVoteUser(idUser, competitionId);
 
                 toastify.Success("Your vote has been sent !")
             }
