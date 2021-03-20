@@ -4,6 +4,7 @@ import {useContext, useEffect, useState} from "react";
 import checkUser, {checkCreation} from "./security/security-utils";
 import ToastifyContext from "../toastify/context";
 import {initFirebase} from "../firebase/firebase-utils";
+import {getCreationByCompetition} from "../bdd/user/dataUser";
 
 let firebase = initFirebase();
 
@@ -153,7 +154,7 @@ export default function UploadImage({competition}){
         } else
         {
 
-            const creationExist = await checkCreation(user.user.id);
+            const creationExist = await getCreationByCompetition(user.user.id, competition._id);
 
             console.log(creationExist);
 

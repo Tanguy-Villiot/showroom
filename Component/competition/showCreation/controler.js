@@ -12,6 +12,9 @@ export default function ShowCreation({data}){
     const [images, setImages] = useState(data);
 
 
+
+    //API METHODS
+
     const fetchCompetition = async () => {
 
         const dev = process.env.NODE_ENV !== 'production';
@@ -50,18 +53,12 @@ export default function ShowCreation({data}){
 
     const handleClickReload = async () => {
 
-        const dev = process.env.NODE_ENV !== 'production';
 
-        const server = dev ? 'http://localhost:3000' : 'https://showroom-fawn.vercel.app';
 
-        const res = await fetch(`${server}/api/creation/getCreation`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-        });
-
-        const data = await res.json()
-
-        setImages(data);
+        fetchImage(competition._id)
+            .then(res => {
+                setImages(res);
+            })
 
     }
 

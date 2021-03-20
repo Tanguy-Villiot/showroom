@@ -49,11 +49,36 @@ export default function View({images, handleClickReload, competition}) {
 
 
                 <div className="mb-5">
-                    <UploadImage/>
 
-                    <Button variant="warning" className={styles.refreshButton} onClick={handleClickReload}>Refresh</Button>
+                    {competition.finish ?
 
-                    <VoteImage images={imageVoted} setImagesVote={setImageVoted} />
+                        <span className="text-muted">La compétition est terminé</span>
+
+                        :
+
+                        competition.vote ?
+
+                            <>
+                                <Button variant="warning" className={styles.refreshButton} onClick={handleClickReload}>Refresh</Button>
+
+                                <VoteImage images={imageVoted} setImagesVote={setImageVoted} />
+                            </>
+
+                            :
+
+                            <>
+                                <UploadImage competition={competition}/>
+
+
+                                <Button variant="warning" className={styles.refreshButton} onClick={handleClickReload}>Refresh</Button>
+                            </>
+
+                    }
+
+
+
+
+
                 </div>
 
 
