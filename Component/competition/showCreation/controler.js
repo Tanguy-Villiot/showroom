@@ -70,17 +70,17 @@ export default function ShowCreation({data}){
 
             console.log(voteExist);
 
-            if (voteExist.find !== false) {
-                toastify.Warning("You have already voted !");
-            } else {
-
+            // if (voteExist.find !== false) {
+            //     toastify.Warning("You have already voted !");
+            // } else {
+            //
 
                 await voteForCreation(imageId, competitionId);
 
                 await addVoteUser(idUser, competitionId);
 
                 toastify.Success("Your vote has been sent !")
-            }
+            // }
         }
 
     }
