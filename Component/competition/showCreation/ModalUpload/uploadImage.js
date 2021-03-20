@@ -177,7 +177,7 @@ export default function UploadImage({competition}){
 
     return(
         <>
-            <Button variant="primary" onClick={handleClickUpload}>Upload Image</Button>
+            <Button variant="primary" className="p-5" onClick={handleClickUpload}>Upload Image</Button>
             <MyVerticallyCenteredModal
                 show={modalShow}
                 onHide={() => setModalShow(false)}

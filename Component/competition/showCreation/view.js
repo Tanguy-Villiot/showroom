@@ -59,7 +59,12 @@ export default function View({images, handleClickReload, competition, addVote}) 
 
                     {competition.finish ?
 
-                        <span className="text-muted">La compétition est terminé</span>
+                        <>
+                            <Button variant="warning" className={styles.refreshButton} onClick={handleClickReload}>Refresh</Button>
+
+                            <span className="text-muted">La compétition est terminé</span>
+
+                        </>
 
                         :
 
@@ -73,12 +78,10 @@ export default function View({images, handleClickReload, competition, addVote}) 
 
                             :
 
-                            <>
+                            <div className="text-center">
                                 <UploadImage competition={competition}/>
 
-
-                                <Button variant="warning" className={styles.refreshButton} onClick={handleClickReload}>Refresh</Button>
-                            </>
+                            </div>
 
                     }
 
