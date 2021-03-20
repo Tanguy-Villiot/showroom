@@ -161,15 +161,14 @@ export default function NavBar({userData}){
                         <Link href="/competition">
                             <Nav.Link href="#link">Competition</Nav.Link>
                         </Link>
+                        <Link href="/reveal">
+                            <Nav.Link href="#link">Reveal</Nav.Link>
+                        </Link>
                     </Nav>
                     <Navbar.Collapse className="justify-content-end">
 
                         <ButtonUser/>
-
-
-
-
-
+                        
                     </Navbar.Collapse>
                 </Navbar>
 
