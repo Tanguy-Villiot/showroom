@@ -5,6 +5,7 @@ import ToastifyContext from "../../toastify/context";
 import {getVoteByCompetition} from "../../bdd/user/dataUser";
 import {voteForCreation} from "../../bdd/creation/actionCreation";
 import {addVoteUser} from "../../bdd/user/actionUser";
+import {getActualCompetition} from "../../bdd/competition/dataCompetition";
 
 export default function ShowCreation({data}){
 
@@ -105,7 +106,8 @@ export default function ShowCreation({data}){
 
             console.log('render');
 
-            fetchCompetition()
+
+            getActualCompetition()
                 .then(res => {
                     setCompetition(res[0])
 

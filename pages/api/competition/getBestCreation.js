@@ -10,8 +10,12 @@ handler.post(async (req, res) => {
 
     let data = req.body;
 
+    await req.db.collection(data.competitionId).find().sort({countVote: -1}).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
 
-    let doc = await req.db.collection(data).find().sort({})
+        res.json(result);
+    });
 
 
 
