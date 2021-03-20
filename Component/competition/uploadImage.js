@@ -135,7 +135,7 @@ function MyVerticallyCenteredModal(props) {
 
 
 
-export default function UploadImage(){
+export default function UploadImage({competition}){
 
     const [modalShow, setModalShow] = useState(false);
     const toastify = useContext(ToastifyContext);

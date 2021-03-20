@@ -8,8 +8,11 @@ handler.use(middleware);
 
 handler.post(async (req, res) => {
 
+    let datas = req.body;
 
-    let count = await req.db.collection('creation').countDocuments({});
+    const competitionId = datas.competitionId;
+
+    let count = await req.db.collection(competitionId).countDocuments({});
 
 
     let i = 10;
@@ -21,7 +24,7 @@ handler.post(async (req, res) => {
 
         let x = Math.floor(Math.random() * count);
 
-        let doc = await req.db.collection("creation").find().limit(-1).skip(x).next()
+        let doc = await req.db.collection(competitionId).find().limit(-1).skip(x).next()
 
         data.push(doc);
     }

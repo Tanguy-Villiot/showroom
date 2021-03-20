@@ -28,7 +28,7 @@ export default function ShowCreation({data}){
 
     }
 
-    const fetchImage = async () => {
+    const fetchImage = async (competitionId) => {
 
         const dev = process.env.NODE_ENV !== 'production';
 
@@ -36,6 +36,7 @@ export default function ShowCreation({data}){
 
         const res = await fetch(`${server}/api/creation/getCreation`, {
             method: "POST",
+            body:JSON.stringify({ competitionId }),
             headers: { "Content-Type": "application/json" },
         });
 
@@ -113,14 +114,12 @@ export default function ShowCreation({data}){
             fetchCompetition()
                 .then(res => {
                     setCompetition(res[0])
+
+                    fetchImage(res[0]._id)
+                        .then(res => {
+                            setImages(res);
+                        })
                 })
-
-
-            fetchImage()
-                .then(res => {
-                    setImages(res);
-                })
-
 
         },
         [],
