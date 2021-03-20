@@ -1,7 +1,7 @@
 import styles from './vote.module.css';
 import {Button, Modal, ProgressBar} from "react-bootstrap";
 import {useContext, useEffect, useState} from "react";
-import ToastifyContext from "../toastify/context";
+import ToastifyContext from "../../../toastify/context";
 
 function MyVerticallyCenteredModal(props) {
 
@@ -92,8 +92,9 @@ function MyVerticallyCenteredModal(props) {
         }
         else if(images.length === 1)
         {
-            toastify.Information("Vote submitted");
 
+            props.handleSubmit(images[0].id);
+            props.onHide();
         }
         else
         {
@@ -146,7 +147,8 @@ function MyVerticallyCenteredModal(props) {
 
     return (
         <Modal
-            {...props}
+            show={props.show}
+            onHide={props.onHide}
             size="xl"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -189,7 +191,7 @@ function MyVerticallyCenteredModal(props) {
 
 
 
-export default function VoteImage({images, setImagesVote}){
+export default function VoteImage({images, setImagesVote, submitVote}){
 
     const [modalShow, setModalShow] = useState(false);
 
@@ -204,6 +206,12 @@ export default function VoteImage({images, setImagesVote}){
 
     }
 
+    const handleClickSubmit = (image) => {
+
+
+        submitVote(image);
+    }
+
 
     return(
         <>
@@ -213,6 +221,7 @@ export default function VoteImage({images, setImagesVote}){
                 onHide={() => setModalShow(false)}
                 list={images}
                 setlist={setImagesVote}
+                handleSubmit={handleClickSubmit}
 
             />
         </>

@@ -15,8 +15,9 @@ handler.post(async (req, res) => {
 
     let doc = await req.db.collection('vote').insertOne({
 
-        id_creation: data.idCreation,
-        id_user: data.idUser
+        id_creation: data.imageId,
+        userId: data.idUser,
+        competitionId: data.competitionId
 
     })
 

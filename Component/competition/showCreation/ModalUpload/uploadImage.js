@@ -1,10 +1,10 @@
 import styles from './uploadImage.module.css';
 import {Button, Modal, ProgressBar} from "react-bootstrap";
 import {useContext, useEffect, useState} from "react";
-import checkUser, {checkCreation} from "./security/security-utils";
-import ToastifyContext from "../toastify/context";
-import {initFirebase} from "../firebase/firebase-utils";
-import {getCreationByCompetition} from "../bdd/user/dataUser";
+import checkUser from "../../security/security-utils";
+import ToastifyContext from "../../../toastify/context";
+import {initFirebase} from "../../../firebase/firebase-utils";
+import {getCreationByCompetition} from "../../../bdd/user/dataUser";
 
 let firebase = initFirebase();
 

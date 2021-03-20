@@ -1,14 +1,14 @@
 import styles from "../../../styles/competition.module.css";
 import Image from "next/image";
 import {Button} from "react-bootstrap";
-import UploadImage from "../uploadImage";
+import UploadImage from "./ModalUpload/uploadImage";
 import Head from 'next/head'
-import VoteImage from "../voteImage";
+import VoteImage from "./ModalVote/voteImage";
 import {useState} from "react";
 
 
 
-export default function View({images, handleClickReload, competition}) {
+export default function View({images, handleClickReload, competition, addVote}) {
 
 
     const[imageVoted, setImageVoted] = useState([])
@@ -27,6 +27,13 @@ export default function View({images, handleClickReload, competition}) {
         x.push(image);
 
         setImageVoted(x);
+
+    }
+
+    const handleClickSubmitVote = (image) => {
+
+
+        addVote(image);
 
     }
 
@@ -61,7 +68,7 @@ export default function View({images, handleClickReload, competition}) {
                             <>
                                 <Button variant="warning" className={styles.refreshButton} onClick={handleClickReload}>Refresh</Button>
 
-                                <VoteImage images={imageVoted} setImagesVote={setImageVoted} />
+                                <VoteImage images={imageVoted} setImagesVote={setImageVoted} submitVote={handleClickSubmitVote}/>
                             </>
 
                             :
@@ -83,23 +90,36 @@ export default function View({images, handleClickReload, competition}) {
 
 
 
+                { competition.vote ?
 
-                <div className={styles.imagesContainer}>
+                    <div className={styles.imagesContainer}>
 
-                    {typeof(images) !== "undefined" &&
-                    images.map(function (item, i) {
-                        return (
-                            <div key={i} data-src={item.url} onClick={handleClickVote} style={{marginBottom: '1em' }}>
+                        {typeof(images) !== "undefined" &&
+                        images.map(function (item, i) {
+                            return (
+                                <div key={i} data-src={item.url} onClick={handleClickVote} style={{marginBottom: '1em' }}>
 
-                                <img src={item.url} className={styles.item_image} key={i} alt={item._id}/>
+                                    <img src={item.url} className={styles.item_image} key={i} alt={item._id}/>
 
-                            </div>
-                        );
-                    })
-                    }
+                                </div>
+                            );
+                        })
+                        }
 
 
-                </div>
+                    </div>
+
+                    :
+
+                    <>
+
+
+                    </>
+
+
+
+
+                }
 
             </div>
         </>
