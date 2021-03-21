@@ -122,10 +122,13 @@ export default function ShowCreation({data}){
     );
 
 
+
     return (
         <>
 
             <View competition={competition} images={images} handleClickReload={handleClickReload} addVote={addVote}/>
+
+
 
         </>
     )
