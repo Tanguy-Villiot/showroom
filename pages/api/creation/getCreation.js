@@ -24,9 +24,16 @@ handler.post(async (req, res) => {
 
         let x = Math.floor(Math.random() * count);
 
-        let doc = await req.db.collection(competitionId).find().limit(-1).skip(x).next()
+        let doc = await req.db.collection(competitionId).find({validate: true}).limit(-1).skip(x).next()
 
-        data.push(doc);
+        if(doc != null)
+        {
+            data.push(doc);
+        }
+        else
+        {
+            i++
+        }
     }
 
 

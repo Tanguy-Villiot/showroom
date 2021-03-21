@@ -42,7 +42,6 @@ handler.post(async (req, res) => {
                 url: data.url,
                 user_id: data.userId,
                 competition_id: competitionId,
-                validate: false,
                 publish: new Date(Date.now()),
                 countVote: 0
 
