@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2021 Ankward. All right reserved.
+ *
+ * Ankward (https://ankward.fr)
+ */
+
 import styles from './uploadImage.module.css';
 import {Button, Form, Modal, ProgressBar} from "react-bootstrap";
 import {useContext, useEffect, useState} from "react";
@@ -37,6 +43,10 @@ function ModalUpload(props) {
         [percent],
     );
 
+
+    /**
+     * hide modal and reset state
+     */
     function handleHide(){
 
         setImage(null)
@@ -49,10 +59,14 @@ function ModalUpload(props) {
         })
 
         props.onHide();
+
     }
 
-
-
+    /**
+     * Change image in image state
+     *
+     * @param {files} files in input file.
+     */
     const handleChangeFile = (files) => {
 
         setImage(files);
@@ -66,6 +80,10 @@ function ModalUpload(props) {
 
     }
 
+    /**
+     * Change the value state of form
+     *
+     */
     function handleChangeForm(evt) {
         const val = evt.target.value;
         setValueForm({
@@ -75,6 +93,10 @@ function ModalUpload(props) {
 
     }
 
+    /**
+     * Submit form and image
+     *
+     */
     async function handleSubmit(e) {
 
         e.preventDefault()
@@ -102,6 +124,10 @@ function ModalUpload(props) {
 
 
     //API METHODS
+    /**
+     * Upload image to firebase
+     *
+     */
     const uploadImage = () => {
 
         let bucketName = 'images'
@@ -140,6 +166,12 @@ function ModalUpload(props) {
             })
     }
 
+
+    /**
+     * Add creation value and url image in bdd
+     *
+     * @param {string} url Url of image
+     */
     const AddcreationToBdd = async(url) =>{
 
             const user = await checkUser();
@@ -286,8 +318,10 @@ export default function UploadImage({competition}){
     const toastify = useContext(ToastifyContext);
 
 
-
     //Effects Methods
+    /**
+     * Open modal upload
+     */
     const handleClickUpload = async () => {
 
         const user = await checkUser();
