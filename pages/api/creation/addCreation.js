@@ -42,6 +42,8 @@ handler.post(async (req, res) => {
                 url: data.url,
                 user_id: data.userId,
                 competition_id: competitionId,
+                title: data.valueForm.title,
+                description: data.valueForm.description,
                 publish: new Date(Date.now()),
                 countVote: 0
 

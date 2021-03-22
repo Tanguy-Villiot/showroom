@@ -1,21 +1,32 @@
 import styles from './uploadImage.module.css';
-import {Button, Modal, ProgressBar} from "react-bootstrap";
+import {Button, Form, Modal, ProgressBar} from "react-bootstrap";
 import {useContext, useEffect, useState} from "react";
 import checkUser from "../../security/security-utils";
 import ToastifyContext from "../../../toastify/context";
 import {initFirebase} from "../../../firebase/firebase-utils";
 import {getCreationByCompetition} from "../../../bdd/user/dataUser";
+import {MDBCol, MDBContainer, MDBRow} from "mdbreact";
 
 let firebase = initFirebase();
 
 
-function MyVerticallyCenteredModal(props) {
+function ModalUpload(props) {
 
+    const toastify = useContext(ToastifyContext);
 
     const [image, setImage] = useState(null);
     const [percent, setPercent] = useState(0);
+    const [imageUrl, setImageUrl] = useState(undefined);
+    const [validatedForm, setValidatedForm] = useState(false);
+
+    const [valueForm, setValueForm] = useState({
+        title: "",
+        description: ""
+    })
 
 
+
+    //Effects methods
     useEffect(
         () => {
 
@@ -26,19 +37,58 @@ function MyVerticallyCenteredModal(props) {
         [percent],
     );
 
-    //Effects methods
+
+
     const handleChangeFile = (files) => {
 
         setImage(files);
+
+        setImageUrl(URL.createObjectURL(files[0]));
+
+
+        console.log(files)
 
         console.log("ouiii");
 
     }
 
-    const handleClickUpload = () => {
+    function handleChangeForm(evt) {
+        const val = evt.target.value;
+        setValueForm({
+            ...valueForm,
+            [evt.target.name]: val
+        });
+
+    }
+
+    async function handleSubmit(e) {
+
+        e.preventDefault()
+
+        console.log(e.currentTarget)
+
+        const form = e.currentTarget;
 
 
-        console.log("upload");
+        if (form.checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            console.log("submit")
+
+        } else {
+
+
+            setValidatedForm(true)
+
+            uploadImage()
+        }
+
+    }
+
+
+    //API METHODS
+    const uploadImage = () => {
 
         let bucketName = 'images'
         let file = image[0];
@@ -70,24 +120,16 @@ function MyVerticallyCenteredModal(props) {
                 storageRef.getDownloadURL()
                     .then(fireBaseUrl => {
 
-                        test(fireBaseUrl);
-
-
+                        AddcreationToBdd(fireBaseUrl);
 
                     })
             })
     }
 
-    const test = async(url) =>{
+    const AddcreationToBdd = async(url) =>{
 
-        console.log(url);
+            const user = await checkUser();
 
-        const user = await checkUser();
-
-        if (!user.connected) {
-            toastify.Warning("You must be logged in to upload creation !");
-        } else
-        {
 
             const userId = user.user.id;
 
@@ -95,10 +137,20 @@ function MyVerticallyCenteredModal(props) {
 
                 method: 'post',
 
-                body:JSON.stringify({ url, userId })
+                body:JSON.stringify({ url, userId, valueForm })
 
             })
+
+        if(res.statusText === "OK")
+        {
+            toastify.Success("Your creation has been sent !");
         }
+        else
+        {
+            toastify.Warning("Error : Your creation has not been sent !");
+        }
+
+
 
     }
 
@@ -117,19 +169,93 @@ function MyVerticallyCenteredModal(props) {
             </Modal.Header>
             <Modal.Body>
                 <div className={styles.frame}>
-                    <h2 className={styles.title}>Drop file to upload</h2>
 
-                    <div className={styles.dropzone}>
+                    {typeof (imageUrl) === "undefined" ?
 
-                        <img src="https://100dayscss.com/codepen/upload.svg" alt="Dropzone image"/>
+                        <>
+                            <h2 className={styles.title}>Drop file to upload</h2>
 
-                        <input type="file" className="upload-input" onChange={(e) => handleChangeFile(e.target.files)}/>
+                            <div className={styles.dropzone}>
+
+                                <img src="https://100dayscss.com/codepen/upload.svg" alt="Dropzone image"/>
+
+                                <input type="file" className="upload-input"
+                                       onChange={(e) => handleChangeFile(e.target.files)}/>
 
 
-                    </div>
+                            </div>
+                        </>
 
-                    <button type="button" onClick={handleClickUpload}>Upload file</button>
-                    <ProgressBar className={styles.progressBar} now={percent} label={`${percent}%`}/>
+                        :
+
+                        <>
+                            <img src={imageUrl} className={styles.images} alt="Dropzone image"/>
+
+                                <MDBContainer className="mt-5">
+                                    <MDBRow>
+                                        <MDBCol className="m-auto">
+                                            <Form noValidate validated={validatedForm} onSubmit={handleSubmit}>
+                                                <p className="h4 mb-4">Informations</p>
+
+                                                <MDBRow>
+                                                    <MDBCol>
+                                                        <Form.Label>Title</Form.Label>
+                                                        <Form.Control
+                                                            required
+                                                            type="text"
+                                                            name="title"
+                                                            placeholder="Ma belle carotte"
+                                                            value={valueForm.title}
+                                                            onChange={handleChangeForm}
+                                                        />
+                                                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                                        <Form.Control.Feedback type="invalid">
+                                                            Please enter a title.
+                                                        </Form.Control.Feedback>
+                                                        <br />
+                                                    </MDBCol>
+                                                </MDBRow>
+                                                <MDBRow>
+                                                    <MDBCol>
+                                                        <Form.Label>Description</Form.Label>
+                                                        <Form.Control
+                                                            required
+                                                            as="textarea"
+                                                            name="description"
+                                                            value={valueForm.description}
+                                                            onChange={handleChangeForm}
+                                                        />
+                                                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                                                        <Form.Control.Feedback type="invalid">
+                                                            Please enter a description.
+                                                        </Form.Control.Feedback>
+                                                        <br />
+                                                    </MDBCol>
+
+                                                </MDBRow>
+
+
+                                                <Form.Group>
+                                                    <span className="text-muted">By pressing the "Submit" button, you accept the CGP</span>
+                                                </Form.Group>
+
+                                                <div className="text-center mt-4">
+                                                    <Button type="submit">Send creation</Button>
+                                                </div>
+                                            </Form>
+                                        </MDBCol>
+                                    </MDBRow>
+                                </MDBContainer>
+
+                            <ProgressBar className={styles.progressBar} now={percent} label={`${percent}%`}/>
+
+
+                        </>
+
+                    }
+
+
+
 
                 </div>
             </Modal.Body>
@@ -181,7 +307,7 @@ export default function UploadImage({competition}){
     return(
         <>
             <Button variant="primary" className="p-5" onClick={handleClickUpload}>Upload Image</Button>
-            <MyVerticallyCenteredModal
+            <ModalUpload
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />
