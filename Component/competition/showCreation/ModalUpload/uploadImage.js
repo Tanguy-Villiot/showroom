@@ -37,6 +37,20 @@ function ModalUpload(props) {
         [percent],
     );
 
+    function handleHide(){
+
+        setImage(null)
+        setPercent(0)
+        setImageUrl(undefined)
+        setValidatedForm(false)
+        setValueForm({
+            title: "",
+            description: ""
+        })
+
+        props.onHide();
+    }
+
 
 
     const handleChangeFile = (files) => {
@@ -157,7 +171,8 @@ function ModalUpload(props) {
 
     return (
         <Modal
-            {...props}
+            show={props.show}
+            onHide={handleHide}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -287,14 +302,14 @@ export default function UploadImage({competition}){
 
             console.log(creationExist);
 
-            // if(creationExist.find !== false)
-            // {
-            //     toastify.Warning("You have already upload your creation !");
-            // }
-            // else
-            // {
+            if(creationExist.find !== false)
+            {
+                toastify.Warning("You have already upload your creation !");
+            }
+            else
+            {
                 setModalShow(true);
-            // }
+            }
 
 
         }
