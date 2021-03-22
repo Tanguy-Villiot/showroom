@@ -71,6 +71,9 @@ function MyVerticallyCenteredModal(props) {
                     .then(fireBaseUrl => {
 
                         test(fireBaseUrl);
+
+
+
                     })
             })
     }
