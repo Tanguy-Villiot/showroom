@@ -12,6 +12,7 @@ import ToastifyContext from "../../../toastify/context";
 import {initFirebase} from "../../../firebase/firebase-utils";
 import {getCreationByCompetition} from "../../../bdd/user/dataUser";
 import {MDBCol, MDBContainer, MDBRow} from "mdbreact";
+import checkServer from "../../../bdd/checkServer";
 
 let firebase = initFirebase();
 
@@ -174,12 +175,13 @@ function ModalUpload(props) {
      */
     const AddcreationToBdd = async(url) =>{
 
-            const user = await checkUser();
 
+            const server = checkServer();
+            const user = await checkUser();
 
             const userId = user.user.id;
 
-            const res = await fetch('http://localhost:3000/api/creation/addCreation', {
+            const res = await fetch(`${server}/api/creation/addCreation`, {
 
                 method: 'post',
 
@@ -190,6 +192,7 @@ function ModalUpload(props) {
         if(res.statusText === "OK")
         {
             toastify.Success("Your creation has been sent !");
+            props.onHide();
         }
         else
         {

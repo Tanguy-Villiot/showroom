@@ -1,6 +1,7 @@
 import nextConnect from 'next-connect';
 
 import middleware from '../../../Component/bdd/databse';
+import checkServer from "../../../Component/bdd/checkServer";
 
 const handler = nextConnect();
 
@@ -16,9 +17,7 @@ handler.post(async (req, res) => {
 
     const fetchCompetition = async () => {
 
-        const dev = process.env.NODE_ENV !== 'production';
-
-        const server = dev ? 'http://localhost:3000' : 'https://showroom-fawn.vercel.app';
+        const server = checkServer();
 
         const res = await fetch(`${server}/api/competition/getActualCompetition`, {
             method: "POST",

@@ -3,7 +3,6 @@ import {getActualCompetition, getBestVote} from "../../Component/bdd/competition
 
 export default function Reveal(){
 
-
     const [images, setImages] = useState([])
 
     const [competition, setCompetition] = useState({})

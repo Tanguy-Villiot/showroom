@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2021 Ankward. All right reserved.
+ *
+ * Ankward (https://ankward.fr)
+ */
+
 import {useContext, useEffect, useState} from "react";
 import View from "./view";
 import checkUser, {checkVote} from "../security/security-utils";
@@ -6,6 +12,7 @@ import {getVoteByCompetition} from "../../bdd/user/dataUser";
 import {voteForCreation} from "../../bdd/creation/actionCreation";
 import {addVoteUser} from "../../bdd/user/actionUser";
 import {getActualCompetition} from "../../bdd/competition/dataCompetition";
+import checkServer from "../../bdd/checkServer";
 
 export default function ShowCreation({data}){
 
@@ -19,27 +26,9 @@ export default function ShowCreation({data}){
 
     //API METHODS
 
-    const fetchCompetition = async () => {
-
-        const dev = process.env.NODE_ENV !== 'production';
-
-        const server = dev ? 'http://localhost:3000' : 'https://showroom-fawn.vercel.app';
-
-        const res = await fetch(`${server}/api/competition/getActualCompetition`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-        });
-
-
-        return await res.json();
-
-    }
-
     const fetchImage = async (competitionId) => {
 
-        const dev = process.env.NODE_ENV !== 'production';
-
-        const server = dev ? 'http://localhost:3000' : 'https://showroom-fawn.vercel.app';
+        const server = checkServer();
 
         const res = await fetch(`${server}/api/creation/getCreation`, {
             method: "POST",

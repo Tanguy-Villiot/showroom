@@ -14,7 +14,8 @@ import checkUser from "../Component/competition/security/security-utils";
 
 const TIMEOUT = 400
 
-function MyApp({ Component, pageProps, router }) {
+function MyApp({ Component, pageProps, router}) {
+
 
     const[user, setUser] = useState({});
 
@@ -26,6 +27,8 @@ function MyApp({ Component, pageProps, router }) {
                 .then(res => {
                     setUser(res);
                 })
+
+        console.log("render")
 
 
 
@@ -53,7 +56,7 @@ function MyApp({ Component, pageProps, router }) {
                 loadingClassNames="loading-indicator"
             >
 
-                <Component {...pageProps} key={router.route} />
+                <Component {...pageProps} key={router.route}/>
             </PageTransition>
             <style jsx global>{`
         .page-transition-enter {
@@ -88,4 +91,7 @@ function MyApp({ Component, pageProps, router }) {
     </div>
 }
 
+
+
 export default MyApp
+
