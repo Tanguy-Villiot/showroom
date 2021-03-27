@@ -24,6 +24,8 @@ handler.post(async (req, res) => {
         req.session.set("user", {
             id: doc._id,
             name: doc.name,
+            surname: doc.surname,
+            pseudo: doc.pseudo,
             email: email
         });
         await req.session.save();

@@ -5,11 +5,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 //Component Import
 import NavBar from "../Component/navbar";
-import Toastify, {ToastifyContext} from "../Component/toastify";
 import { PageTransition } from 'next-page-transitions'
 import Loader from "../Component/Loader";
 import {useEffect, useState} from "react";
 import checkUser from "../Component/competition/security/security-utils";
+
+//Context Import
+import Toastify, {ToastifyContext} from "../Component/toastify";
+import { CurrentUserProvider } from "../Component/security/user/userContext";
 
 
 const TIMEOUT = 400
@@ -17,48 +20,28 @@ const TIMEOUT = 400
 function MyApp({ Component, pageProps, router}) {
 
 
-    const[user, setUser] = useState({});
-
-
-    useEffect(() =>{
-
-
-            checkUser()
-                .then(res => {
-                    setUser(res);
-                })
-
-        console.log("render")
-
-
-
-        },
-        [Component],
-    );
-
-
-
     return <div className="App">
-        <ToastifyContext.Provider value={new Toastify()}>
+        <CurrentUserProvider>
+            <ToastifyContext.Provider value={new Toastify()}>
 
-            <NavBar userData={user}/>
+                <NavBar/>
 
 
-            <PageTransition
-                timeout={TIMEOUT}
-                classNames="page-transition"
-                loadingComponent={<Loader />}
-                loadingDelay={500}
-                loadingTimeout={{
-                    enter: TIMEOUT,
-                    exit: 0,
-                }}
-                loadingClassNames="loading-indicator"
-            >
+                <PageTransition
+                    timeout={TIMEOUT}
+                    classNames="page-transition"
+                    loadingComponent={<Loader />}
+                    loadingDelay={500}
+                    loadingTimeout={{
+                        enter: TIMEOUT,
+                        exit: 0,
+                    }}
+                    loadingClassNames="loading-indicator"
+                >
 
-                <Component {...pageProps} key={router.route}/>
-            </PageTransition>
-            <style jsx global>{`
+                    <Component {...pageProps} key={router.route}/>
+                </PageTransition>
+                <style jsx global>{`
         .page-transition-enter {
           opacity: 0;
           transform: translate3d(0, 20px, 0);
@@ -86,7 +69,9 @@ function MyApp({ Component, pageProps, router}) {
         }
       `}</style>
 
-        </ToastifyContext.Provider>
+            </ToastifyContext.Provider>
+
+        </CurrentUserProvider>
 
     </div>
 }

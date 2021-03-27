@@ -8,15 +8,16 @@ import {MDBBtn} from "mdbreact";
 import {useRouter} from "next/router";
 import ToastifyContext from "../toastify/context";
 import checkUser from "../competition/security/security-utils";
+import {useCurrentUser} from "../security/user/userContext";
 
-export default function NavBar({userData}){
+export default function NavBar(){
 
     const router = useRouter();
     const emailInput = useRef();
     const passwordInput = useRef();
 
     const [modalShow, setModalShow] = useState(false);
-    const [user, setUser] = useState(userData);
+    const { currentUser, fetchCurrentUser } = useCurrentUser();
     const [changeConnection, setChangeConnection] = useState(0);
 
 
@@ -41,12 +42,8 @@ export default function NavBar({userData}){
             console.log(response.status);
             setModalShow(false);
 
-            checkUser()
-                .then(res => {
-                    setUser(res);
+            fetchCurrentUser();
 
-                })
-            
             toastify.Information("Bonjour !");
             return router.push("/profil");
         }
@@ -75,7 +72,7 @@ export default function NavBar({userData}){
         });
 
         if (response.ok) {
-            setChangeConnection(changeConnection + 1);
+            fetchCurrentUser()
 
             toastify.Information("You have been logout");
             return router.push("/");
@@ -86,26 +83,14 @@ export default function NavBar({userData}){
 
 
 
-    useEffect(() =>{
-
-
-        checkUser()
-            .then(res => {
-                setUser(res);
-            })
-
-
-        },
-        [changeConnection, userData],
-    );
-
+    useEffect(() => fetchCurrentUser(), [])
 
 
     //VIEW METHODS
 
     const ButtonUser = () => {
 
-        if (!user.user) {
+        if (!currentUser.connected) {
 
             return(
                 <>
@@ -123,15 +108,12 @@ export default function NavBar({userData}){
                 <>
                     <DropdownButton
                         menuAlign={{ lg: 'right' }}
-                        title={"Bonjour " + user.user.name}
+                        title={"Bonjour " + currentUser.user.name}
                         id="dropdown-menu-align-right"
                     >
-                        <Link href="/profil">
-                            <Dropdown.Item>Profil</Dropdown.Item>
-                        </Link>
-                        <Link href="/profil">
-                            <Dropdown.Item>Admin</Dropdown.Item>
-                        </Link>
+
+                            <Dropdown.Item><Link href="/profil">Profil</Link></Dropdown.Item>
+
                         <Dropdown.Divider />
                         <Dropdown.Item onClick={handleClickLogout}>Logout</Dropdown.Item>
                     </DropdownButton>
