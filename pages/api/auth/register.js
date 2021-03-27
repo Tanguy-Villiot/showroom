@@ -22,7 +22,9 @@ handler.post(async (req, res) => {
         surname: data.value.surname,
         pseudo: data.value.pseudo,
         email: data.value.email,
-        password: data.value.psdw
+        password: data.value.psdw,
+        register : new Date(Date.now()),
+        participation: []
 
     })
 
