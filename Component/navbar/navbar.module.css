@@ -1,4 +1,11 @@
-.navbar-showroom
+.navbarShowroom
 {
+    background: linear-gradient(#00000094, #0000);
+    color: white;
+}
 
+.link
+{
+    color: white !important;
+    font-family: Inter;
 }

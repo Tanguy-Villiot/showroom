@@ -95,10 +95,10 @@ export default function NavBar(){
             return(
                 <>
                     <Link href="/register">
-                        <Nav.Link href="#home">Register</Nav.Link>
+                        <Nav.Link href="#home" className={styles.link}>Register</Nav.Link>
                     </Link>
-                    /
-                    <Nav.Link onClick={handleClickConnection}>Connection</Nav.Link>
+
+                    <Nav.Link onClick={handleClickConnection} className={styles.link}>Connection</Nav.Link>
                  </>
             )
 
@@ -126,25 +126,23 @@ export default function NavBar(){
     }
 
     return(
-
-        <div className="container navbar-showroom" style={{ maxWidth: 1700 }}>
+        <div className={styles.navbarShowroom + " container fixed-top"} style={{ maxWidth: 1700 }}>
 
             <div>
-
                 <Navbar>
                     <Link href="/">
-                        <Navbar.Brand href="#home">Showroom</Navbar.Brand>
+                        <Navbar.Brand href="#home" className={styles.link}>Showroom</Navbar.Brand>
                     </Link>
                     <Navbar.Toggle />
-                    <Nav className="mr-auto">
+                    <Nav className="mr-auto white-text">
                         <Link href="/">
-                            <Nav.Link href="#home">Home</Nav.Link>
+                            <Nav.Link href="#home" className={styles.link}>Home</Nav.Link>
                         </Link>
                         <Link href="/competition">
-                            <Nav.Link href="#link">Competition</Nav.Link>
+                            <Nav.Link href="#link" className={styles.link}>Competition</Nav.Link>
                         </Link>
                         <Link href="/reveal">
-                            <Nav.Link href="#link">Reveal</Nav.Link>
+                            <Nav.Link href="#link" className={styles.link}>Reveal</Nav.Link>
                         </Link>
                     </Nav>
                     <Navbar.Collapse className="justify-content-end">

@@ -1,0 +1,150 @@
+.Banniere
+{
+    width: 100%;
+    object-fit: cover;
+    height: 100vh;
+}
+
+.SVG
+{
+    position: relative;
+    bottom: 2em;
+}
+
+
+.MonthCompetition
+{
+}
+
+.MonthCompetition_ill
+{
+    height: 25em;
+}
+
+.MonthCompetition_text
+{
+    font-family: Inter-Bold;
+    font-size: 3em;
+    text-transform: uppercase;
+    margin-top: 1em;
+}
+
+.MonthCompetition_subtext
+{
+    color: #7a5995;
+    font-style: italic;
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+}
+
+.MonthCompetition_button
+{
+    background: linear-gradient(90deg, rgba(166,226,236,1) 0%, rgba(194,158,233,1) 33%, rgba(235,144,173,1) 66%, rgba(233,133,142,1) 100%);
+    color: white;
+    padding-right: 2em;
+    padding-left: 2em;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    font-size: 2em;
+    text-transform: uppercase;
+    font-family: Inter-Bold;
+    border: none;
+    border-radius: 10px;
+    letter-spacing: 1px;
+}
+
+.HowWork
+{
+    margin-top: 6em;
+}
+
+.HowWork_title
+{
+    font-family: Inter-Bold;
+}
+
+
+.HowWork_step_circle
+{
+    height: 9em;
+    width: 9em;
+    border-radius: 50%;
+    background: linear-gradient(90deg, rgba(166,226,236,0.5) 0%, rgba(194,158,233,0.5) 33%, rgba(235,144,173,0.5) 66%, rgba(233,133,142,0.5) 100%);
+}
+
+.HowWork_step_circle_nbr
+{
+    float: right;
+    font-size: 7em;
+    font-family: Inter-bold;
+    margin-right: 0.2em;
+    margin-top: 0.3em;
+    color: white;
+}
+
+.HowWork_step_circle_text
+{
+    text-transform: uppercase;
+}
+
+.HowWork_button
+{
+    float: right;
+    background: linear-gradient(90deg, rgba(166,226,236,1) 0%, rgba(194,158,233,1) 33%, rgba(235,144,173,1) 66%, rgba(233,133,142,1) 100%);
+    color: black;
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    font-family: Inter;
+    border: none;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+}
+
+.FAQ
+{
+    margin-top: 10em;
+}
+
+.FAQ_container
+{
+    background-color: #e5f2f6;
+    border-radius: 20px;
+    padding: 2.5em;
+}
+
+.FAQ_title
+{
+    font-family: Inter-Bold;
+    font-size: 2.5em;
+    text-transform: uppercase;
+}
+
+.FAQ_link
+{
+    color: #7a5995;
+    margin-top: 2em;
+}
+
+.Button
+{
+    margin-top: 8em;
+}
+
+.Button_title
+{
+    font-family: Inter;
+    font-size: 1.5em;
+    color: #7a5995;
+    letter-spacing: 0.5px;
+}
+
+.Button_subtitle
+{
+    font-family: Inter-Light;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
