@@ -13,11 +13,14 @@ import checkUser from "../Component/competition/security/security-utils";
 //Context Import
 import Toastify, {ToastifyContext} from "../Component/toastify";
 import { CurrentUserProvider } from "../Component/security/user/userContext";
+import {useRouter} from "next/router";
 
 
 const TIMEOUT = 400
 
-function MyApp({ Component, pageProps, router}) {
+function MyApp({ Component, pageProps}) {
+
+    const router = useRouter();
 
 
     return <div className="App">
