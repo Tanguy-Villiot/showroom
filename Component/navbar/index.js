@@ -112,7 +112,7 @@ export default function NavBar(){
                         id="dropdown-menu-align-right"
                     >
 
-                            <Dropdown.Item><Link href="/profil">Profil</Link></Dropdown.Item>
+                        <Link href="/profil">Profil</Link>
 
                         <Dropdown.Divider />
                         <Dropdown.Item onClick={handleClickLogout}>Logout</Dropdown.Item>

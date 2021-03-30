@@ -6,20 +6,27 @@ import {getDataUser} from "../../Component/bdd/user/dataUser";
 
 export default function Page({user}){
 
-    const router = useRouter()
+    // const router = useRouter()
 
     const [userData, setUserData] = useState(undefined)
+
+
+    function Redirect() {
+
+
+        return <h1>Not connected</h1>
+
+    }
 
 
 
     useEffect(() => {
 
 
-        if(user.connected === false)
-        {
-            router.push('/')
-
-        }
+        // if(user.connected === false)
+        // {
+        //
+        // }
 
         getDataUser(user.email)
             .then(res => {
@@ -34,6 +41,8 @@ export default function Page({user}){
             {user.connected === false ?
 
                 <>
+
+                    <Redirect />
 
                 </>
 
