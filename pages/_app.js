@@ -7,20 +7,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from "../Component/navbar";
 import { PageTransition } from 'next-page-transitions'
 import Loader from "../Component/Loader";
-import {useEffect, useState} from "react";
-import checkUser from "../Component/competition/security/security-utils";
 
 //Context Import
 import Toastify, {ToastifyContext} from "../Component/toastify";
 import { CurrentUserProvider } from "../Component/security/user/userContext";
-import {useRouter} from "next/router";
 
 
 const TIMEOUT = 400
 
-function MyApp({ Component, pageProps}) {
-
-    const router = useRouter();
+function MyApp({ Component, pageProps, router}) {
 
 
     return <div className="App">

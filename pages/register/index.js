@@ -1,7 +1,9 @@
 import Register from "../../Component/security/register/controler";
-import {router} from "next/client";
+import {useRouter} from "next/router";
 
 export default function Index(){
+
+    const router = useRouter();
 
     return <Register router={router}/>
 

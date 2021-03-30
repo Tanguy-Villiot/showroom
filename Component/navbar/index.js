@@ -5,10 +5,10 @@ import {Button, Dropdown, DropdownButton, Modal, Nav, Navbar, NavDropdown} from 
 import Link from 'next/link'
 import {useContext, useEffect, useRef, useState} from "react";
 import {MDBBtn} from "mdbreact";
-import {useRouter} from "next/router";
 import ToastifyContext from "../toastify/context";
 import checkUser from "../competition/security/security-utils";
 import {useCurrentUser} from "../security/user/userContext";
+import {useRouter} from "next/router";
 
 export default function NavBar(){
 
