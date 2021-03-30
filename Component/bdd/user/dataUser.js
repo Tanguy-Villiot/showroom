@@ -1,3 +1,5 @@
+import checkServer from "../checkServer";
+
 export async function getCreationByCompetition(userId, competitionId){
 
 
@@ -32,4 +34,18 @@ export async function getVoteByCompetition(userId, competitionId){
 
     return res.json()
 
+}
+
+export async function getDataUser(email)
+{
+    const server = checkServer();
+
+    const res = await fetch(`${server}/api/user/getUserData`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+    });
+
+
+    return res.json()
 }
