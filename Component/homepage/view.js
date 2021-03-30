@@ -11,7 +11,7 @@ export default function View({language}){
             <img src='homepage/svg-path.svg' className={styles.SVG} alt=""/>
 
 
-            <div className="container-lg">
+            <div className="container-xl">
 
                 <div className={styles.MonthCompetition + " container"}>
 
@@ -19,13 +19,13 @@ export default function View({language}){
 
                         <div className="col-sm overflow-hidden">
 
-                            <img src='homepage/renderman.gif' className={styles.MonthCompetition_ill} alt=""/>
+                            <img src='homepage/Illu-AS.gif' className={styles.MonthCompetition_ill} alt=""/>
 
                         </div>
 
                         <div className="col-sm">
 
-                            <h1 className={styles.MonthCompetition_text}>{language.Participate.title}<span style={{color: "#7a5995"}}> Jeux Vidéo</span></h1>
+                            <h1 className={styles.MonthCompetition_text}>{language.Participate.title}<br/><span style={{color: "#7a5995"}}> Jeux Vidéo</span></h1>
 
                             <p className={styles.MonthCompetition_subtext}>"Le jeu vidéo de votre enfance"</p>
 
@@ -47,13 +47,16 @@ export default function View({language}){
 
                             <div className={styles.HowWork_step}>
 
+                                <p className={styles.HowWork_step_circle_text}><span style={{color: "#7a5995"}}>Créer</span> une illustration selon le thème du mois, et partagez là !</p>
+
+
                                 <div className={styles.HowWork_step_circle}>
 
                                     <h1 className={styles.HowWork_step_circle_nbr}>1</h1>
 
-                                    <p className={styles.HowWork_step_circle_text}><span style={{color: "#7a5995"}}>Créer</span> une illustration selon le thème du mois, et partagez là !</p>
 
                                 </div>
+
 
 
                             </div>
@@ -63,7 +66,7 @@ export default function View({language}){
 
                         <div className="col-sm">
 
-                            <img src='homepage/renderman.gif' className={styles.MonthCompetition_ill} alt=""/>
+                            <img src='homepage/Wireframe.png' className={styles.MonthCompetition_ill} alt=""/>
 
 
                         </div>

@@ -126,12 +126,12 @@ export default function NavBar(){
     }
 
     return(
-        <div className={styles.navbarShowroom + " container fixed-top"} style={{ maxWidth: 1700 }}>
+        <div className={styles.navbarShowroom + " fixed-top"}>
 
             <div>
                 <Navbar>
                     <Link href="/">
-                        <Navbar.Brand href="#home" className={styles.link}>Showroom</Navbar.Brand>
+                        <Navbar.Brand href="#home" className={styles.link} style={{marginRight: "1.5em", paddingTop: "0.125rem", fontFamily: "Inter-Bold"}}>Showroom</Navbar.Brand>
                     </Link>
                     <Navbar.Toggle />
                     <Nav className="mr-auto white-text">

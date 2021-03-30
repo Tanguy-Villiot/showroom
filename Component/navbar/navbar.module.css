@@ -1,11 +1,22 @@
 .navbarShowroom
 {
-    background: linear-gradient(#00000094, #0000);
+    background: linear-gradient(#000000c9, #0000);
     color: white;
+    width: 100vw !important;
+    padding-left: 3em;
+    padding-right: 3em;
+    padding-top: 0.2em;
 }
 
 .link
 {
     color: white !important;
-    font-family: Inter;
+    font-family: Inter-Light;
+    padding-right: 1em;
+    transition: 0.3s;
+}
+
+.link:Hover
+{
+    color: #93CAD8 !important;
 }

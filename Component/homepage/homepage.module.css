@@ -51,11 +51,17 @@
     border: none;
     border-radius: 10px;
     letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.MonthCompetition_button:Hover
+{
+    opacity: 0.5;
 }
 
 .HowWork
 {
-    margin-top: 6em;
+    margin-top: 8em;
 }
 
 .HowWork_title
