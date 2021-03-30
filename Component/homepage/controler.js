@@ -1,14 +1,19 @@
 import View from "./view";
-
-export default function HomePage(){
-
+export default function HomePage({language}){
 
     return(
 
-        <View />
+        <>
+
+            <View language={language}/>
+
+        </>
 
 
     )
 
 
 }
+
+
+

@@ -1,6 +1,6 @@
 import styles from "./homepage.module.css";
 
-export default function View(){
+export default function View({language}){
 
 
     return (
@@ -25,12 +25,11 @@ export default function View(){
 
                         <div className="col-sm">
 
-                            <h1 className={styles.MonthCompetition_text}>Participer au concours du mois, <br/>
-                                sur l'univers<br/> <span style={{color: "#7a5995"}}> Jeux Vidéo</span></h1>
+                            <h1 className={styles.MonthCompetition_text}>{language.Participate.title}<span style={{color: "#7a5995"}}> Jeux Vidéo</span></h1>
 
                             <p className={styles.MonthCompetition_subtext}>"Le jeu vidéo de votre enfance"</p>
 
-                            <button className={styles.MonthCompetition_button}>Participer</button>
+                            <button className={styles.MonthCompetition_button}>{language.Participate.button}</button>
 
                         </div>
 

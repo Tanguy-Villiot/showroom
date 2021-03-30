@@ -2,40 +2,32 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import HomePage from "../Component/homepage/controler";
+import {readFileSync} from "fs";
+import path from 'path'
 
-export default function Home() {
+export default function Home({content}) {
+
+  console.log(content);
+
   return (
-      // <>
-      //     <div className={styles.container}>
-      //         <Head>
-      //             <title>Showroom</title>
-      //             <link rel="icon" href="/favicon.ico" />
-      //         </Head>
-      //
-      //         <main className={styles.main}>
-      //             <h2>Bienvenue ! </h2>
-      //             <h1>Thème du mois: Les carottes.</h1>
-      //             <img className={styles.themeImg} src={"/renderman.gif"} alt="Des carottes"/>
-      //             <Link href="/competition">
-      //                 <a>Concours</a>
-      //             </Link>
-      //         </main>
-      //
-      //         <footer className={styles.footer}>
-      //             <a
-      //                 href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-      //                 target="_blank"
-      //                 rel="noopener noreferrer"
-      //             >
-      //                 Powered by{' '}
-      //                 <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-      //             </a>
-      //         </footer>
-      //     </div>
-      //
-      // </>
 
-      <HomePage />
+
+      <HomePage language={content}/>
 
   )
 }
+
+export async function getStaticProps({ locale }) {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  const dir = path.join(process.cwd(), "public", "static");
+  const filePath = `${dir}/${locale}.json`;
+  const buffer = readFileSync(filePath);
+  const content = JSON.parse(buffer.toString());
+  return {
+    props: {
+      content,
+    },
+  };
+};
+
