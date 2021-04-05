@@ -86,7 +86,6 @@ export default function View({language}){
             <div className={styles.Banniere_container}>
 
                 <Banner />
-
             </div>
 
             <img src='homepage/svg-path.svg' className={styles.SVG} alt=""/>

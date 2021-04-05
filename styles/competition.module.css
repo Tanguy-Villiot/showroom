@@ -1,6 +1,90 @@
+.curtain
+{
+    top: 0;
+    background-color: white;
+    overflow: hidden;
+    padding: 10em;
+
+    animation-duration: 0.5s;
+    animation-name: curtain;
+    animation-fill-mode: forwards;
+    animation-delay: 10s;
+    animation-timing-function: linear;
+}
+
+@keyframes curtain {
+    from {
+        top: 0;
+    }
+
+    to {
+        top: -100%;
+    }
+}
+
+.curtain_contain
+{
+    margin: 0 auto;
+}
+
+
+.MonthCompetition_ill
+{
+    height: 25em;
+}
+
+.MonthCompetition_text
+{
+    font-family: Inter-Bold;
+    font-size: 3em;
+    text-transform: uppercase;
+    margin-top: 1em;
+}
+
+.MonthCompetition_subtext
+{
+    color: #7a5995;
+    font-style: italic;
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+}
+
+.MonthCompetition_button
+{
+    background: linear-gradient(90deg, rgba(166,226,236,1) 0%, rgba(194,158,233,1) 33%, rgba(235,144,173,1) 66%, rgba(233,133,142,1) 100%);
+    color: white;
+    padding-right: 2em;
+    padding-left: 2em;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    font-size: 2em;
+    text-transform: uppercase;
+    font-family: Inter-Bold;
+    border: none;
+    border-radius: 10px;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+
 .Container
 {
     padding: 1em;
+}
+
+.title
+{
+    font-family: Inter-Bold;
+    font-size: 3em;
+    text-transform: uppercase;
+}
+
+.subtitle
+{
+    color: #7a5995;
+    font-style: italic;
+    margin-top: 1em;
+    margin-bottom: 1.5em;
 }
 
 .refreshButton
@@ -19,27 +103,48 @@
 }
 
 
-.item
-{
-    margin-bottom: 1em;
-    position: relative;
-    overflow: hidden;
-    z-index: 100;
+
+.item > *{
+    transition: 500ms;
+    transition-delay:1s;
 }
 
-.test
-{
-    width: 100%;
-    max-height: 35em;
-    border-radius: 4px;
-    position: relative;
-    z-index: -2;
+.item:focus,
+.item:hover {
+    transform: scale(1.75);
+    z-index: 10;
+
 }
+
+.item:hover .item_infos
+{
+    opacity: 1;
+    display: block;
+    transition: opacity 1s ease-out;
+}
+
 
 .item_image
 {
-    border-radius: 4px;
+    border-radius: 4px 4px 0px 0px;
     width: 16em;
+}
+
+.item_infos
+{
+    opacity: 0;
+    display: none;
+    height: 2em;
+    width: 16em;
+    z-index: 100;
+    position: absolute;
+    border-radius: 0px 0px 4px 4px;
+
+    background: rgba(255, 255, 255, 0.65);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 10px );
+    -webkit-backdrop-filter: blur( 10px );
+    border: 1px solid rgba( 255, 255 255, 0.18 );
 }
 
 

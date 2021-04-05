@@ -37,6 +37,15 @@ export default function View({images, handleClickReload, competition, addVote}) 
 
     }
 
+    function handleClickCurtail(e){
+
+
+        console.log(e.target.offsetParent.offsetParent)
+
+        e.target.offsetParent.offsetParent.style.animationDelay = "1.4s";
+
+    }
+
 
     return (
         <>
@@ -47,10 +56,10 @@ export default function View({images, handleClickReload, competition, addVote}) 
 
             <div className="container-md mt-5">
 
-                <div className="mb-5 text-center">
+                <div className="mb-5 text-center pt-5">
 
-                    <h1>{competition.theme}</h1>
-                    <h5 className="font-italic">"{competition.history}"</h5>
+                    <h1 className={styles.title}>{competition.theme}</h1>
+                    <h5 className={styles.subtitle}>"{competition.history}"</h5>
 
                 </div>
 
@@ -100,9 +109,13 @@ export default function View({images, handleClickReload, competition, addVote}) 
                         {typeof(images) !== "undefined" &&
                         images.map(function (item, i) {
                             return (
-                                <div key={i} data-src={item.url} onClick={handleClickVote} style={{marginBottom: '1em' }}>
+                                <div key={i} data-src={item.url} onClick={handleClickVote} className={styles.item} style={{marginBottom: '1em' }}>
 
                                     <img src={item.url} className={styles.item_image} key={i} alt={item._id}/>
+
+                                    <div className={styles.item_infos}>
+
+                                    </div>
 
                                 </div>
                             );
@@ -125,6 +138,34 @@ export default function View({images, handleClickReload, competition, addVote}) 
                 }
 
             </div>
+
+            <div className={"position-absolute w-100 h-100 " + styles.curtain}>
+
+                <div className={"container " + styles.curtain_contain}>
+                    <div className="row">
+
+                        <div className="col-sm overflow-hidden">
+
+                            <img src='homepage/Illu-AS.gif' className={styles.MonthCompetition_ill} alt=""/>
+
+                        </div>
+
+                        <div className="col-sm">
+
+                            <h1 className={styles.MonthCompetition_text}>Participer au concours du mois sur l'univers <br/><span style={{color: "#7a5995"}}>{competition.theme}</span></h1>
+
+                            <p className={styles.MonthCompetition_subtext}>"{competition.history}"</p>
+
+                            <button className={styles.MonthCompetition_button} onClick={handleClickCurtail}>Accéder</button>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
         </>
     )
 
