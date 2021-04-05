@@ -92,6 +92,15 @@
     }
 }
 
+.Banniere_logo
+{
+    position: absolute;
+    float: right;
+    right: 60px;
+    bottom: 116px;
+    z-index: 10000;
+}
+
 
 .SVG
 {
