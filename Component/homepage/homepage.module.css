@@ -1,9 +1,97 @@
-.Banniere
+.Banniere_container
+{
+    overflow: hidden;
+}
+
+.BanniereRight
 {
     width: 100%;
     object-fit: cover;
     height: 100vh;
+    scale: 1.2;
+    position: relative;
+    animation-duration: 15s;
+    animation-name: slideRight;
+
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
+    right: -10%;
+    filter: brightness(0%);
+
 }
+
+
+
+@keyframes slideRight {
+    from {
+        right: -10%;
+        filter: brightness(0%);
+    }
+
+    2% {
+        filter: brightness(100%);
+
+    }
+
+    5% {
+        filter: brightness(100%);
+
+    }
+
+    95% {
+        filter: brightness(100%);
+    }
+
+    to {
+        right: 10%;
+        filter: brightness(0%);
+    }
+}
+
+.BanniereLeft
+{
+    width: 100%;
+    object-fit: cover;
+    height: 100vh;
+    scale: 1.2;
+    position: relative;
+    animation-duration: 15s;
+    animation-name: slideLeft;
+    right: 10%;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    filter: brightness(0%);
+
+
+}
+
+@keyframes slideLeft {
+    from {
+        right: 10%;
+        filter: brightness(0%);
+    }
+
+    2% {
+        filter: brightness(100%);
+
+    }
+
+    5% {
+        filter: brightness(100%);
+
+    }
+
+    95% {
+        filter: brightness(100%);
+    }
+
+    to {
+        filter: brightness(0%);
+        right: -10%;
+    }
+}
+
 
 .SVG
 {

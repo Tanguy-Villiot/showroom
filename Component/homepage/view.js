@@ -1,12 +1,93 @@
 import styles from "./homepage.module.css";
+import {useEffect, useState} from "react";
+
+
+let count = 0;
+
 
 export default function View({language}){
+
+    const imageList = [
+        "homepage.jpg",
+        "microsoft.jpg",
+        "cyberpunk.jpg"
+    ];
+
+    const [image, setImage] = useState(imageList[0]);
+
+
+    useEffect(() => {
+
+
+    }, [image])
+
+
+
+
+    function Banner(){
+
+
+        function isEven(value) {
+            if (value%2 === 0)
+                return true;
+            else
+                return false;
+        }
+
+
+        function handleLoadImg(e){
+
+
+            console.log("iteration");
+
+            if(count === imageList.length -1)
+            {
+                count = 0;
+            }
+            else
+            {
+                count++;
+            }
+
+            setImage(imageList[count])
+
+
+        }
+
+
+
+        return(
+
+            <>
+
+                {isEven(count) ?
+
+                    <img src={'homepage/' + image} className={styles.BanniereRight} alt="" onAnimationIteration={handleLoadImg}/>
+
+                    :
+
+                    <img src={'homepage/' + image} className={styles.BanniereLeft} alt="" onAnimationIteration={handleLoadImg}/>
+
+                }
+
+
+            </>
+
+        );
+
+
+    }
 
 
     return (
 
         <>
-            <img src='homepage/homepage.jpg' className={styles.Banniere} alt=""/>
+
+            <div className={styles.Banniere_container}>
+
+                <Banner />
+
+            </div>
 
             <img src='homepage/svg-path.svg' className={styles.SVG} alt=""/>
 

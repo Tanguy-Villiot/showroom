@@ -7,7 +7,7 @@ import path from 'path'
 
 export default function Home({content}) {
 
-  console.log(content);
+  // console.log(content);
 
   return (
 
