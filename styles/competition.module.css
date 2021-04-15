@@ -5,20 +5,30 @@
     overflow: hidden;
     padding: 10em;
 
-    animation-duration: 0.5s;
+    opacity: 1;
+
+    animation-duration: 1s;
     animation-name: curtain;
     animation-fill-mode: forwards;
-    animation-delay: 10s;
-    animation-timing-function: linear;
+    animation-delay: 3s;
+    animation-timing-function: ease-in-out;
 }
 
 @keyframes curtain {
     from {
         top: 0;
+        opacity: 1;
+
+    }
+
+    50% {
+        opacity: 0;
     }
 
     to {
         top: -100%;
+        opacity: 0;
+
     }
 }
 
@@ -104,9 +114,9 @@
 
 
 
-.item > *{
-    transition: 500ms;
-    transition-delay:1s;
+.item {
+    transition: 300ms;
+    transition-delay: 0.3s;
 }
 
 .item:focus,

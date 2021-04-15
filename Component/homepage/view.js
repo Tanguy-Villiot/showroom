@@ -149,7 +149,7 @@ export default function View({language}){
 
                         <div className="col-sm">
 
-                            <img src='homepage/Wireframe.png' className={styles.MonthCompetition_ill} alt=""/>
+                            <img src='homepage/Wireframe.gif' className={styles.MonthCompetition_ill} alt=""/>
 
 
                         </div>
