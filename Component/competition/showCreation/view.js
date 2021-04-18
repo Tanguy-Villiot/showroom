@@ -10,6 +10,7 @@ export default function View({images, handleClickReload, competition, addVote}) 
 
 
     const[imageVoted, setImageVoted] = useState([])
+    const [likeStyle, setLikeStyle] = useState(false);
 
     //EFFECT METHOD
 
@@ -25,6 +26,19 @@ export default function View({images, handleClickReload, competition, addVote}) 
         x.push(image);
 
         setImageVoted(x);
+
+    }
+
+    function handleClickLike(e){
+
+        setLikeStyle(true);
+        
+
+    }
+
+    function handleAnimationLikeEnd(){
+
+        setLikeStyle(false);
 
     }
 
@@ -83,6 +97,32 @@ export default function View({images, handleClickReload, competition, addVote}) 
                                     <img src={item.url} className={styles.item_image} key={i} alt={item._id}/>
 
                                     <div className={styles.item_infos}>
+
+                                        <div className={likeStyle ? styles.item_infos_like + " " + styles.is_animating : styles.item_infos_like} onClick={handleClickLike} onAnimationEnd={handleAnimationLikeEnd}>
+
+                                        </div>
+
+                                        <div className={styles.item_infos_button_container}>
+
+                                            <div className={styles.item_infos_button}>
+
+                                                <img src="Competition/enlarge.svg" className={styles.item_infos_button_extend_img} alt="extend" />
+
+                                            </div>
+
+                                            <div className={styles.item_infos_button}>
+
+                                                <img src="Competition/link.svg" className={styles.item_infos_button_extend_img} alt="extend" />
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <h3 className={styles.item_infos_title}>{item.title}</h3>
+
+
+                                        <span className={styles.item_infos_description}>{item.description}</span>
 
                                     </div>
 

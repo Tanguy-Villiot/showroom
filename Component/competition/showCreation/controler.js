@@ -103,6 +103,8 @@ export default function ShowCreation({data}){
                     fetchImage(res[0]._id)
                         .then(res => {
                             setImages(res);
+
+                            console.log(res);
                         })
                 })
 

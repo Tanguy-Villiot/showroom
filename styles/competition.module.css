@@ -91,7 +91,7 @@
 
 .titleContainer_image
 {
-    height: 23em;
+    height: 18em;
     opacity: 0.5;
 }
 
@@ -173,8 +173,9 @@
 .item:hover .item_infos
 {
     opacity: 1;
-    display: block;
-    transition: opacity 1s ease-out;
+    visibility: visible;
+    transition-delay: 0.3s;
+    /*transition: 300ms;*/
 }
 
 
@@ -186,21 +187,115 @@
 
 .item_infos
 {
+    transition: 300ms;
+
+
     opacity: 0;
-    display: none;
-    height: 2em;
+    visibility: hidden;
+    height: 7em;
     width: 16em;
     z-index: 100;
     position: absolute;
     border-radius: 0px 0px 4px 4px;
+    padding: 0.75em;
 
-    background: rgba(255, 255, 255, 0.65);
+
+    /*background: rgba(255, 255, 255, 0.65);*/
+    background: #1f1f1f;
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 10px );
+    /*backdrop-filter: blur( 10px );*/
     -webkit-backdrop-filter: blur( 10px );
     border: 1px solid rgba( 255, 255 255, 0.18 );
 }
 
+.item_infos_like
+{
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    background-image: url( 'https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png');
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 2900%;
+    right: 1px;
+    position: absolute;
+    top: -1.6em;
+}
+
+.item_infos_like:Hover
+{
+    background-position:right;
+}
+
+.is_animating {
+    animation: heart-burst .8s steps(28) 1;
+}
+
+@keyframes heart-burst {
+    from {background-position:left;}
+    to { background-position:right;}
+}
+
+.item_infos_button_container
+{
+    display: flex;
+    margin-bottom: 0.75em;
+}
+
+.item_infos_button
+{
+    height: 25px;
+    width: 25px;
+    border-radius: 4px;
+
+    position: relative;
+    border: 0.100em solid rgba(255, 255, 255, 0.25);
+
+    transition: 0.125s;
+    margin-right: 10px;
+
+}
+
+.item_infos_button:Hover
+{
+    border: 0.100em solid rgba(255, 255, 255, 1);
+    transition: 0.125s;
+}
+
+.item_infos_button_extend_img
+{
+    height: 0.85em;
+    filter: invert(100%);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.item_infos_title
+{
+    color: white;
+    font-size: 0.75em;
+    text-transform: lowercase;
+
+    font-family: Inter, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+.item_infos_title::first-letter
+{
+    text-transform: uppercase;
+}
+
+.item_infos_description
+{
+    font-family: Inter-Light, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    color: #d2cfcf;
+    text-transform: lowercase;
+    font-size: 0.5em;
+
+}
 
 
 /*** VOTE ***/
