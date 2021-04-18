@@ -1,12 +1,10 @@
 import styles from './navbar.module.css'
 
-
-import {Button, Dropdown, DropdownButton, Modal, Nav, Navbar, NavDropdown} from "react-bootstrap";
+import {Dropdown, Modal, Nav, Navbar} from "react-bootstrap";
 import Link from 'next/link'
-import {useContext, useEffect, useRef, useState} from "react";
+import {forwardRef, useContext, useEffect, useRef, useState} from "react";
 import {MDBBtn} from "mdbreact";
 import ToastifyContext from "../toastify/context";
-import checkUser from "../competition/security/security-utils";
 import {useCurrentUser} from "../security/user/userContext";
 import {useRouter} from "next/router";
 
@@ -16,7 +14,9 @@ export default function NavBar(){
     const emailInput = useRef();
     const passwordInput = useRef();
 
+
     const [modalShow, setModalShow] = useState(false);
+    const [navbarShow, setNavbarShow] = useState(false);
     const { currentUser, fetchCurrentUser } = useCurrentUser();
     const [changeConnection, setChangeConnection] = useState(0);
 
@@ -81,12 +81,46 @@ export default function NavBar(){
 
     };
 
+    function handleHover(){
+        setNavbarShow(true);
+    }
+
+    function handleHide(){
+        // setNavbarShow(false);
+    }
+
 
 
     useEffect(() => fetchCurrentUser(), [])
 
 
     //VIEW METHODS
+
+
+    const CustomToggle = forwardRef(({ children, onClick }, ref) => (
+        <a
+            href=""
+            ref={ref}
+            onClick={(e) => {
+                e.preventDefault();
+                onClick(e);
+            }}
+            className={styles.linkProfil}
+        >
+            <img className={styles.thumbnailImage}
+                 src="/Profil/1.png"
+                 alt="user pic"
+            />
+
+            {children}
+
+            <img className={styles.arrowdown}
+                 src="/down-arrow.svg"
+                 alt="user pic"
+            />
+            {/*&#x25bc;*/}
+        </a>
+    ));
 
     const ButtonUser = () => {
 
@@ -106,17 +140,28 @@ export default function NavBar(){
         } else {
             return(
                 <>
-                    <DropdownButton
-                        menuAlign={{ lg: 'right' }}
-                        title={"Bonjour " + currentUser.user.name}
-                        id="dropdown-menu-align-right"
-                    >
+                    <Dropdown className={styles.DropDown} show={navbarShow} onMouseEnter={handleHover} onMouseLeave={handleHide}>
+                        <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
+                            {currentUser.user.name}
+                        </Dropdown.Toggle>
 
-                        <Link href="/profil">Profil</Link>
 
-                        <Dropdown.Divider />
-                        <Dropdown.Item onClick={handleClickLogout}>Logout</Dropdown.Item>
-                    </DropdownButton>
+                        <Dropdown.Menu className={styles.dropdownMenu}>
+
+                            <div className={styles.dropdownContainer}>
+                                <Dropdown.Item onClick={handleClickLogout}><Link href="/profil">Profil</Link></Dropdown.Item>
+
+
+                                <Dropdown.Divider />
+                                <Dropdown.Item onClick={handleClickLogout}>Faq</Dropdown.Item>
+
+                                <Dropdown.Item onClick={handleClickLogout}>Logout</Dropdown.Item>
+                            </div>
+
+
+                        </Dropdown.Menu>
+
+                    </Dropdown>
 
                 </>
             )
@@ -125,8 +170,13 @@ export default function NavBar(){
 
     }
 
+
+    const classes = router.pathname === "/" ?
+        `${styles.navbarShowroomHome} fixed-top` :
+        `${styles.navbarShowroomOther} fixed-top`
+
     return(
-        <div className={styles.navbarShowroom + " fixed-top"}>
+        <div className={classes}>
 
             <div>
                 <Navbar>

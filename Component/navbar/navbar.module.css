@@ -1,4 +1,4 @@
-.navbarShowroom
+.navbarShowroomHome
 {
     background: linear-gradient(#000000c9, #0000);
     color: white;
@@ -6,6 +6,96 @@
     padding-left: 3em;
     padding-right: 3em;
     padding-top: 0.2em;
+}
+
+.navbarShowroomOther
+{
+    background: #1f1f1f;
+    color: white;
+    width: 100vw !important;
+    padding-left: 3em;
+    padding-right: 3em;
+    padding-top: 0.2em;
+}
+
+.DropDown
+{
+    transition: all 3s;
+}
+
+.DropDown .dropdownMenu
+{
+    opacity: 0;
+
+    transition: visibility 0.32s, opacity 0.3s linear;
+
+    visibility: hidden;
+
+    border: unset;
+
+    background: unset;
+
+}
+
+.dropdownContainer
+{
+    margin-top: 1em;
+    padding-top: 0.50em;
+    padding-bottom: 0.50em;
+    background: white;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+}
+
+.DropDown:Hover .dropdownMenu
+{
+    opacity: 1;
+
+    visibility: visible;
+
+    transition: visibility 0s, opacity 0.3s linear;
+
+
+}
+
+
+.DropDown:Hover .arrowdown
+{
+    transform: rotate(180deg);
+    transition: all 0.3s;
+
+}
+
+
+.linkProfil
+{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.linkProfil:Hover
+{
+    text-decoration: none;
+    color: white;
+}
+
+.thumbnailImage
+{
+    border-radius: 4px;
+    margin-right: 1em;
+}
+
+
+.arrowdown
+{
+    height: 1em;
+    filter: invert(100%);
+    margin-left: 1em;
+
+    transition: all 0.3s;
+
 }
 
 .link
