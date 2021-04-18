@@ -149,7 +149,7 @@ export default function NavBar(){
                         <Dropdown.Menu className={styles.dropdownMenu}>
 
                             <div className={styles.dropdownContainer}>
-                                <Dropdown.Item onClick={handleClickLogout}><Link href="/profil">Profil</Link></Dropdown.Item>
+                                <Link href="/profil"><Dropdown.Item>Profil</Dropdown.Item></Link>
 
 
                                 <Dropdown.Divider />

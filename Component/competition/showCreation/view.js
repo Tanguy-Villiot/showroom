@@ -1,11 +1,9 @@
 import styles from "../../../styles/competition.module.css";
-import Image from "next/image";
 import {Button} from "react-bootstrap";
 import UploadImage from "./ModalUpload/uploadImage";
 import Head from 'next/head'
 import VoteImage from "./ModalVote/voteImage";
 import {useState} from "react";
-
 
 
 export default function View({images, handleClickReload, competition, addVote}) {
@@ -56,10 +54,43 @@ export default function View({images, handleClickReload, competition, addVote}) 
 
             <div className="container-md mt-5">
 
-                <div className="mb-5 text-center pt-5">
+                <div className={styles.titleContainer}>
 
                     <h1 className={styles.title}>{competition.theme}</h1>
                     <h5 className={styles.subtitle}>"{competition.history}"</h5>
+
+
+                    <img
+                        src="/Competition/camera.svg"
+                        alt="Picture of the author"
+                        className={styles.titleContainer_image1}
+                    />
+
+                    <img
+                        src="/Competition/pencil.svg"
+                        alt="Picture of the author"
+                        className={styles.titleContainer_image2}
+                    />
+
+
+                    <img
+                        src="/Competition/headphones.svg"
+                        alt="Picture of the author"
+                        className={styles.titleContainer_image3}
+                    />
+
+                    <img
+                        src="/Competition/cube.svg"
+                        alt="Picture of the author"
+                        className={styles.titleContainer_image4}
+                    />
+
+                    <img
+                        src="/Competition/carrot.svg"
+                        alt="Picture of the author"
+                        className={styles.titleContainer_image5}
+                    />
+
 
                 </div>
 

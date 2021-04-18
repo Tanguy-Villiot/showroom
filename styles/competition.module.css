@@ -82,6 +82,13 @@
     padding: 1em;
 }
 
+.titleContainer
+{
+    text-align: center;
+    padding: 6em;
+    position: relative;
+}
+
 .title
 {
     font-family: Inter-Bold;
@@ -96,6 +103,102 @@
     margin-top: 1em;
     margin-bottom: 1.5em;
 }
+
+/*IMAGES TITLE*/
+.titleContainer_image1
+{
+    position: absolute;
+    left: 14em;
+    bottom: 5em;
+    height: 3em;
+
+    animation-duration: 4s;
+    animation-name: image;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+.titleContainer_image2
+{
+    position: absolute;
+    left: 20em;
+    height: 3em;
+    top: 3em;
+
+    animation-delay: 1.5s;
+    animation-duration: 4s;
+    animation-name: image;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+.titleContainer_image3
+{
+    position: absolute;
+    right: 12em;
+    bottom: 8em;
+    height: 3em;
+
+    animation-delay: 1s;
+    animation-duration: 4s;
+    animation-name: image;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+.titleContainer_image4
+{
+    position: absolute;
+    right: 21em;
+    bottom: 3em;
+    height: 3em;
+    z-index: -1;
+
+    animation-delay: 2s;
+    animation-duration: 4s;
+    animation-name: image;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+.titleContainer_image5
+{
+    position: absolute;
+    right: 22em;
+    top: 4em;
+    height: 3em;
+    z-index: -1;
+
+    animation-delay: 2.5s;
+    animation-duration: 4s;
+    animation-name: image;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+
+@keyframes image {
+    from {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    to {
+        transform: translateY(0px);
+    }
+}
+
+
+
+
+
+
+
+
+
 
 .refreshButton
 {
