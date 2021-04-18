@@ -56,80 +56,18 @@ export default function View({images, handleClickReload, competition, addVote}) 
 
                 <div className={styles.titleContainer}>
 
-                    <h1 className={styles.title}>{competition.theme}</h1>
-                    <h5 className={styles.subtitle}>"{competition.history}"</h5>
+                    <img src="Competition/Design.png" className={styles.titleContainer_image} alt="image" />
 
+                    <div className={styles.titleContainer_text}>
+                        <h1 className={styles.title}>{competition.theme}</h1>
+                        <h5 className={styles.subtitle}>"{competition.history}"</h5>
 
-                    <img
-                        src="/Competition/camera.svg"
-                        alt="Picture of the author"
-                        className={styles.titleContainer_image1}
-                    />
-
-                    <img
-                        src="/Competition/pencil.svg"
-                        alt="Picture of the author"
-                        className={styles.titleContainer_image2}
-                    />
-
-
-                    <img
-                        src="/Competition/headphones.svg"
-                        alt="Picture of the author"
-                        className={styles.titleContainer_image3}
-                    />
-
-                    <img
-                        src="/Competition/cube.svg"
-                        alt="Picture of the author"
-                        className={styles.titleContainer_image4}
-                    />
-
-                    <img
-                        src="/Competition/carrot.svg"
-                        alt="Picture of the author"
-                        className={styles.titleContainer_image5}
-                    />
-
-
-                </div>
-
-
-                <div className="mb-5">
-
-                    {competition.finish ?
-
-                        <>
-                            <Button variant="warning" className={styles.refreshButton} onClick={handleClickReload}>Refresh</Button>
-
-                            <span className="text-muted">La compétition est terminé</span>
-
-                        </>
-
-                        :
-
-                        competition.vote ?
-
-                            <>
-                                <Button variant="warning" className={styles.refreshButton} onClick={handleClickReload}>Refresh</Button>
-
-                                <VoteImage images={imageVoted} setImagesVote={setImageVoted} submitVote={handleClickSubmitVote}/>
-                            </>
-
-                            :
-
-                            <div className="text-center">
-                                <UploadImage competition={competition}/>
-
-                            </div>
-
-                    }
-
-
+                    </div>
 
 
 
                 </div>
+
 
 
 
@@ -167,6 +105,45 @@ export default function View({images, handleClickReload, competition, addVote}) 
 
 
                 }
+
+                <div className={styles.toolBar}>
+
+                    <div className={styles.toolBar_Button}>
+
+                        {competition.finish ?
+
+                            <>
+                                <Button variant="warning" className={styles.refreshButton} onClick={handleClickReload}>Refresh</Button>
+
+                                <span className="text-muted">La compétition est terminé</span>
+
+                            </>
+
+                            :
+
+                            competition.vote ?
+
+                                <>
+                                    <Button variant="warning" className={styles.refreshButton} onClick={handleClickReload}>Refresh</Button>
+
+                                    <VoteImage images={imageVoted} setImagesVote={setImageVoted} submitVote={handleClickSubmitVote}/>
+                                </>
+
+                                :
+
+                                <div className="text-center">
+                                    <UploadImage competition={competition}/>
+
+                                </div>
+
+                        }
+
+
+                    </div>
+
+
+                    <img src='homepage/svg-path.svg' className={styles.toolBarSVG} alt=""/>
+                </div>
 
             </div>
 
