@@ -160,13 +160,17 @@
 
 .item {
     transition: 300ms;
-    transition-delay: 0.3s;
+
+    transition-delay: 0s;
+
 }
 
 .item:focus,
 .item:hover {
     transform: scale(1.75);
-    z-index: 10;
+
+    transition-delay: 0.5s;
+
 
 }
 
@@ -174,8 +178,7 @@
 {
     opacity: 1;
     visibility: visible;
-    transition-delay: 0.3s;
-    /*transition: 300ms;*/
+    transition-delay: 0.5s;
 }
 
 

@@ -1,0 +1,93 @@
+/* Copyright (c) 2021 Ankward. All right reserved. */
+/* */
+/* Ankward (https://ankward.fr) */
+
+.main
+{
+    position: fixed;
+    z-index: 500000;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.98);
+    top: 0;
+
+
+    animation-duration: 0.5s;
+    animation-name: fadeIn;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+
+    }
+
+
+    to {
+        opacity: 1;
+
+    }
+}
+
+
+.close
+{
+    animation-duration: 0.5s;
+    animation-name: fadeOut;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+
+    }
+
+
+    to {
+        opacity: 0;
+
+    }
+}
+
+
+
+.clickable
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+
+.image
+{
+    height: 80vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.closeButton
+{
+    float: right;
+    margin: 1em;
+}
+
+.closeImage
+{
+    filter: invert(100%);
+    height: 2em;
+    transition: 0.3s;
+}
+
+.closeImage:Hover
+{
+    filter: invert(85%);
+    transition: 0.3s;
+}
