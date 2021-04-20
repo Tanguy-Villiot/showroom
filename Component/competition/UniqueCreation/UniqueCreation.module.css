@@ -102,11 +102,52 @@
 
 .tools_infos
 {
+    display: block !important;
     position: absolute;
     bottom: 0;
     padding-left: 3.5em;
     margin-bottom: 0.5em;
+    animation-duration: 0.3s;
+    animation-name: fadeInInfos;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
 }
+
+@keyframes fadeInInfos {
+    from {
+        opacity: 0;
+
+    }
+
+
+    to {
+        opacity: 1;
+
+    }
+}
+
+.closeInfos
+{
+    animation-duration: 0.3s;
+    animation-name: fadeOutInfos;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes fadeOutInfos {
+    from {
+        opacity: 1;
+
+    }
+
+
+    to {
+        opacity: 0;
+
+    }
+}
+
+
 
 .tools_infos_title
 {

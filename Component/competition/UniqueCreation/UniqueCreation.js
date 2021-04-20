@@ -10,7 +10,7 @@ import {useState} from "react";
 export default function UniqueCreation({creation, enable, setEnable}){
 
     const [styleMain, setStyleMain] = useState(styles.main);
-    const [styleInfo, setStyleInfo] = useState("none")
+    const [styleInfo, setStyleInfo] = useState();
 
 
     if(enable)
@@ -28,10 +28,6 @@ export default function UniqueCreation({creation, enable, setEnable}){
 
     function handleClose(){
 
-        console.log(styleMain)
-
-
-
         if(styleMain === styles.main + " " + styles.close){
             document.body.style.overflow = 'visible'
 
@@ -43,14 +39,25 @@ export default function UniqueCreation({creation, enable, setEnable}){
 
     function handleMouseEnterInfo(){
 
-        setStyleInfo("block");
+        setStyleInfo(styles.tools_infos);
 
     }
 
     function handleMouseLeaveInfo(){
 
-        setStyleInfo("none");
+        if(styleInfo === styles.tools_infos)
+        {
+            setStyleInfo(styles.tools_infos + " " + styles.closeInfos);
+        }
 
+    }
+
+    function handleCloseInfo()
+    {
+        if(styleInfo === styles.tools_infos + " " + styles.closeInfos){
+
+            setStyleInfo()
+        }
     }
 
     return (
@@ -75,7 +82,7 @@ export default function UniqueCreation({creation, enable, setEnable}){
                             e.preventDefault(); return false
                         }}/>
 
-                        <div className={styles.tools_infos} style={{display: styleInfo}} onMouseLeave={handleMouseLeaveInfo}>
+                        <div className={styleInfo} style={{display: "none"}} onMouseLeave={handleMouseLeaveInfo} onAnimationEnd={handleCloseInfo}>
                             <h2 className={styles.tools_infos_title}>{creation.title}</h2>
                             <span className={styles.tools_infos_description}>{creation.description}</span>
                         </div>
