@@ -11,6 +11,9 @@ export default function UniqueCreation({creation, enable, setEnable}){
 
     const [styleMain, setStyleMain] = useState(styles.main);
     const [styleInfo, setStyleInfo] = useState();
+    const [styleLike, setStyleLike] = useState();
+
+    const [creationLiked, setCreationLiked] = useState(false);
 
 
     if(enable)
@@ -60,6 +63,28 @@ export default function UniqueCreation({creation, enable, setEnable}){
         }
     }
 
+    function handleClickLike(){
+
+        if(!creationLiked)
+        {
+            setStyleLike(styles.likeClick);
+            setCreationLiked(true);
+        }
+        else
+        {
+            setStyleLike(undefined);
+            setCreationLiked(false);
+        }
+
+
+    }
+
+    function handleAnimationEndLike(){
+
+        // setStyleLike(undefined);
+
+    }
+
     return (
         <>
         {enable ?
@@ -93,9 +118,9 @@ export default function UniqueCreation({creation, enable, setEnable}){
 
                         </div>
 
-                        <div className={styles.tools} style={{right: "0px"}}>
+                        <div className={styles.tools} style={{right: "0px"}} >
 
-                            <img src="/Competition/like.svg" alt="up-arrow" className={styles.tools_icon}/>
+                            <img src="/Competition/like.svg" alt="up-arrow" className={styles.tools_icon + " " + styleLike} onClick={handleClickLike} onAnimationEnd={handleAnimationEndLike}/>
 
                         </div>
 

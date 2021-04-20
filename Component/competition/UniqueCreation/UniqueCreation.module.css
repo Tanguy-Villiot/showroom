@@ -100,6 +100,33 @@
     transition: 0.3s;
 }
 
+.likeClick
+{
+    filter: invert(10%) sepia(97%) saturate(6736%) hue-rotate(3deg) brightness(110%) contrast(112%);
+
+    animation-duration: 0.3s;
+    animation-name: likeAnim;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+.likeClick:Hover
+{
+    /*filter: invert(10%) sepia(97%) saturate(6736%) hue-rotate(3deg) brightness(110%) contrast(112%) !important;*/
+}
+
+@keyframes likeAnim {
+    from {
+        filter: invert(100%);
+
+
+    }
+
+    to {
+        filter: invert(10%) sepia(97%) saturate(6736%) hue-rotate(3deg) brightness(110%) contrast(112%);
+    }
+}
+
 .tools_infos
 {
     display: block !important;
