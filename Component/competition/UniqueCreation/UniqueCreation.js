@@ -54,10 +54,29 @@ export default function UniqueCreation({creation, enable, setEnable}){
                         <img src="/Competition/close.svg" className={styles.closeImage} alt="close" onClick={handleClose}/>
                     </div>
 
+                    <div className={styles.imageContainer}>
+
                         <img src={creation.url} className={styles.image} alt="creation" onContextMenu={(e) => {
 
                             e.preventDefault(); return false
                         }}/>
+
+                        <div className={styles.tools}>
+
+                            <img src="/Competition/info.svg" alt="up-arrow" className={styles.tools_icon}/>
+
+                        </div>
+
+                        <div className={styles.tools} style={{right: "0px"}}>
+
+                            <img src="/Competition/like.svg" alt="up-arrow" className={styles.tools_icon}/>
+
+                        </div>
+
+
+
+                    </div>
+
 
                 </div>
 

@@ -63,14 +63,41 @@
     height: 100%;
 }
 
+.imageContainer
+{
+    height: max-content;
+    width: max-content;
+    position: relative;
+
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+}
 
 .image
 {
     height: 80vh;
+}
+
+/********** TOOLBAR **********/
+.tools
+{
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+    bottom: 0;
+    margin: 0.5em;
+}
+
+.tools_icon
+{
+    filter: invert(100%) opacity(0.4);
+    height: 2em;
+    transition: 0.3s;
+}
+
+.tools_icon:Hover
+{
+    filter: invert(100%) opacity(1);
+    transition: 0.3s;
 }
 
 .closeButton
