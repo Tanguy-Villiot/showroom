@@ -10,6 +10,8 @@ import {useState} from "react";
 export default function UniqueCreation({creation, enable, setEnable}){
 
     const [styleMain, setStyleMain] = useState(styles.main);
+    const [styleInfo, setStyleInfo] = useState("none")
+
 
     if(enable)
     {
@@ -39,6 +41,18 @@ export default function UniqueCreation({creation, enable, setEnable}){
 
     }
 
+    function handleMouseEnterInfo(){
+
+        setStyleInfo("block");
+
+    }
+
+    function handleMouseLeaveInfo(){
+
+        setStyleInfo("none");
+
+    }
+
     return (
         <>
         {enable ?
@@ -56,12 +70,17 @@ export default function UniqueCreation({creation, enable, setEnable}){
 
                     <div className={styles.imageContainer}>
 
-                        <img src={creation.url} className={styles.image} alt="creation" onContextMenu={(e) => {
+                        <img src={creation.url} className={styles.image} alt="creation" onMouseLeave={handleMouseLeaveInfo} onContextMenu={(e) => {
 
                             e.preventDefault(); return false
                         }}/>
 
-                        <div className={styles.tools}>
+                        <div className={styles.tools_infos} style={{display: styleInfo}} onMouseLeave={handleMouseLeaveInfo}>
+                            <h2 className={styles.tools_infos_title}>{creation.title}</h2>
+                            <span className={styles.tools_infos_description}>{creation.description}</span>
+                        </div>
+
+                        <div className={styles.tools} onMouseEnter={handleMouseEnterInfo}>
 
                             <img src="/Competition/info.svg" alt="up-arrow" className={styles.tools_icon}/>
 
@@ -72,6 +91,9 @@ export default function UniqueCreation({creation, enable, setEnable}){
                             <img src="/Competition/like.svg" alt="up-arrow" className={styles.tools_icon}/>
 
                         </div>
+
+
+
 
 
 
