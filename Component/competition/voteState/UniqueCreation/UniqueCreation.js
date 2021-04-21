@@ -97,7 +97,7 @@ export default function UniqueCreation({creation, enable, setEnable}){
                     </div>
 
                     <div className={styles.closeButton}>
-                        <img src="/Competition/close.svg" className={styles.closeImage} alt="close" onClick={handleClose}/>
+                        <img src="/Competition/close.svg" className={styles.closeImage} alt="close" onClick={handleChangeAnimation}/>
                     </div>
 
                     <div className={styles.imageContainer}>

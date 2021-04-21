@@ -82,42 +82,6 @@
     padding: 1em;
 }
 
-.titleContainer
-{
-    text-align: center;
-    padding: 3em;
-    position: relative;
-}
-
-.titleContainer_image
-{
-    height: 18em;
-    opacity: 0.5;
-}
-
-.titleContainer_text
-{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -30%);
-}
-
-.title
-{
-    font-family: Inter-Bold;
-    font-size: 3em;
-    text-transform: uppercase;
-}
-
-.subtitle
-{
-    color: #7a5995;
-    font-style: italic;
-    margin-top: 1em;
-    margin-bottom: 1.5em;
-}
-
 
 .toolBar
 {
@@ -149,9 +113,9 @@
 
 .imagesContainer
 {
-    -webkit-column-count: 4;
-    -moz-column-count: 4;
-    column-count: 4;
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
     column-gap: 1em;
     margin-bottom: 2em;
 }
@@ -167,7 +131,7 @@
 
 .item:focus,
 .item:hover {
-    transform: scale(1.75);
+    transform: scale(1.50);
 
     transition-delay: 0.5s;
 
@@ -185,7 +149,7 @@
 .item_image
 {
     border-radius: 4px 4px 0px 0px;
-    width: 16em;
+    width: 22em;
 }
 
 .item_infos
@@ -196,7 +160,7 @@
     opacity: 0;
     visibility: hidden;
     height: 7em;
-    width: 16em;
+    width: 22em;
     z-index: 100;
     position: absolute;
     border-radius: 0px 0px 4px 4px;

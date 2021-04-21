@@ -15,7 +15,7 @@ handler.post(async (req, res) => {
     let count = await req.db.collection(competitionId).countDocuments({});
 
 
-    let i = 20;
+    let i = 12;
 
     let data = [];
 

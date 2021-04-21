@@ -1,0 +1,40 @@
+/* Copyright (c) 2021 Ankward. All right reserved. */
+/* */
+/* Ankward (https://ankward.fr) */
+
+.titleContainer
+{
+    text-align: center;
+    padding: 3em;
+    position: relative;
+}
+
+.titleContainer_image
+{
+    height: 18em;
+    opacity: 0.5;
+}
+
+
+.titleContainer_text
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+}
+
+.title
+{
+    font-family: Inter-Bold;
+    font-size: 3em;
+    text-transform: uppercase;
+}
+
+.subtitle
+{
+    color: #7a5995;
+    font-style: italic;
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+}

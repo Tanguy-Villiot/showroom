@@ -1,14 +1,19 @@
-import styles from "../../../styles/competition.module.css";
+/*
+ * Copyright (c) 2021 Ankward. All right reserved.
+ *
+ * Ankward (https://ankward.fr)
+ */
+
+import styles from "./ViewVoteState.module.css";
 import {Button} from "react-bootstrap";
-import UploadImage from "./ModalUpload/uploadImage";
 import Head from 'next/head'
 import VoteImage from "./ModalVote/voteImage";
 import {useState} from "react";
 import {useRouter} from "next/router";
-import UniqueCreation from "../UniqueCreation/UniqueCreation";
+import UniqueCreation from "./UniqueCreation/UniqueCreation";
 
 
-export default function View({images, handleClickReload, competition, addVote}) {
+export default function ViewVoteState({images, handleClickReload, competition, addVote}) {
 
     const router = useRouter()
 
@@ -90,33 +95,10 @@ export default function View({images, handleClickReload, competition, addVote}) 
 
     return (
         <>
-            <Head>
-                <title>Showroom - Competition</title>
-                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-            </Head>
 
             <UniqueCreation enable={enableUnique} creation={imageSelected} setEnable={setEnableUnique}/>
 
                     <div className="container-md mt-5">
-
-                        <div className={styles.titleContainer}>
-
-                            <img src="Competition/Design.png" className={styles.titleContainer_image} alt="image" />
-
-                            <div className={styles.titleContainer_text}>
-                                <h1 className={styles.title}>{competition.theme}</h1>
-                                <h5 className={styles.subtitle}>"{competition.history}"</h5>
-
-                            </div>
-
-
-
-                        </div>
-
-
-
-
-                        { competition.vote ?
 
                             <div className={styles.imagesContainer}>
 
@@ -168,50 +150,13 @@ export default function View({images, handleClickReload, competition, addVote}) 
 
                             </div>
 
-                            :
-
-                            <>
-
-
-                            </>
-
-
-
-
-                        }
-
                         <div className={styles.toolBar}>
 
                             <div className={styles.toolBar_Button}>
 
-                                {competition.finish ?
+                                <Button variant="warning" className={styles.refreshButton} onClick={handleClickReload}>Refresh</Button>
 
-                                    <>
-                                        <Button variant="warning" className={styles.refreshButton} onClick={handleClickReload}>Refresh</Button>
-
-                                        <span className="text-muted">La compétition est terminé</span>
-
-                                    </>
-
-                                    :
-
-                                    competition.vote ?
-
-                                        <>
-                                            <Button variant="warning" className={styles.refreshButton} onClick={handleClickReload}>Refresh</Button>
-
-                                            <VoteImage images={imageVoted} setImagesVote={setImageVoted} submitVote={handleClickSubmitVote}/>
-                                        </>
-
-                                        :
-
-                                        <div className="text-center">
-                                            <UploadImage competition={competition}/>
-
-                                        </div>
-
-                                }
-
+                                <VoteImage images={imageVoted} setImagesVote={setImageVoted} submitVote={handleClickSubmitVote}/>
 
                             </div>
 
