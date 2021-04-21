@@ -2,6 +2,7 @@ import styles from './vote.module.css';
 import {Button, Modal, ProgressBar} from "react-bootstrap";
 import {useContext, useEffect, useState} from "react";
 import ToastifyContext from "../../../toastify/context";
+import cookieCutter from "cookie-cutter";
 
 function MyVerticallyCenteredModal(props) {
 
@@ -100,6 +101,8 @@ function MyVerticallyCenteredModal(props) {
         {
             props.setlist(images);
 
+            cookieCutter.set('Votelist', JSON.stringify(images))
+
             setImages([])
         }
 
@@ -191,9 +194,17 @@ function MyVerticallyCenteredModal(props) {
 
 
 
-export default function VoteImage({images, setImagesVote, submitVote}){
+export default function VoteImage({setImagesVote, submitVote}){
 
     const [modalShow, setModalShow] = useState(false);
+
+    let images = [];
+
+    if(cookieCutter.get('Votelist') !== undefined)
+    {
+        images = JSON.parse(cookieCutter.get('Votelist'))
+
+    }
 
 
 

@@ -44,7 +44,8 @@ export default function ShowCreation(){
 
     }
 
-    const addVote = async (imageId) => {
+
+    const setVote = async (imageId) => {
 
         const competitionId = competition._id;
 
@@ -67,11 +68,11 @@ export default function ShowCreation(){
             // } else {
             //
 
-                await voteForCreation(imageId, competitionId);
+            await voteForCreation(imageId, competitionId);
 
-                await addVoteUser(idUser, competitionId);
+            await addVoteUser(idUser, competitionId);
 
-                toastify.Success("Your vote has been sent !")
+            toastify.Success("Your vote has been sent !")
             // }
         }
 
@@ -95,6 +96,8 @@ export default function ShowCreation(){
 
     useEffect(() =>{
 
+
+
         //First step get Actual Competition
 
             getActualCompetition()
@@ -111,7 +114,22 @@ export default function ShowCreation(){
                                 setImages(res);
 
                                 console.log(res);
+
+
+
+                                //Fourth step init cookie Votelist if don't exist
+
+                                if(cookieCutter.get('Votelist') === undefined)
+                                {
+                                    cookieCutter.set('Votelist', JSON.stringify([]));
+                                }
+
+                                // cookieCutter.set('Votelist', '', { expires: new Date(0) })
+
+
                             })
+
+
                     }
                     else
                     {
@@ -171,8 +189,11 @@ export default function ShowCreation(){
 
                                     {competition.vote ?
 
-                                        <ViewVoteState competition={competition} images={images}
-                                                       handleClickReload={handleClickReload} addVote={addVote}/>
+                                        <ViewVoteState competition={competition}
+                                                       images={images}
+                                                       handleClickReload={handleClickReload}
+                                                       setVote={setVote}
+                                        />
 
                                         :
 

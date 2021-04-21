@@ -6,19 +6,15 @@
 
 import styles from "./ViewVoteState.module.css";
 import {Button} from "react-bootstrap";
-import Head from 'next/head'
 import VoteImage from "./ModalVote/voteImage";
 import {useState} from "react";
-import {useRouter} from "next/router";
 import UniqueCreation from "./UniqueCreation/UniqueCreation";
+import cookieCutter from "cookie-cutter";
 
 
-export default function ViewVoteState({images, handleClickReload, competition, addVote}) {
-
-    const router = useRouter()
+export default function ViewVoteState({images, handleClickReload, competition, setVote}) {
 
     const[imageVoted, setImageVoted] = useState([])
-    const [likeStyle, setLikeStyle] = useState(false);
     const [enableUnique, setEnableUnique] = useState(false);
     const [imageSelected, setImageSelected] = useState(undefined);
 
@@ -28,18 +24,24 @@ export default function ViewVoteState({images, handleClickReload, competition, a
      * Add Image in list of voted image
      *
      */
-    const handleClickVote = (e) => {
+    const handleClickVote = (id) => {
 
-        const x = imageVoted;
+        let x = JSON.parse(cookieCutter.get('Votelist'));
 
         const image={
-            id: e.target.getAttribute("alt"),
-            url: e.target.getAttribute("src")
+            id: images[id]._id,
+            url: images[id].url
         }
+
 
         x.push(image);
 
         setImageVoted(x);
+
+
+
+        cookieCutter.set('Votelist', JSON.stringify(x))
+
 
     }
 
@@ -62,23 +64,11 @@ export default function ViewVoteState({images, handleClickReload, competition, a
 
 
 
-    function handleClickLike(e){
-
-        setLikeStyle(true);
-        
-
-    }
-
-    function handleAnimationLikeEnd(){
-
-        setLikeStyle(false);
-
-    }
 
     const handleClickSubmitVote = (image) => {
 
 
-        addVote(image);
+        setVote(image);
 
     }
 
@@ -105,16 +95,16 @@ export default function ViewVoteState({images, handleClickReload, competition, a
                                 {typeof(images) !== "undefined" &&
                                 images.map(function (item, i) {
                                     return (
-                                        <div key={i} data-src={item.url} onClick={() => handleOpenUnique(i)} className={styles.item} style={{marginBottom: '1em' }}>
+                                        <div key={i} data-src={item.url} className={styles.item} style={{marginBottom: '1em' }}>
 
-                                            <img src={item.url} className={styles.item_image} key={i} alt={item._id} onContextMenu={(e) => {
+                                            <img src={item.url} className={styles.item_image} key={i} alt={item._id} onClick={() => handleOpenUnique(i)} onContextMenu={(e) => {
 
                                                 e.preventDefault(); return false
                                             }}/>
 
                                             <div className={styles.item_infos}>
 
-                                                <div className={likeStyle ? styles.item_infos_like + " " + styles.is_animating : styles.item_infos_like} onClick={handleClickLike} onAnimationEnd={handleAnimationLikeEnd}>
+                                                <div className={styles.item_infos_like} onClick={() => handleClickVote(i)}>
 
                                                 </div>
 
@@ -156,7 +146,7 @@ export default function ViewVoteState({images, handleClickReload, competition, a
 
                                 <Button variant="warning" className={styles.refreshButton} onClick={handleClickReload}>Refresh</Button>
 
-                                <VoteImage images={imageVoted} setImagesVote={setImageVoted} submitVote={handleClickSubmitVote}/>
+                                <VoteImage setImagesVote={setImageVoted} submitVote={handleClickSubmitVote}/>
 
                             </div>
 
