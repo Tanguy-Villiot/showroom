@@ -100,31 +100,28 @@
     transition: 0.3s;
 }
 
-.likeClick
+.like
+{
+    filter: invert(100%) opacity(0.4);
+    height: 2em;
+    transition: 0.3s;
+}
+
+.like:Hover
+{
+    filter: invert(10%) sepia(97%) saturate(6736%) hue-rotate(3deg) brightness(110%) contrast(112%) !important;
+}
+
+.like_true
 {
     filter: invert(10%) sepia(97%) saturate(6736%) hue-rotate(3deg) brightness(110%) contrast(112%);
-
-    animation-duration: 0.3s;
-    animation-name: likeAnim;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-in-out;
+    height: 2em;
+    transition: 0.3s;
 }
 
-.likeClick:Hover
+.like_true:Hover
 {
-    /*filter: invert(10%) sepia(97%) saturate(6736%) hue-rotate(3deg) brightness(110%) contrast(112%) !important;*/
-}
-
-@keyframes likeAnim {
-    from {
-        filter: invert(100%);
-
-
-    }
-
-    to {
-        filter: invert(10%) sepia(97%) saturate(6736%) hue-rotate(3deg) brightness(110%) contrast(112%);
-    }
+    filter: invert(100%) !important;
 }
 
 .tools_infos

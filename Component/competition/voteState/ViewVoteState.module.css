@@ -1,43 +1,3 @@
-.curtain
-{
-    top: 0;
-    background-color: white;
-    overflow: hidden;
-    padding: 10em;
-
-    opacity: 1;
-
-    animation-duration: 1s;
-    animation-name: curtain;
-    animation-fill-mode: forwards;
-    animation-delay: 3s;
-    animation-timing-function: ease-in-out;
-}
-
-@keyframes curtain {
-    from {
-        top: 0;
-        opacity: 1;
-
-    }
-
-    50% {
-        opacity: 0;
-    }
-
-    to {
-        top: -100%;
-        opacity: 0;
-
-    }
-}
-
-.curtain_contain
-{
-    margin: 0 auto;
-}
-
-
 .MonthCompetition_ill
 {
     height: 25em;
@@ -98,16 +58,16 @@
 .toolBar_Button
 {
     text-align: center;
-    position: sticky;
-    bottom: 0;
-
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 15;
 }
 
 
 
 .refreshButton
 {
-    margin-left: 2em;
     margin-right: 2em;
 }
 
@@ -192,6 +152,34 @@
 .item_infos_like:Hover
 {
     background-position:right;
+}
+
+.item_infos_like_true
+{
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    background-image: url( 'https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png');
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 2900%;
+    right: 1px;
+    position: absolute;
+    top: -1.6em;
+}
+
+.item_infos_lik_disable
+{
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    background-image: url( 'https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png');
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 2900%;
+    right: 1px;
+    position: absolute;
+    top: -1.6em;
 }
 
 

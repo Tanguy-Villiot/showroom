@@ -21,26 +21,66 @@ export default function ViewVoteState({images, handleClickReload, competition, s
     //EFFECT METHOD
 
     /**
-     * Add Image in list of voted image
+     * Add creation in list of image voted
      *
+     * @param {string} id Id of creation in list image
      */
     const handleClickVote = (id) => {
 
-        let x = JSON.parse(cookieCutter.get('Votelist'));
+        //First check if creation is in votedList cookie
 
-        const image={
-            id: images[id]._id,
-            url: images[id].url
+        let voteList = JSON.parse(cookieCutter.get('Votelist'))
+
+        let found = false;
+
+        for (let i = 0; i < voteList.length; i++) {
+
+            if(voteList[i].id === images[id]._id)
+            {
+
+
+                found = true;
+
+                break;
+
+            }
+            else
+            {
+                found = false;
+
+            }
+
         }
 
 
-        x.push(image);
+        //Second add or remove creation in list
 
-        setImageVoted(x);
+        if(found)
+        {
+            voteList = voteList.filter(function(item){
+                return item.id !== images[id]._id
+            })
+
+        }
+        else
+        {
+            const image={
+                id: images[id]._id,
+                url: images[id].url
+            }
+
+
+            voteList.push(image);
+        }
+
+
+        //Third set cookie and local state
+
+        setImageVoted(voteList);
 
 
 
-        cookieCutter.set('Votelist', JSON.stringify(x))
+        cookieCutter.set('Votelist', JSON.stringify(voteList))
 
 
     }
@@ -63,24 +103,56 @@ export default function ViewVoteState({images, handleClickReload, competition, s
 
 
 
-
-
+    /**
+     * Vote for creation
+     *
+     * @param {number} image Id of image
+     */
     const handleClickSubmitVote = (image) => {
-
 
         setVote(image);
 
     }
 
 
-    function handleClickCurtail(e){
 
 
-        console.log(e.target.offsetParent.offsetParent)
+    //VIEW METHOD
 
-        e.target.offsetParent.offsetParent.style.animationDelay = "1.4s";
+
+    /**
+     * Choose style for like button
+     *
+     * @param {number} id Id of image
+     */
+    function styleLike(id){
+
+        let list = JSON.parse(cookieCutter.get('Votelist'));
+
+        let liked = false;
+
+
+
+        list.map(function (item, i) {
+
+            if(item.id === id)
+            {
+                liked = true;
+            }
+
+        });
+
+        if(liked)
+        {
+            return styles.item_infos_like_true
+        }
+        else
+        {
+            return styles.item_infos_like
+        }
 
     }
+
 
 
     return (
@@ -104,7 +176,7 @@ export default function ViewVoteState({images, handleClickReload, competition, s
 
                                             <div className={styles.item_infos}>
 
-                                                <div className={styles.item_infos_like} onClick={() => handleClickVote(i)}>
+                                                <div className={styleLike(item._id)} onClick={() => handleClickVote(i)}>
 
                                                 </div>
 
@@ -156,32 +228,6 @@ export default function ViewVoteState({images, handleClickReload, competition, s
 
                     </div>
 
-                    {/*<div className={"position-absolute w-100 h-100 " + styles.curtain}>*/}
-
-                    {/*    <div className={"container " + styles.curtain_contain}>*/}
-                    {/*        <div className="row">*/}
-
-                    {/*            <div className="col-sm overflow-hidden">*/}
-
-                    {/*                <img src='homepage/Illu-AS.gif' className={styles.MonthCompetition_ill} alt=""/>*/}
-
-                    {/*            </div>*/}
-
-                    {/*            <div className="col-sm">*/}
-
-                    {/*                <h1 className={styles.MonthCompetition_text}>Participer au concours du mois sur l'univers <br/><span style={{color: "#7a5995"}}>{competition.theme}</span></h1>*/}
-
-                    {/*                <p className={styles.MonthCompetition_subtext}>"{competition.history}"</p>*/}
-
-                    {/*                <button className={styles.MonthCompetition_button} onClick={handleClickCurtail}>Accéder</button>*/}
-
-                    {/*            </div>*/}
-
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-
-
-                    {/*</div>*/}
 
 
 

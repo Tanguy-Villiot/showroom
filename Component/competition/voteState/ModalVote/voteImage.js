@@ -212,6 +212,8 @@ export default function VoteImage({setImagesVote, submitVote}){
     const handleClickUpload = () => {
 
 
+
+
         setModalShow(true);
 
 

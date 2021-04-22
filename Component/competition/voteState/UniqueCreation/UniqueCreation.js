@@ -6,14 +6,14 @@
 
 import styles from './UniqueCreation.module.css'
 import {useState} from "react";
+import cookieCutter from "cookie-cutter";
 
 export default function UniqueCreation({creation, enable, setEnable}){
 
     const [styleMain, setStyleMain] = useState(styles.main);
     const [styleInfo, setStyleInfo] = useState();
-    const [styleLike, setStyleLike] = useState();
 
-    const [creationLiked, setCreationLiked] = useState(false);
+    const [creationLiked, setCreationLiked] = useState(undefined);
 
 
     if(enable)
@@ -21,9 +21,28 @@ export default function UniqueCreation({creation, enable, setEnable}){
         document.body.style.overflow = 'hidden'
     }
 
+    function checkIfLiked()
+    {
+        let voteList = JSON.parse(cookieCutter.get('Votelist'))
+
+        for (let i = 0; i < voteList.length; i++) {
+
+            if(voteList[i].id === creation._id)
+            {
+
+                return true;
+
+                break;
+
+            }
+
+        }
+
+        return false;
+
+    }
+
     function handleChangeAnimation(){
-
-
 
         setStyleMain(styles.main + " " + styles.close);
 
@@ -65,16 +84,43 @@ export default function UniqueCreation({creation, enable, setEnable}){
 
     function handleClickLike(){
 
-        if(!creationLiked)
+        console.log("debut");
+
+        let voteList = JSON.parse(cookieCutter.get('Votelist'));
+
+        if(!checkIfLiked())
         {
-            setStyleLike(styles.likeClick);
-            setCreationLiked(true);
+            console.log("pas liké");
+
+
+            const image={
+                id: creation._id,
+                url: creation.url
+            }
+
+            voteList.push(image);
+
+            setCreationLiked(true)
         }
         else
         {
-            setStyleLike(undefined);
-            setCreationLiked(false);
+            console.log("liké donc delikage");
+
+
+            voteList = voteList.filter(function(item){
+                return item.id !== creation._id
+            })
+
+            setCreationLiked(false)
+
         }
+
+
+        cookieCutter.set('Votelist', JSON.stringify(voteList))
+
+
+        console.log(JSON.parse(cookieCutter.get('Votelist')));
+
 
 
     }
@@ -84,6 +130,43 @@ export default function UniqueCreation({creation, enable, setEnable}){
         // setStyleLike(undefined);
 
     }
+
+
+    //VIEW METHODS
+
+
+    /**
+     * Choose style for like button
+     *
+     */
+    function styleLikeButton(){
+
+        let list = JSON.parse(cookieCutter.get('Votelist'));
+
+        let liked = false;
+
+
+
+        list.map(function (item, i) {
+
+            if(item.id === creation._id)
+            {
+                liked = true;
+            }
+
+        });
+
+        if(liked)
+        {
+            return styles.like_true
+        }
+        else
+        {
+            return styles.like
+        }
+
+    }
+
 
     return (
         <>
@@ -120,7 +203,8 @@ export default function UniqueCreation({creation, enable, setEnable}){
 
                         <div className={styles.tools} style={{right: "0px"}} >
 
-                            <img src="/Competition/like.svg" alt="up-arrow" className={styles.tools_icon + " " + styleLike} onClick={handleClickLike} onAnimationEnd={handleAnimationEndLike}/>
+
+                            <img src="/Competition/like.svg" alt="up-arrow" className={styleLikeButton()} onClick={handleClickLike} onAnimationEnd={handleAnimationEndLike}/>
 
                         </div>
 

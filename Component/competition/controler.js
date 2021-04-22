@@ -61,7 +61,6 @@ export default function ShowCreation(){
 
             const voteExist = await getVoteByCompetition(idUser, competitionId);
 
-            console.log(voteExist);
 
             // if (voteExist.find !== false) {
             //     toastify.Warning("You have already voted !");
@@ -123,6 +122,8 @@ export default function ShowCreation(){
                                 {
                                     cookieCutter.set('Votelist', JSON.stringify([]));
                                 }
+
+                                console.log(cookieCutter.get('Votelist'));
 
                                 // cookieCutter.set('Votelist', '', { expires: new Date(0) })
 
@@ -187,17 +188,30 @@ export default function ShowCreation(){
 
                                 <>
 
-                                    {competition.vote ?
+                                    {competition.vote === undefined ?
 
-                                        <ViewVoteState competition={competition}
-                                                       images={images}
-                                                       handleClickReload={handleClickReload}
-                                                       setVote={setVote}
-                                        />
+                                        <>
+                                        </>
 
                                         :
 
-                                        <ViewCreationState competition={competition}/>
+                                        <>
+                                            {competition.vote ?
+
+                                                <ViewVoteState competition={competition}
+                                                               images={images}
+                                                               handleClickReload={handleClickReload}
+                                                               setVote={setVote}
+                                                />
+
+                                                :
+
+                                                <ViewCreationState competition={competition}/>
+
+                                            }
+                                        </>
+
+
                                     }
 
                                 </>
