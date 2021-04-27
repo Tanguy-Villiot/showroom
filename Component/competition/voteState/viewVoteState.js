@@ -129,6 +129,11 @@ export default function ViewVoteState({images, handleClickReload, competition, s
 
         let list = JSON.parse(cookieCutter.get('Votelist'));
 
+        if(list === undefined)
+        {
+            list = []
+        }
+
         let liked = false;
 
 
