@@ -33,3 +33,9 @@ a {
   box-sizing: border-box;
   letter-spacing: 0.5px;
 }
+
+.global-top
+{
+  margin-top: 7em;
+
+}

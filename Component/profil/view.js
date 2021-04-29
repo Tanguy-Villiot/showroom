@@ -15,7 +15,7 @@ export default function View({user, userCreation}){
 
     return(
 
-        <div className="container-md mt-5">
+        <div className="container-md global-top">
             <h1>{user.name} {user.surname} <span className="text-muted">({user.pseudo})</span> </h1>
 
             <div className="d-inline">

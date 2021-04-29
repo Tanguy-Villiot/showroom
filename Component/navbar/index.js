@@ -149,8 +149,7 @@ export default function NavBar(){
                         <Dropdown.Menu className={styles.dropdownMenu}>
 
                             <div className={styles.dropdownContainer}>
-                                <Link href="/profil"><Dropdown.Item>Profil</Dropdown.Item></Link>
-
+                                <Dropdown.Item><Link href="/profil"><a href="/profil">Profil</a></Link></Dropdown.Item>
 
                                 <Dropdown.Divider />
                                 <Dropdown.Item onClick={handleClickLogout}>Faq</Dropdown.Item>
@@ -173,62 +172,78 @@ export default function NavBar(){
 
     const classes = router.pathname === "/" ?
         `${styles.navbarShowroomHome} fixed-top` :
-        `${styles.navbarShowroomOther} fixed-top`
+        `${styles.navbarShowroomOther}`
 
     return(
-        <div className={classes}>
 
-            <div>
-                <Navbar>
-                    <Link href="/">
-                        <Navbar.Brand href="#home" className={styles.link} style={{marginRight: "1.5em", paddingTop: "0.125rem", fontFamily: "Inter-Bold"}}>Showroom</Navbar.Brand>
-                    </Link>
-                    <Navbar.Toggle />
-                    <Nav className="mr-auto white-text">
-                        <Link href="/">
-                            <Nav.Link href="#home" className={styles.link}>Home</Nav.Link>
-                        </Link>
-                        <Link href="/competition">
-                            <Nav.Link href="#link" className={styles.link}>Competition</Nav.Link>
-                        </Link>
-                        <Link href="/reveal">
-                            <Nav.Link href="#link" className={styles.link}>Reveal</Nav.Link>
-                        </Link>
-                    </Nav>
-                    <Navbar.Collapse className="justify-content-end">
+        <>
 
-                        <ButtonUser/>
-                        
-                    </Navbar.Collapse>
-                </Navbar>
+            {router.pathname === "/register" ?
 
-                {/*Sign in modal*/}
-                <Modal show={modalShow} onHide={() => setModalShow(false)}>
-                    <Modal.Header closeButton>
-                        <Modal.Title id="contained-modal-title-vcenter">
-                            Sign in
-                        </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <form onSubmit={handleSubmit}>
-                            <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
-                                Your email
-                            </label>
-                            <input type="email" id="defaultFormLoginEmailEx" className="form-control" ref={emailInput}/>
-                            <br />
-                            <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">
-                                Your password
-                            </label>
-                            <input type="password" id="defaultFormLoginPasswordEx" className="form-control" ref={passwordInput}/>
-                            <div className="text-center mt-4">
-                                <MDBBtn color="primary" type="submit">Login</MDBBtn>
-                            </div>
-                        </form>
-                    </Modal.Body>
-                </Modal>
-            </div>
+                <>
+                </>
 
-        </div>
+                :
+
+                <div className={classes}>
+
+                    <div>
+                        <Navbar>
+                            <Link href="/">
+                                <Navbar.Brand href="#home" className={styles.link} style={{marginRight: "1.5em", paddingTop: "0.125rem", fontFamily: "Inter-Bold"}}>Showroom</Navbar.Brand>
+                            </Link>
+                            <Navbar.Toggle />
+                            <Nav className="mr-auto white-text">
+                                <Link href="/">
+                                    <Nav.Link href="/" className={styles.link}>Home</Nav.Link>
+                                </Link>
+                                <Link href="/competition">
+                                    <Nav.Link href="/competition" className={styles.link}>Competition</Nav.Link>
+                                </Link>
+                                <Link href="/reveal">
+                                    <Nav.Link href="/reveal" className={styles.link}>Reveal</Nav.Link>
+                                </Link>
+                            </Nav>
+                            <Navbar.Collapse className="justify-content-end">
+
+                                <ButtonUser/>
+
+                            </Navbar.Collapse>
+                        </Navbar>
+
+                        {/*Sign in modal*/}
+                        <Modal show={modalShow} onHide={() => setModalShow(false)}>
+                            <Modal.Header closeButton>
+                                <Modal.Title id="contained-modal-title-vcenter">
+                                    Sign in
+                                </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <form onSubmit={handleSubmit}>
+                                    <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
+                                        Your email
+                                    </label>
+                                    <input type="email" id="defaultFormLoginEmailEx" className="form-control" ref={emailInput}/>
+                                    <br />
+                                    <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">
+                                        Your password
+                                    </label>
+                                    <input type="password" id="defaultFormLoginPasswordEx" className="form-control" ref={passwordInput}/>
+                                    <div className="text-center mt-4">
+                                        <MDBBtn color="primary" type="submit">Login</MDBBtn>
+                                    </div>
+                                </form>
+                            </Modal.Body>
+                        </Modal>
+                    </div>
+
+                </div>
+                
+
+            }
+
+
+        </>
 
     )
 
