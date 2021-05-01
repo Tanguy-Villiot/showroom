@@ -5,7 +5,7 @@
  */
 
 import styles from './UniqueCreation.module.css'
-import {useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import cookieCutter from "cookie-cutter";
 
 export default function UniqueCreation({creation, enable, setEnable}){
@@ -19,6 +19,7 @@ export default function UniqueCreation({creation, enable, setEnable}){
     if(enable)
     {
         document.body.style.overflow = 'hidden'
+
     }
 
     function checkIfLiked()
@@ -44,8 +45,10 @@ export default function UniqueCreation({creation, enable, setEnable}){
 
     function handleChangeAnimation(){
 
-        setStyleMain(styles.main + " " + styles.close);
-
+        if(document.body.style.overflow === "hidden")
+        {
+            setStyleMain(styles.main + " " + styles.close);
+        }
     }
 
     function handleClose(){
@@ -125,11 +128,23 @@ export default function UniqueCreation({creation, enable, setEnable}){
 
     }
 
-    function handleAnimationEndLike(){
+    const escFunction = useCallback((event) => {
+        if (event.keyCode === 27) {
 
-        // setStyleLike(undefined);
+                handleChangeAnimation();
+        }
+    }, []);
 
-    }
+    useEffect(() => {
+
+        document.addEventListener("keydown", escFunction, false);
+
+
+
+        // return () => {
+        //     document.removeEventListener("keydown", escFunction, false);
+        // };
+    }, [enable]);
 
 
     //VIEW METHODS
@@ -204,7 +219,7 @@ export default function UniqueCreation({creation, enable, setEnable}){
                         <div className={styles.tools} style={{right: "0px"}} >
 
 
-                            <img src="/Competition/like.svg" alt="up-arrow" className={styleLikeButton()} onClick={handleClickLike} onAnimationEnd={handleAnimationEndLike}/>
+                            <img src="/Competition/like.svg" alt="up-arrow" className={styleLikeButton()} onClick={handleClickLike}/>
 
                         </div>
 
