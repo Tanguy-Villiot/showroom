@@ -165,14 +165,14 @@ export default function ViewVoteState({images, handleClickReload, competition, s
 
             <UniqueCreation enable={enableUnique} creation={imageSelected} setEnable={setEnableUnique}/>
 
-                    <div className="container-md mt-5">
+                    <div className={styles.container + " mt-5"}>
 
                             <div className={styles.imagesContainer}>
 
                                 {typeof(images) !== "undefined" &&
                                 images.map(function (item, i) {
                                     return (
-                                        <div key={i} data-src={item.url} className={styles.item} style={{marginBottom: '1em' }}>
+                                        <div key={i} data-src={item.url} className={styles.item}>
 
                                             <img src={item.url} className={styles.item_image} key={i} alt={item._id} onClick={() => handleOpenUnique(i)} onContextMenu={(e) => {
 
