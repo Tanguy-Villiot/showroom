@@ -25,8 +25,23 @@ export default function Register({router}){
         pseudo: "",
         email: "",
         psdw: "",
-        confirmpswd: ""
     })
+
+    function fillForm(list)
+    {
+
+        const name = list.Name.split(' ');
+
+        setValue({
+            name: name[0],
+            surname: name[1],
+            pseudo: "",
+            email: list.email,
+            psdw: ""
+        });
+
+
+    }
 
 
     /**
@@ -156,7 +171,8 @@ export default function Register({router}){
            validated: validated,
            handleSubmit: handleSubmit,
            value: value,
-           handleChange: handleChange
+           handleChange: handleChange,
+           socialFill: fillForm
        }}/>
     )
 }
