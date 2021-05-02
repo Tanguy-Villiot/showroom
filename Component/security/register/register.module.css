@@ -61,6 +61,38 @@
     height: 15em;
 }
 
+.pseudo:hover .pseudoInfo, .pseudo:focus-within {
+
+    display: block;
+
+}
+
+.pseudoInfo
+{
+    display: none;
+    font-family: Inter-Light;
+    position: absolute;
+    background: #fff;
+    z-index: 6;
+    margin-top: 1em;
+    border: 1px solid #ececec;
+    padding: 1em;
+}
+
+.password
+{
+
+
+}
+
+.passwordCheck
+{
+    position: relative;
+    float: right;
+    transform: translateY(-125%) translateX(-15%);
+    font-family: Inter-Light;
+}
+
 .buttons
 {
     margin: 3em;
@@ -84,4 +116,12 @@
     text-transform: lowercase;
     margin-bottom: 1.5em;
     color: rgb(92, 94, 98) !important;
+}
+
+.error
+{
+    color: red;
+    font-family: Inter-light;
+    margin-left: 0.5em;
+    font-size: 0.8em;
 }
