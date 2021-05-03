@@ -11,27 +11,51 @@ handler.use(middleware);
 
 handler.post(async (req, res) => {
 
-    const { email, password } = req.body;
+    const { id, psdw } = req.body;
 
+    let doc = await req.db.collection("user").findOne({ email: id });
 
-    let doc = await req.db.collection("user").findOne({ email: email });
-
-    if(password === doc.password)
+    if(req.body.social)
     {
-        console.log("yesss");
-
-
         req.session.set("user", {
             id: doc._id,
             name: doc.name,
             surname: doc.surname,
             pseudo: doc.pseudo,
-            email: email
+            email: id
         });
         await req.session.save();
 
         res.send("Logged in");
     }
+    else
+    {
+        if(psdw === doc.password)
+        {
+
+
+            req.session.set("user", {
+                id: doc._id,
+                name: doc.name,
+                surname: doc.surname,
+                pseudo: doc.pseudo,
+                email: id
+            });
+            await req.session.save();
+
+            res.send("Logged in");
+        }
+        else
+        {
+            res.statusMessage = "psdw"
+            res.send("psdw");
+        }
+    }
+
+
+
+
+
 
 
 });

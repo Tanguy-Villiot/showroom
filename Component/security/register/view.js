@@ -21,13 +21,8 @@ export default function View({form}) {
 
     const responseGoogle = (response) => {
 
-        // console.log(response);
-
         var res = response.profileObj;
 
-        // console.log(res);
-
-        // signup(response);
 
         getInfoSocial(response)
 
@@ -91,7 +86,7 @@ export default function View({form}) {
 
                     {state === 0 ?
 
-                        <Formulaire form={form} social={getInfoSocial}/>
+                        <Formulaire form={form}/>
 
                         :
 
