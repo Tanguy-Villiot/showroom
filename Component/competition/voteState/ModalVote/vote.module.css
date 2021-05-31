@@ -3,6 +3,16 @@
 
 }
 
+.voteButton
+{
+    height: 2.5em;
+    float: right;
+}
+
+.voteButton:Hover
+{
+    cursor: pointer;
+}
 
 .frame
 {

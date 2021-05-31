@@ -221,7 +221,11 @@ export default function ViewVoteState({images, handleClickReload, competition, s
 
                             <div className={styles.toolBar_Button}>
 
-                                <Button variant="warning" className={styles.refreshButton} onClick={handleClickReload}>Refresh</Button>
+                                <img src='Competition/refresh.svg' className={styles.refreshButton} onClick={handleClickReload} alt=""/>
+
+
+                                {/*<Button variant="warning" className={styles.refreshButton} onClick={handleClickReload}>Refresh</Button>*/}
+
 
                                 <VoteImage setImagesVote={setImageVoted} submitVote={handleClickSubmitVote}/>
 

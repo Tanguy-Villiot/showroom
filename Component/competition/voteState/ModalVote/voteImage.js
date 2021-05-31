@@ -228,7 +228,11 @@ export default function VoteImage({setImagesVote, submitVote}){
 
     return(
         <>
-            <Button variant="danger" onClick={handleClickUpload}>Vote</Button>
+
+            <img src='Competition/checked.svg' className={styles.voteButton} onClick={handleClickUpload} alt=""/>
+
+
+            {/*<Button variant="danger" onClick={handleClickUpload}>Vote</Button>*/}
             <MyVerticallyCenteredModal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
