@@ -51,7 +51,7 @@ export default function NavBar(){
 
 
 
-    useEffect(() => fetchCurrentUser(), [])
+    useEffect(() => fetchCurrentUser(), [router.pathname])
 
 
     //VIEW METHODS
