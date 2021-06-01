@@ -1,18 +1,19 @@
 import nextConnect from 'next-connect';
 
-import middleware from '../../../Component/bdd/databse';
+import { connectToDatabase } from "../../../Component/bdd/mongodb";
 
 const handler = nextConnect();
-
-handler.use(middleware);
 
 handler.post(async (req, res) => {
 
     let datas = req.body;
 
+    const { db } = await connectToDatabase();
+
+
     const competitionId = datas.competitionId;
 
-    let count = await req.db.collection(competitionId).countDocuments({});
+    let count = await db.collection(competitionId).countDocuments({});
 
 
     let i = 12;
@@ -24,7 +25,7 @@ handler.post(async (req, res) => {
 
         let x = Math.floor(Math.random() * count);
 
-        let doc = await req.db.collection(competitionId).find({validate: true}).limit(-1).skip(x).next()
+        let doc = await db.collection(competitionId).find({validate: true}).limit(-1).skip(x).next()
 
         if(doc != null)
         {

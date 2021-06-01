@@ -28,15 +28,17 @@ if (!cached) {
 export async function connectToDatabase() {
   if (cached.conn) {
 
-    console.log("déjà connecté")
+    console.log("déjà connecté !")
 
     return cached.conn
   }
 
+  console.log("pas connecté !")
+
+
+
   if (!cached.promise) {
 
-
-    console.log("pas connecté")
 
 
 

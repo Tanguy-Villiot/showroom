@@ -1,17 +1,15 @@
 import nextConnect from 'next-connect';
 
-import middleware from '../../../Component/bdd/databse';
+import { connectToDatabase } from "../../../Component/bdd/mongodb";
 
 const handler = nextConnect();
 
-handler.use(middleware);
-
 handler.post(async (req, res) => {
 
+    const { db } = await connectToDatabase();
 
 
-
-    let doc = await req.db.collection("competition").find({enable: true}).toArray(function(err, result) {
+    let doc = await db.collection("competition").find({enable: true}).toArray(function(err, result) {
         if (err) throw err;
 
         res.json(result);

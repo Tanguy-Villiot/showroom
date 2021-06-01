@@ -11,23 +11,24 @@ import ToastifyContext from "../toastify/context";
 import {getVoteByCompetition} from "../bdd/user/dataUser";
 import {voteForCreation} from "../bdd/creation/actionCreation";
 import {addVoteUser} from "../bdd/user/actionUser";
-import {getActualCompetition} from "../bdd/competition/dataCompetition";
 import checkServer from "../bdd/checkServer";
 import cookieCutter from 'cookie-cutter'
 import ViewHeader from "./header/viewHeader";
 import ViewCreationState from "./creationState/viewCreationState";
 
+import CompetitionContext from '../competition/competitionContext';
+
 export default function ShowCreation(){
+
+    const {competition} = useContext(CompetitionContext)
 
     const toastify = useContext(ToastifyContext);
 
-
-    const [competition, setCompetition] = useState({})
     const [images, setImages] = useState([]);
 
 
 
-    //API METHODS
+    /////////////// API METHODS ////////////////
 
     const fetchImage = async (competitionId) => {
 
@@ -82,8 +83,6 @@ export default function ShowCreation(){
 
     const handleClickReload = async () => {
 
-
-
         fetchImage(competition._id)
             .then(res => {
                 setImages(res);
@@ -96,19 +95,12 @@ export default function ShowCreation(){
     useEffect(() =>{
 
 
-
-        //First step get Actual Competition
-
-            getActualCompetition()
-                .then(res => {
-                    setCompetition(res[0])
-
-                    //Second step check if creation or vote state
-                    if(res[0].vote)
+                    //Firt step check if creation or vote state
+                    if(competition.vote)
                     {
 
-                        //Third step get image if vote state
-                        fetchImage(res[0]._id)
+                        //Second step get image if vote state
+                        fetchImage(competition._id)
                             .then(res => {
                                 setImages(res);
 
@@ -116,7 +108,7 @@ export default function ShowCreation(){
 
 
 
-                                //Fourth step init cookie Votelist if don't exist
+                                //Third step init cookie Votelist if don't exist
 
                                 if(cookieCutter.get('Votelist') === undefined)
                                 {
@@ -139,7 +131,6 @@ export default function ShowCreation(){
 
 
 
-                })
 
         },
         [],
@@ -150,9 +141,11 @@ export default function ShowCreation(){
     return (
         <>
 
-            {competition === {} ?
+            {images === [] ?
 
                 <>
+
+                    <span>Loading...</span>
 
                 </>
 
@@ -160,75 +153,57 @@ export default function ShowCreation(){
 
                 <>
 
-                    {images === [] ?
+                    <ViewHeader competition={competition}/>
+
+
+                    {competition.finish ?
 
                         <>
 
-                            <span>Loading...</span>
+                            <span>Competition terminé</span>
 
                         </>
+
 
                         :
 
                         <>
 
-                            <ViewHeader competition={competition}/>
-
-
-                            {competition.finish ?
+                            {competition.vote === undefined ?
 
                                 <>
-
-                                    <span>Competition terminé</span>
-
                                 </>
-
 
                                 :
 
                                 <>
+                                    {competition.vote ?
 
-                                    {competition.vote === undefined ?
-
-                                        <>
-                                        </>
+                                        <ViewVoteState competition={competition}
+                                                       images={images}
+                                                       handleClickReload={handleClickReload}
+                                                       setVote={setVote}
+                                        />
 
                                         :
 
-                                        <>
-                                            {competition.vote ?
-
-                                                <ViewVoteState competition={competition}
-                                                               images={images}
-                                                               handleClickReload={handleClickReload}
-                                                               setVote={setVote}
-                                                />
-
-                                                :
-
-                                                <ViewCreationState competition={competition}/>
-
-                                            }
-                                        </>
-
+                                        <ViewCreationState competition={competition}/>
 
                                     }
-
                                 </>
-                            }
 
+
+                            }
 
                         </>
                     }
 
-                </>
 
+                </>
             }
 
-
-
-
         </>
+
     )
 
 }

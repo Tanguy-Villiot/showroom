@@ -118,6 +118,8 @@ function ModalUpload(props) {
 
             setValidatedForm(true)
 
+
+
             uploadImage()
         }
 

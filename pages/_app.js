@@ -11,35 +11,60 @@ import Loader from "../Component/Loader";
 //Context Import
 import Toastify, {ToastifyContext} from "../Component/toastify";
 import { CurrentUserProvider } from "../Component/security/user/userContext";
+import CompetitionContext from "../Component/competition/competitionContext"
+import {useEffect, useState} from "react";
+
+
+//Api Import
+import {getActualCompetition} from "../Component/bdd/competition/dataCompetition"
 
 
 const TIMEOUT = 400
 
 function MyApp({ Component, pageProps, router}) {
 
+    const [competition, setCompetition] = useState(null)
+
+
+    useEffect(() => {
+
+        getActualCompetition()
+            .then(res => {
+                setCompetition(res[0])
+            })
+
+    }, [])
+
 
     return <div className="App">
         <CurrentUserProvider>
             <ToastifyContext.Provider value={new Toastify()}>
+                <CompetitionContext.Provider value={{ competition: competition }}>
 
-                <NavBar/>
+
+                    <NavBar/>
 
 
-                <PageTransition
-                    timeout={TIMEOUT}
-                    classNames="page-transition"
-                    loadingComponent={<Loader />}
-                    loadingDelay={500}
-                    loadingTimeout={{
-                        enter: TIMEOUT,
-                        exit: 0,
-                    }}
-                    loadingClassNames="loading-indicator"
-                >
+                    <PageTransition
+                        timeout={TIMEOUT}
+                        classNames="page-transition"
+                        loadingComponent={<Loader />}
+                        loadingDelay={500}
+                        loadingTimeout={{
+                            enter: TIMEOUT,
+                            exit: 0,
+                        }}
+                        loadingClassNames="loading-indicator"
+                    >
 
-                    <Component {...pageProps} key={router.route}/>
-                </PageTransition>
-                <style jsx global>{`
+                        {!competition ?
+                            <h1>Loading...</h1>
+                        :
+                            <Component {...pageProps} key={router.route}/>
+                        }
+
+                    </PageTransition>
+                    <style jsx global>{`
         .page-transition-enter {
           opacity: 0;
           transform: translate3d(0, 20px, 0);
@@ -66,6 +91,11 @@ function MyApp({ Component, pageProps, router}) {
           transition: opacity ${TIMEOUT}ms;
         }
       `}</style>
+
+
+                </CompetitionContext.Provider>
+
+
 
             </ToastifyContext.Provider>
 
