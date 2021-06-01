@@ -1,9 +1,8 @@
+import checkServer from "../checkServer";
+
 export async function voteForCreation(imageId, competitionId)
 {
-    const dev = process.env.NODE_ENV !== 'production';
-
-    const server = dev ? 'http://localhost:3000' : 'https://showroom-fawn.vercel.app';
-
+    const server = checkServer();
 
     const res = await fetch(`${server}/api/creation/voteCreation`, {
 
@@ -12,4 +11,20 @@ export async function voteForCreation(imageId, competitionId)
         body: JSON.stringify({imageId, competitionId})
 
     })
+}
+
+
+export async function removeCreation(userId, competitionId)
+{
+    const server = checkServer();
+
+    const res = await fetch(`${server}/api/creation/removeCreationbyUser`, {
+
+        method: 'post',
+
+        body: JSON.stringify({userId, competitionId})
+
+    })
+
+    return res.json();
 }

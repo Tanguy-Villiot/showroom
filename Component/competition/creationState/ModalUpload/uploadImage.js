@@ -5,7 +5,7 @@
  */
 
 import styles from './uploadImage.module.css';
-import {Button, Form, Modal, ProgressBar} from "react-bootstrap";
+import {Alert, Button, Form, Modal, ProgressBar} from "react-bootstrap";
 import {useContext, useEffect, useState} from "react";
 import checkUser from "../../security/security-utils";
 import ToastifyContext from "../../../toastify/context";
@@ -13,13 +13,14 @@ import {initFirebase} from "../../../firebase/firebase-utils";
 import {getCreationByCompetition} from "../../../bdd/user/dataUser";
 import {MDBCol, MDBContainer, MDBRow} from "mdbreact";
 import checkServer from "../../../bdd/checkServer";
+import {useCurrentUser} from "../../../security/user/userContext";
+import CompetitionContext from "../../competitionContext";
+import {removeCreation} from "../../../bdd/creation/actionCreation";
 
 let firebase = initFirebase();
 
 
 function ModalUpload(props) {
-
-    const toastify = useContext(ToastifyContext);
 
     const [image, setImage] = useState(null);
     const [percent, setPercent] = useState(0);
@@ -31,18 +32,17 @@ function ModalUpload(props) {
         description: ""
     })
 
+    const [showAlertExist, setShowAlertExist] = useState(false);
+
+    const {currentUser} = useCurrentUser();
+
+    const {competition} = useContext(CompetitionContext)
+
+
 
 
     //Effects methods
-    useEffect(
-        () => {
-
-
-
-
-        },
-        [percent],
-    );
+    useEffect(() => {}, [percent],);
 
 
     /**
@@ -95,7 +95,7 @@ function ModalUpload(props) {
     }
 
     /**
-     * Submit form and image
+     * On click button Submit form
      *
      */
     async function handleSubmit(e) {
@@ -111,17 +111,36 @@ function ModalUpload(props) {
             e.preventDefault();
             e.stopPropagation();
 
-            console.log("submit")
-
         } else {
 
 
             setValidatedForm(true)
 
+            const creationExist = await getCreationByCompetition(currentUser.user.id, competition._id);
 
+            if(creationExist.find !== false)
+            {
+                setShowAlertExist(true)
+            }
+            else
+            {
+                uploadImage()
 
-            uploadImage()
+            }
+
         }
+
+    }
+
+    /**
+     * On click override on Alert Modal
+     *
+     */
+    async function handleClickOverride(e) {
+
+        console.log(currentUser.user.id + " / " + props.competition._id)
+
+        await RemoveCreationToBdd()
 
     }
 
@@ -135,7 +154,7 @@ function ModalUpload(props) {
 
         let bucketName = 'images'
         let file = image[0];
-        let storageRef = firebase.storage().ref(`${bucketName}/${file.name}`);
+        let storageRef = firebase.storage().ref(`${bucketName}/${currentUser.user.id}_${props.competition._id}`);
         let uploadTask = storageRef.put(file);
         uploadTask.on('state_changed',
             (snapshot) => {
@@ -193,55 +212,96 @@ function ModalUpload(props) {
 
         if(res.statusText === "OK")
         {
-            toastify.Success("Your creation has been sent !");
-            props.onHide();
+            props.toastify.Success("Your creation has been sent !");
+            handleHide();
         }
         else
         {
-            toastify.Warning("Error : Your creation has not been sent !");
+            props.toastify.Warning("Error : Your creation has not been sent !");
         }
 
 
 
     }
 
+    /**
+     * Remove creation value and url image in bdd
+     *
+     */
+    const RemoveCreationToBdd = async() =>{
+
+
+        const server = checkServer();
+
+        removeCreation(currentUser.user.id, props.competition._id)
+            .then(res => {
+
+                console.log(res)
+
+                if(res.success)
+                {
+                    uploadImage()
+                    setShowAlertExist(false);
+                }
+
+            })
+
+
+    }
+
 
     return (
-        <Modal
-            show={props.show}
-            onHide={handleHide}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-        >
-            <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    Send your image
-                </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <div className={styles.frame}>
+        <>
+            <Modal show={showAlertExist} onHide={() => setShowAlertExist(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>You have already upload creation</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>if you continue, your last creation will be remove !</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={() => setShowAlertExist(false)}>
+                        Undo
+                    </Button>
+                    <Button variant="success" onClick={handleClickOverride}>
+                        Override
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
-                    {typeof (imageUrl) === "undefined" ?
+            <Modal
+                show={props.show}
+                onHide={handleHide}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        Send your image
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className={styles.frame}>
 
-                        <>
-                            <h2 className={styles.title}>Drop file to upload</h2>
+                        {typeof (imageUrl) === "undefined" ?
 
-                            <div className={styles.dropzone}>
+                            <>
+                                <h2 className={styles.title}>Drop file to upload</h2>
 
-                                <img src="https://100dayscss.com/codepen/upload.svg" alt="Dropzone image"/>
+                                <div className={styles.dropzone}>
 
-                                <input type="file" className="upload-input"
-                                       onChange={(e) => handleChangeFile(e.target.files)}/>
+                                    <img src="https://100dayscss.com/codepen/upload.svg" alt="Dropzone image"/>
+
+                                    <input type="file" className="upload-input"
+                                           onChange={(e) => handleChangeFile(e.target.files)}/>
 
 
-                            </div>
-                        </>
+                                </div>
+                            </>
 
-                        :
+                            :
 
-                        <>
-                            <img src={imageUrl} className={styles.images} alt="Dropzone image"/>
+                            <>
+                                <img src={imageUrl} className={styles.images} alt="Dropzone image"/>
 
                                 <MDBContainer className="mt-5">
                                     <MDBRow>
@@ -299,47 +359,48 @@ function ModalUpload(props) {
                                     </MDBRow>
                                 </MDBContainer>
 
-                            <ProgressBar className={styles.progressBar} now={percent} label={`${percent}%`}/>
+                                <ProgressBar className={styles.progressBar} now={percent} label={`${percent}%`}/>
 
 
-                        </>
+                            </>
 
-                    }
-
-
+                        }
 
 
-                </div>
-            </Modal.Body>
-        </Modal>
+
+
+                    </div>
+                </Modal.Body>
+            </Modal>
+        </>
     );
 }
 
 
 
-export default function UploadImage({competition}){
+export default function UploadImage({competition, toastify}){
 
-    const [modalShow, setModalShow] = useState(false);
-    const toastify = useContext(ToastifyContext);
+    const [uploadModalShow, setUploadModalShow] = useState(false);
+
+    const {currentUser} = useCurrentUser();
 
 
-    //Effects Methods
     /**
      * Open modal upload
      */
     const handleClickUpload = async () => {
 
-        const user = await checkUser();
+        console.log(currentUser)
 
-
-        if (!user.connected) {
-            toastify.Warning("You must be logged in to upload creation !");
-        } else
+        if (!currentUser.connected)
         {
-
-            const creationExist = await getCreationByCompetition(user.user.id, competition._id);
-
-            console.log(creationExist);
+            toastify.Warning("You must be logged in to upload creation !");
+        }
+        else
+        {
+            // const creationExist = await getCreationByCompetition(currentUser.user.id, competition._id);
+            //
+            // console.log(creationExist);
 
             // if(creationExist.find !== false)
             // {
@@ -347,9 +408,8 @@ export default function UploadImage({competition}){
             // }
             // else
             // {
-                setModalShow(true);
+            setUploadModalShow(true);
             // }
-
 
         }
 
@@ -362,8 +422,10 @@ export default function UploadImage({competition}){
         <>
             <Button variant="primary" className="p-5" onClick={handleClickUpload}>Upload Image</Button>
             <ModalUpload
-                show={modalShow}
-                onHide={() => setModalShow(false)}
+                show={uploadModalShow}
+                onHide={() => setUploadModalShow(false)}
+                toastify={toastify}
+                competition={competition}
             />
         </>
     )

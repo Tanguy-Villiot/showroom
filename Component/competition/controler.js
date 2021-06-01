@@ -187,7 +187,7 @@ export default function ShowCreation(){
 
                                         :
 
-                                        <ViewCreationState competition={competition}/>
+                                        <ViewCreationState competition={competition} toastify={toastify}/>
 
                                     }
                                 </>

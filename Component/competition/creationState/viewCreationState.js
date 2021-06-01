@@ -6,14 +6,14 @@
 
 import UploadImage from "./ModalUpload/uploadImage";
 
-export default function ViewCreationState({competition}){
+export default function ViewCreationState({competition, toastify}){
 
     return (
 
         <>
 
             <div className="text-center">
-                <UploadImage competition={competition}/>
+                <UploadImage competition={competition} toastify={toastify}/>
 
             </div>
 

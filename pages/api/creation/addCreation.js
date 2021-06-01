@@ -1,14 +1,13 @@
 import nextConnect from 'next-connect';
 
-import middleware from '../../../Component/bdd/databse';
+import { connectToDatabase } from "../../../Component/bdd/mongodb";
 import checkServer from "../../../Component/bdd/checkServer";
 
 const handler = nextConnect();
 
-handler.use(middleware);
-
 handler.post(async (req, res) => {
 
+    const { db } = await connectToDatabase();
 
     let data = req.body;
 
@@ -36,7 +35,7 @@ handler.post(async (req, res) => {
             const competitionId = result[0]._id;
 
 
-            let doc = await req.db.collection(competitionId).insertOne({
+            let doc = await db.collection(competitionId).insertOne({
 
                 url: data.url,
                 user_id: data.userId,
