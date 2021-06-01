@@ -20,6 +20,12 @@ handler.post(async (req, res) => {
 
     let data = [];
 
+
+    if(count <= 12)
+    {
+        i = count
+    }
+
     while(i--)
     {
 
@@ -30,6 +36,10 @@ handler.post(async (req, res) => {
         if(doc != null)
         {
             data.push(doc);
+        }
+        else if(data.some(item => doc.user_id === item.user_id))
+        {
+            i++
         }
         else
         {
