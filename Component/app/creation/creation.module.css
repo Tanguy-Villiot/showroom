@@ -1,0 +1,112 @@
+/* Copyright (c) 2021 Ankward. All right reserved. */
+/* */
+/* Ankward (https://ankward.fr) */
+
+.contest
+{
+    display: flex;
+    margin: auto;
+}
+
+.contestImageContainer
+{
+    width: max-content;
+    border-radius: 10px;
+    text-align: center;
+    margin: 2em;
+    margin-top: 5em;
+
+    flex-basis: 43%;
+}
+
+.contestImage
+{
+    height: 20em;
+}
+
+.contestInformation
+{
+    width: max-content;
+
+
+    flex-basis: 57%;
+
+    margin: 2em;
+
+}
+
+.contestText
+{
+    font-family: Inter-Light;
+    margin-bottom: unset;
+}
+
+.contestButtons
+{
+    margin: 4em auto;
+
+    width: max-content;
+}
+
+.contestButtonParticiper
+{
+    background: linear-gradient(139deg, rgba(241,143,143,1) 0%, rgba(208,44,44,1) 100%);
+    width: 200px;
+    height: 100px;
+    margin: 1em;
+    border-radius: 10px;
+
+    text-align: center;
+
+    transition: 0.3s;
+}
+
+.contestButtonParticiper:Hover
+{
+    background: linear-gradient(139deg, rgb(243, 165, 165) 0%, rgb(222, 66, 66) 100%);
+}
+
+.contestButtonParticiperImg
+{
+    height: 2.5em;
+    margin-top: 1em;
+}
+
+.contestButtonParticiperText
+{
+    font-family: Inter;
+    color: white;
+    margin-top: 0.7em;
+    font-size: 0.8em;
+}
+
+.contestButtonCheck
+{
+    background: linear-gradient(139deg, rgba(143,225,241,1) 0%, rgba(44,148,208,1) 100%);
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    margin: 1em;
+
+    text-align: center;
+
+    position: relative;
+}
+
+.contestButtonCheck:Hover
+{
+    background: linear-gradient(139deg, rgb(166, 230, 243) 0%, rgb(75, 172, 227) 100%);
+}
+
+.contestButtonCheckText
+{
+    font-family: Inter;
+    color: white;
+    font-size: 0.8em;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+
+}

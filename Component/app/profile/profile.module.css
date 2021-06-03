@@ -1,0 +1,108 @@
+/* Copyright (c) 2021 Ankward. All right reserved. */
+/* */
+/* Ankward (https://ankward.fr) */
+
+
+/******************** HEADER *********************/
+
+.profile
+{
+
+}
+
+.header
+{
+    height: 15em;
+    width: 100%;
+
+    background-color: #bd93d8;
+}
+
+.navbar
+{
+    padding: 1em;
+}
+
+.return
+{
+    height: 1.7em;
+    filter: invert(100%);
+}
+
+.deco
+{
+    float: right;
+    background-color: #cf3f3b !important;
+
+    transition: 0.3s;
+}
+
+.deco:Hover
+{
+    background-color: #dd2d2d !important;
+}
+
+.user
+{
+    margin: auto;
+    width: max-content;
+    text-align: center;
+}
+
+.userPicture
+{
+    height: 7em;
+}
+
+.userName
+{
+    margin-top: 0.5em;
+    font-family: Inter-Light;
+    color: white;
+}
+
+.content
+{
+    background-color: #f8f8f8;
+
+}
+
+/**************************** HOME **************************/
+
+.cases
+{
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+
+    width: max-content;
+}
+
+.casesitem
+{
+    background-color: white;
+    width: 200px;
+
+    margin: 1em;
+
+    padding: 0.5em 1em;
+    text-align: center;
+
+    border-radius: 4px;
+
+    box-shadow: 0px 9px 21px -11px rgba(0,0,0,0.48);
+
+    flex-basis: 45%;
+}
+
+.casesitem_icon
+{
+    height: 3em;
+    margin-bottom: 0.7em;
+}
+
+.casesitem_text
+{
+    font-family: Inter;
+    margin-bottom: unset;
+}

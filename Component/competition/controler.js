@@ -17,6 +17,7 @@ import ViewHeader from "./header/viewHeader";
 import ViewCreationState from "./creationState/viewCreationState";
 
 import CompetitionContext from '../competition/competitionContext';
+import Footer from "../footer";
 
 export default function ShowCreation(){
 
@@ -201,6 +202,8 @@ export default function ShowCreation(){
 
                 </>
             }
+
+            <Footer />
 
         </>
 

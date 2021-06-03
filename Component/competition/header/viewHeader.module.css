@@ -2,11 +2,16 @@
 /* */
 /* Ankward (https://ankward.fr) */
 
-.titleContainer
+.HeaderContainer
 {
     text-align: center;
     padding: 3em;
     position: relative;
+
+    background-image: url('../../../public/homepage/Renderjpp.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 25em;
 }
 
 .titleContainer_image

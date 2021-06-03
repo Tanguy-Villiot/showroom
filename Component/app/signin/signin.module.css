@@ -5,12 +5,12 @@
 .container
 {
     display: flex;
+    align-items: center;
 }
 
 .item
 {
     flex: 50%;
-    padding-top: 12em;
 }
 
 .Itemleft

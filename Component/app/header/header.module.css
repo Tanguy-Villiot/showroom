@@ -1,0 +1,45 @@
+/* Copyright (c) 2021 Ankward. All right reserved. */
+/* */
+/* Ankward (https://ankward.fr) */
+
+.header
+{
+    padding: 1em 2em;
+    box-shadow: 0px 0px 24px -24px black;
+    width: 100%;
+    position: fixed;
+    top: 0;
+}
+
+.return
+{
+    height: 1.2em;
+    margin-right: 1em;
+    cursor: pointer;
+}
+
+.logo
+{
+    height: 1.5em;
+}
+
+.profile
+{
+    height: 2em;
+    float: right;
+}
+
+.userContainer
+{
+    display: flex;
+    float: right;
+    align-items: center;
+}
+
+.name
+{
+    font-family: Inter-Light;
+    font-size: 1em;
+    margin-right: 1em;
+}
+

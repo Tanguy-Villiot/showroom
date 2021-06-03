@@ -2,15 +2,26 @@
 /* */
 /* Ankward (https://ankward.fr) */
 
+.navbar
+{
+    display: flex;
+    position: absolute;
+    margin: 2em;
+    align-items: center;
+}
+
+.return
+{
+    height: 1.5em;
+    margin-right: 1em;
+    cursor: pointer;
+    filter: invert(100%);
+}
+
+
 .logo
 {
     height: 2em;
-    margin: 2em;
-    position: absolute;
-}
-
-.logo:Hover
-{
     cursor: pointer;
 }
 

@@ -1,3 +1,41 @@
+/* Copyright (c) 2021 Ankward. All right reserved. */
+/* */
+/* Ankward (https://ankward.fr) */
+
+.contestButtonParticiper
+{
+    background: linear-gradient(139deg, rgba(241,143,143,1) 0%, rgba(208,44,44,1) 100%);
+    width: 200px;
+    height: 100px;
+    margin: 1em;
+    border-radius: 10px;
+
+    text-align: center;
+
+    transition: 0.3s;
+}
+
+.contestButtonParticiper:Hover
+{
+    background: linear-gradient(139deg, rgb(243, 165, 165) 0%, rgb(222, 66, 66) 100%);
+}
+
+.contestButtonParticiperImg
+{
+    height: 2.5em;
+    margin-top: 1em;
+}
+
+.contestButtonParticiperText
+{
+    font-family: Inter;
+    color: white;
+    margin-top: 0.7em;
+    font-size: 0.8em;
+}
+
+
+
 .Container
 {
 

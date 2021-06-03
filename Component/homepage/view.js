@@ -8,8 +8,8 @@ let count = 0;
 export default function View({language}){
 
     const imageList = [
-        "homepage.jpg",
-        "microsoft.jpg",
+        "Renderjpp.jpg",
+        "Render2.jpg",
         "cyberpunk.jpg"
     ];
 

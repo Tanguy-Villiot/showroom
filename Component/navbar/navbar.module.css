@@ -3,19 +3,18 @@
     background: linear-gradient(#000000c9, #0000);
     color: white;
     /*width: 100vw !important;*/
-    padding-left: 3em;
-    padding-right: 3em;
+    padding-left: 2em;
+    padding-right: 2em;
     padding-top: 0.2em;
 }
 
 .navbarShowroomOther
 {
-    background: #1f1f1f;
-    color: white;
-    /*width: 100vw !important;*/
+    color: black;
     padding-left: 2em;
     padding-right: 2em;
     padding-top: 0.2em;
+    border-bottom: 1px solid #efefef;
 }
 
 .DropDown
@@ -109,4 +108,21 @@
 .link:Hover
 {
     color: #93CAD8 !important;
+}
+
+.app
+{
+    color: white !important;
+    font-family: Inter;
+    padding-right: 1em;
+    transition: 0.3s;
+
+    background-color: #1f1f1f;
+    border-radius: 4px;
+}
+
+.app:Hover
+{
+    color: black !important;
+    background-color: white;
 }

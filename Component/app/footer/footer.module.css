@@ -1,0 +1,42 @@
+/* Copyright (c) 2021 Ankward. All right reserved. */
+/* */
+/* Ankward (https://ankward.fr) */
+
+.footer
+{
+    position: fixed;
+    bottom: 0;
+}
+
+.progessBar
+{
+    display: flex;
+    width: 100vw;
+}
+
+.bar
+{
+    border-radius: 0;
+    margin-bottom: unset !important;
+    height: 2em !important;
+}
+
+.bar > div
+{
+    height: 2em !important;
+}
+
+.creation
+{
+    flex-basis: 40%;
+}
+
+.vote
+{
+    flex-basis: 40%;
+}
+
+.reveal
+{
+    flex-basis: 20%;
+}

@@ -4,20 +4,65 @@
  * Ankward (https://ankward.fr)
  */
 
-import styles from './uploadImage.module.css';
-import {Alert, Button, Form, Modal, ProgressBar} from "react-bootstrap";
+import styles from "./modalImport.module.css";
 import {useContext, useEffect, useState} from "react";
-import checkUser from "../../security/security-utils";
-import ToastifyContext from "../../../toastify/context";
-import {initFirebase} from "../../../firebase/firebase-utils";
-import {getCreationByCompetition} from "../../../bdd/user/dataUser";
-import {MDBCol, MDBContainer, MDBRow} from "mdbreact";
-import checkServer from "../../../bdd/checkServer";
 import {useCurrentUser} from "../../../security/user/userContext";
-import CompetitionContext from "../../competitionContext";
+import CompetitionContext from "../../../competition/competitionContext";
+import {getCreationByCompetition} from "../../../bdd/user/dataUser";
+import checkServer from "../../../bdd/checkServer";
+import checkUser from "../../../competition/security/security-utils";
 import {removeCreation} from "../../../bdd/creation/actionCreation";
+import {Button, Form, Modal, ProgressBar} from "react-bootstrap";
+import {MDBCol, MDBContainer, MDBRow} from "mdbreact";
 
-let firebase = initFirebase();
+export default function ModalImport({competition, toastify, fileImport}){
+
+    const {currentUser} = useCurrentUser();
+
+
+    const [uploadModalShow, setUploadModalShow] = useState(false);
+
+
+    /**
+     * Open modal upload
+     */
+    const handleClickUpload = async () => {
+
+        if(!currentUser.connected)
+        {
+            toastify.Warning("You must be log-in to participate !")
+        }
+        else
+        {
+            setUploadModalShow(true);
+        }
+
+
+    }
+
+
+
+    return(
+        <>
+            <div className={styles.contestButtonParticiper} onClick={handleClickUpload}>
+
+                <img className={styles.contestButtonParticiperImg} src="/app/upload.png" alt="panneaux" />
+
+                <p className={styles.contestButtonParticiperText}>Upload votre création</p>
+            </div>
+
+
+
+            <ModalUpload
+                show={uploadModalShow}
+                onHide={() => setUploadModalShow(false)}
+                toastify={toastify}
+                competition={competition}
+                fileImport={(Image) => fileImport(Image)}
+            />
+        </>
+    )
+}
 
 
 function ModalUpload(props) {
@@ -74,10 +119,17 @@ function ModalUpload(props) {
 
         setImageUrl(URL.createObjectURL(files[0]));
 
+        const Image = {
+            file: files,
+            url: URL.createObjectURL(files[0])
+        }
 
-        console.log(files)
+        props.fileImport(Image);
 
-        console.log("ouiii");
+
+        // console.log(files)
+        //
+        // console.log("ouiii");
 
     }
 
@@ -197,18 +249,18 @@ function ModalUpload(props) {
     const AddcreationToBdd = async(url) =>{
 
 
-            const server = checkServer();
-            const user = await checkUser();
+        const server = checkServer();
+        const user = await checkUser();
 
-            const userId = user.user.id;
+        const userId = user.user.id;
 
-            const res = await fetch(`${server}/api/creation/addCreation`, {
+        const res = await fetch(`${server}/api/creation/addCreation`, {
 
-                method: 'post',
+            method: 'post',
 
-                body:JSON.stringify({ url, userId, valueForm })
+            body:JSON.stringify({ url, userId, valueForm })
 
-            })
+        })
 
         if(res.statusText === "OK")
         {
@@ -285,7 +337,7 @@ function ModalUpload(props) {
                         {typeof (imageUrl) === "undefined" ?
 
                             <>
-                                <h2 className={styles.title}>Drop file to upload</h2>
+                                <h2 className={styles.title}>Drop file or click to import your creation</h2>
 
                                 <div className={styles.dropzone}>
 
@@ -374,60 +426,4 @@ function ModalUpload(props) {
             </Modal>
         </>
     );
-}
-
-
-
-export default function UploadImage({competition, toastify}){
-
-    const [uploadModalShow, setUploadModalShow] = useState(false);
-
-    const {currentUser} = useCurrentUser();
-
-
-    /**
-     * Open modal upload
-     */
-    const handleClickUpload = async () => {
-
-        console.log(currentUser)
-
-        if (!currentUser.connected)
-        {
-            toastify.Warning("You must be logged in to upload creation !");
-        }
-        else
-        {
-            // const creationExist = await getCreationByCompetition(currentUser.user.id, competition._id);
-            //
-            // console.log(creationExist);
-
-            // if(creationExist.find !== false)
-            // {
-            //     toastify.Warning("You have already upload your creation !");
-            // }
-            // else
-            // {
-            setUploadModalShow(true);
-            // }
-
-        }
-
-
-    }
-
-
-
-    return(
-        <>
-            <Button variant="primary" className="p-2" onClick={handleClickUpload}>Upload Image</Button>
-            <ModalUpload
-                show={uploadModalShow}
-                onHide={() => setUploadModalShow(false)}
-                toastify={toastify}
-                competition={competition}
-            />
-        </>
-    )
-
 }

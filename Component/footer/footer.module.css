@@ -1,0 +1,18 @@
+/* Copyright (c) 2021 Ankward. All right reserved. */
+/* */
+/* Ankward (https://ankward.fr) */
+
+.footer
+{
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    border-top: 1px solid #efefef;
+    width: 100%;
+}
+
+.logoAnkward
+{
+    height: 3em;
+    float: right;
+}

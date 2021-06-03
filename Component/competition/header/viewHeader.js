@@ -20,11 +20,11 @@ export default function ViewHeader({competition}){
             </Head>
 
 
-            <div className="container-md mt-5">
 
-                <div className={styles.titleContainer}>
 
-                    <img src="Competition/Design.png" className={styles.titleContainer_image} alt="image" />
+                <div className={styles.HeaderContainer}>
+
+                    {/*<img src="Competition/Design.png" className={styles.titleContainer_image} alt="image" />*/}
 
                     <div className={styles.titleContainer_text}>
                         <h1 className={styles.title}>{competition.theme}</h1>
@@ -35,7 +35,6 @@ export default function ViewHeader({competition}){
 
 
                 </div>
-            </div>
 
         </>
 

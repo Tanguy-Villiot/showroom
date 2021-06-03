@@ -4,9 +4,15 @@
  * Ankward (https://ankward.fr)
  */
 
-import styles from "../register/register.module.css";
+/*
+ * Copyright (c) 2021 Ankward. All right reserved.
+ *
+ * Ankward (https://ankward.fr)
+ */
 
-import style from "./login.module.css"
+import styles from "../../security/register/register.module.css";
+
+import style from "./signin.module.css"
 
 import Link from "next/link";
 import GoogleLogin from "react-google-login";
@@ -51,7 +57,12 @@ export default function View({form})
     return (
         <>
             <div className={styles.navtop}>
-                <Link href="/"><img src="homepage/logo-acceuil.png" className={styles.logo} alt="Logo"/></Link>
+                <Link href="/app">
+                    <div className={styles.navbar}>
+                        <img className={styles.return} src="/app/return.svg" alt="return"/>
+                        <img src="/homepage/logo-acceuil.png" className={styles.logo} alt="Logo"/>
+                    </div>
+                </Link>
 
             </div>
 

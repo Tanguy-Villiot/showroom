@@ -88,12 +88,16 @@ export default function NavBar(){
 
             return(
                 <>
-                    <Link href="/register">
-                        <Nav.Link href="#home" className={styles.link}>Register</Nav.Link>
-                    </Link>
+                    {/*<Link href="/register">*/}
+                    {/*    <Nav.Link href="#home" className={styles.link}>Register</Nav.Link>*/}
+                    {/*</Link>*/}
 
-                    <Link href="/login">
-                        <Nav.Link href="/login" className={styles.link}>Connection</Nav.Link>
+                    {/*<Link href="/login">*/}
+                    {/*    <Nav.Link href="/login" className={styles.link}>Connection</Nav.Link>*/}
+                    {/*</Link>*/}
+
+                    <Link href="/app">
+                        <Nav.Link href="/login" className={styles.app}>Accéder à l'appli</Nav.Link>
                     </Link>
                  </>
             )
@@ -102,27 +106,31 @@ export default function NavBar(){
         } else {
             return(
                 <>
-                    <Dropdown className={styles.DropDown} show={navbarShow} onMouseEnter={handleHover} onMouseLeave={handleHide}>
-                        <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                            {currentUser.user.name}
-                        </Dropdown.Toggle>
+                    {/*<Dropdown className={styles.DropDown} show={navbarShow} onMouseEnter={handleHover} onMouseLeave={handleHide}>*/}
+                    {/*    <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">*/}
+                    {/*        {currentUser.user.name}*/}
+                    {/*    </Dropdown.Toggle>*/}
 
 
-                        <Dropdown.Menu className={styles.dropdownMenu}>
+                    {/*    <Dropdown.Menu className={styles.dropdownMenu}>*/}
 
-                            <div className={styles.dropdownContainer}>
-                                <Dropdown.Item><Link href="/profil"><a href="/profil">Profil</a></Link></Dropdown.Item>
+                    {/*        <div className={styles.dropdownContainer}>*/}
+                    {/*            <Dropdown.Item><Link href="/profil"><a href="/profil">Profil</a></Link></Dropdown.Item>*/}
 
-                                <Dropdown.Divider />
-                                <Dropdown.Item onClick={handleClickLogout}>Faq</Dropdown.Item>
+                    {/*            <Dropdown.Divider />*/}
+                    {/*            <Dropdown.Item onClick={handleClickLogout}>Faq</Dropdown.Item>*/}
 
-                                <Dropdown.Item onClick={handleClickLogout}>Logout</Dropdown.Item>
-                            </div>
+                    {/*            <Dropdown.Item onClick={handleClickLogout}>Logout</Dropdown.Item>*/}
+                    {/*        </div>*/}
 
 
-                        </Dropdown.Menu>
+                    {/*    </Dropdown.Menu>*/}
 
-                    </Dropdown>
+                    {/*</Dropdown>*/}
+
+                    <Link href="/app">
+                        <Nav.Link href="/login" className={styles.app}>Accéder à l'appli</Nav.Link>
+                    </Link>
 
                 </>
             )
@@ -140,7 +148,7 @@ export default function NavBar(){
 
         <>
 
-            {router.pathname === "/register" ?
+            {router.pathname === "/register" || router.pathname === "/app" || router.pathname === "/app/signin" || router.pathname === "/app/profile" ?
 
                 <>
                 </>
