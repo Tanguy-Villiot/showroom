@@ -229,7 +229,7 @@ export default function VoteImage({setImagesVote, submitVote}){
     return(
         <>
 
-            <img src='Competition/checked.svg' className={styles.voteButton} onClick={handleClickUpload} alt=""/>
+            <img src='Competition/check.svg' className={styles.voteButton} onClick={handleClickUpload} alt=""/>
 
 
             {/*<Button variant="danger" onClick={handleClickUpload}>Vote</Button>*/}

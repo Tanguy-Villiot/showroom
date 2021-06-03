@@ -162,7 +162,7 @@ export default function NavBar(){
                             <div>
                                 <Navbar>
                                     <Link href="/">
-                                        <Navbar.Brand href="#home" className={styles.link} style={{marginRight: "1.5em", paddingTop: "0.125rem", fontFamily: "Inter-Bold"}}>Showroom</Navbar.Brand>
+                                        <Navbar.Brand href="#home" className={styles.link} style={{marginRight: "1em", paddingTop: "0.125rem", fontFamily: "Inter-Bold"}}>Showroom</Navbar.Brand>
                                     </Link>
                                     <Navbar.Toggle />
                                     <Nav className="mr-auto white-text">

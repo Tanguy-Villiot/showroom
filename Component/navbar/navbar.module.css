@@ -13,8 +13,8 @@
     background: #1f1f1f;
     color: white;
     /*width: 100vw !important;*/
-    padding-left: 3em;
-    padding-right: 3em;
+    padding-left: 2em;
+    padding-right: 2em;
     padding-top: 0.2em;
 }
 
@@ -101,7 +101,7 @@
 .link
 {
     color: white !important;
-    font-family: Inter-Light;
+    font-family: Inter;
     padding-right: 1em;
     transition: 0.3s;
 }

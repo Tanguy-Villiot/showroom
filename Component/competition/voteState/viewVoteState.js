@@ -231,8 +231,6 @@ export default function ViewVoteState({images, handleClickReload, competition, s
 
                             </div>
 
-
-                            <img src='homepage/svg-path.svg' className={styles.toolBarSVG} alt=""/>
                         </div>
 
                     </div>

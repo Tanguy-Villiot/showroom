@@ -420,7 +420,7 @@ export default function UploadImage({competition, toastify}){
 
     return(
         <>
-            <Button variant="primary" className="p-5" onClick={handleClickUpload}>Upload Image</Button>
+            <Button variant="primary" className="p-2" onClick={handleClickUpload}>Upload Image</Button>
             <ModalUpload
                 show={uploadModalShow}
                 onHide={() => setUploadModalShow(false)}
