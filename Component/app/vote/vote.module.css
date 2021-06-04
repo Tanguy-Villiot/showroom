@@ -1,0 +1,286 @@
+/* Copyright (c) 2021 Ankward. All right reserved. */
+/* */
+/* Ankward (https://ankward.fr) */
+
+.MonthCompetition_ill
+{
+    height: 25em;
+}
+
+.MonthCompetition_text
+{
+    font-family: Inter-Bold;
+    font-size: 3em;
+    text-transform: uppercase;
+    margin-top: 1em;
+}
+
+.MonthCompetition_subtext
+{
+    color: #7a5995;
+    font-style: italic;
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+}
+
+.MonthCompetition_button
+{
+    background: linear-gradient(90deg, rgba(166,226,236,1) 0%, rgba(194,158,233,1) 33%, rgba(235,144,173,1) 66%, rgba(233,133,142,1) 100%);
+    color: white;
+    padding-right: 2em;
+    padding-left: 2em;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    font-size: 2em;
+    text-transform: uppercase;
+    font-family: Inter-Bold;
+    border: none;
+    border-radius: 10px;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+
+.Container
+{
+    padding: 1em;
+}
+
+
+.toolBar
+{
+    position: sticky;
+    bottom: 0;
+    z-index: 1000;
+}
+
+
+.toolBar_Button
+{
+    position: absolute;
+    z-index: 15;
+    width: 100%;
+    bottom: 0;
+}
+
+
+.refreshButton
+{
+    height: 3em;
+    filter: drop-shadow(0px 0px 10px white);
+}
+
+.refreshButton:Hover
+{
+    cursor: pointer;
+}
+
+.container
+{
+    max-width: 1417px;
+    margin: auto;
+    width: 100%;
+}
+
+.imagesContainer
+{
+    /*-webkit-column-count: 3;*/
+    /*-moz-column-count: 3;*/
+    /*column-count: 3;*/
+    /*column-gap: 1em;*/
+    /*margin-bottom: 2em;*/
+    position: relative;
+    text-align: center;
+}
+
+
+
+.item {
+    transition: 300ms;
+    transition-delay: 0.3s;
+    position: relative;
+    width: max-content;
+    margin: 0.25em;
+    display: inline-block;
+
+    z-index: 1;
+
+    /*transition: z-index 1s step-end, transform 300ms;*/
+
+
+}
+
+.item:focus,
+.item:hover {
+    transform: scale(1.50);
+
+    transition-delay: 0.3s;
+
+    /*transition: z-index 1s step-start, transform 300ms;*/
+
+    z-index: 1000;
+
+
+}
+
+.item:hover .item_infos
+{
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0.5s;
+}
+
+
+.item_image
+{
+    /*border-radius: 4px 4px 0px 0px;*/
+    height: 15em;
+}
+
+.item_infos
+{
+    transition: 300ms;
+
+
+    opacity: 0;
+    visibility: hidden;
+    height: 7em;
+    width: 100%;
+    z-index: 100;
+    position: absolute;
+    border-radius: 0px 0px 4px 4px;
+    padding: 0.75em;
+
+
+    /*background: rgba(255, 255, 255, 0.65);*/
+    background: #1f1f1f;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    /*backdrop-filter: blur( 10px );*/
+    -webkit-backdrop-filter: blur( 10px );
+    border: 1px solid rgba( 255, 255 255, 0.18 );
+}
+
+.item_infos_like
+{
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    background-image: url( 'https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png');
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 2900%;
+    right: 1px;
+    position: absolute;
+    top: -1.6em;
+}
+
+.item_infos_like:Hover
+{
+    background-position:right;
+}
+
+.item_infos_like_true
+{
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    background-image: url( 'https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png');
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 2900%;
+    right: 1px;
+    position: absolute;
+    top: -1.6em;
+}
+
+.item_infos_lik_disable
+{
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    background-image: url( 'https://abs.twimg.com/a/1446542199/img/t1/web_heart_animation.png');
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 2900%;
+    right: 1px;
+    position: absolute;
+    top: -1.6em;
+}
+
+
+.item_infos_button_container
+{
+    display: flex;
+    margin-bottom: 0.75em;
+}
+
+.item_infos_button
+{
+    height: 25px;
+    width: 25px;
+    border-radius: 4px;
+
+    position: relative;
+    border: 0.100em solid rgba(255, 255, 255, 0.25);
+
+    transition: 0.125s;
+    margin-right: 10px;
+
+}
+
+.item_infos_button:Hover
+{
+    border: 0.100em solid rgba(255, 255, 255, 1);
+    transition: 0.125s;
+}
+
+.item_infos_button_extend_img
+{
+    height: 0.85em;
+    filter: invert(100%);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.item_infos_title
+{
+    color: white;
+    font-size: 0.75em;
+    text-transform: lowercase;
+
+    font-family: Inter, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+.item_infos_title::first-letter
+{
+    text-transform: uppercase;
+}
+
+.item_infos_description
+{
+    font-family: Inter-Light, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    color: #d2cfcf;
+    text-transform: lowercase;
+    font-size: 0.5em;
+
+}
+
+
+/*** VOTE ***/
+
+.voteContainer
+{
+    /*position: fixed;*/
+    /*bottom: 0;*/
+    /*width: 125px;*/
+}
+.voteImage
+{
+    margin-right: 2em;
+    height: 125px;
+    width: 125px;
+}

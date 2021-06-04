@@ -8,7 +8,13 @@ import styles from "./addCreation.module.css"
 
 import {MDBCol, MDBContainer, MDBRow} from "mdbreact";
 import {Button, Form} from "react-bootstrap";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {initFirebase} from "../../../firebase/firebase-utils";
+import checkServer from "../../../bdd/checkServer";
+import {useCurrentUser} from "../../../security/user/userContext";
+import CompetitionContext from "../../../competition/competitionContext";
+
+let firebase = initFirebase();
 
 export default function AddCreation({image, handleReturnToHomePage}){
 
@@ -16,6 +22,11 @@ export default function AddCreation({image, handleReturnToHomePage}){
         title: "",
         description: ""
     })
+
+    const { currentUser } = useCurrentUser();
+    const {competition} = useContext(CompetitionContext)
+
+
 
 
     /**
@@ -36,7 +47,96 @@ export default function AddCreation({image, handleReturnToHomePage}){
      * Submit the creation
      *
      */
-    function handleSubmit(){
+    async function handleSubmit(e) {
+
+        e.preventDefault()
+
+        console.log(e.currentTarget)
+
+
+
+        // const creationExist = await getCreationByCompetition(currentUser.user.id, competition._id);
+
+        // if(creationExist.find !== false)
+        // {
+        //     setShowAlertExist(true)
+        // }
+        // else
+        // {
+            uploadImage()
+
+        // }
+
+
+    }
+
+    const uploadImage = () => {
+
+        let bucketName = 'images'
+        let file = image[0];
+        let storageRef = firebase.storage().ref(`${bucketName}/${currentUser.user.id}_${competition._id}`);
+        let uploadTask = storageRef.put(file);
+        uploadTask.on('state_changed',
+            (snapshot) => {
+
+
+
+                var progress = Math.round(((snapshot.bytesTransferred / snapshot.totalBytes) * 100) * 10) / 10;
+                setPercent(progress);
+                console.log('Upload is ' + progress + '% done');
+                switch (snapshot.state) {
+                    case firebase.storage.TaskState.PAUSED: // or 'paused'
+                        console.log('Upload is paused');
+                        break;
+                    case firebase.storage.TaskState.RUNNING: // or 'running'
+                        console.log('Upload is running');
+                        break;
+                }
+
+            }, (err) => {
+                //catches the errors
+                console.log(err)
+            }, () => {
+                // gets the functions from storage refences the image storage in firebase by the children
+                // gets the download url then sets the image from firebase as the value for the imgUrl key:
+                storageRef.getDownloadURL()
+                    .then(fireBaseUrl => {
+
+                        AddcreationToBdd(fireBaseUrl);
+
+                    })
+            })
+    }
+
+    /**
+     * Add creation value and url image in bdd
+     *
+     * @param {string} url Url of image
+     */
+    const AddcreationToBdd = async(url) =>{
+
+
+        const server = checkServer();
+
+        const userId = currentUser.user.id;
+
+        const res = await fetch(`${server}/api/creation/addCreation`, {
+
+            method: 'post',
+
+            body:JSON.stringify({ url, userId, valueForm })
+
+        })
+
+        if(res.statusText === "OK")
+        {
+            props.toastify.Success("Your creation has been sent !");
+        }
+        else
+        {
+            props.toastify.Warning("Error : Your creation has not been sent !");
+        }
+
 
 
     }

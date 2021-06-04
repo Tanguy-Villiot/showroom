@@ -8,7 +8,7 @@ import {useRouter} from "next/router";
 import {useEffect} from "react";
 import {useCurrentUser} from "../../security/user/userContext";
 
-export default function Header({changePage}){
+export default function Header(){
 
     const router = useRouter();
     const { currentUser, fetchCurrentUser } = useCurrentUser();

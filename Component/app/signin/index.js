@@ -25,6 +25,11 @@ export default function SignIn(){
 
     const [error, setError] = useState()
 
+
+    /**
+     * When click on submit button
+     *
+     */
     async function handleSubmit() {
 
 
@@ -52,9 +57,12 @@ export default function SignIn(){
             }
             else
             {
+                fetchCurrentUser()
+                    .then(() => {
+                        toastify.Information("Bonjour !");
+                        return router.push("/app/profile");
+                    });
 
-                toastify.Information("Bonjour !");
-                return router.push("/app/profile");
             }
 
         } else {
@@ -67,6 +75,11 @@ export default function SignIn(){
 
     }
 
+    /**
+     * When click on connection google or facebook button
+     *
+     * @param {string} id Mail of user.
+     */
     async function handleConnectionWithSocial(id) {
 
         const social = true;
@@ -84,10 +97,12 @@ export default function SignIn(){
         if (response.ok) {
             console.log(response.statusText);
 
-            fetchCurrentUser();
+            fetchCurrentUser()
+                .then(() => {
+                    toastify.Information("Bonjour !");
+                    return router.push("/app/profile");
+                })
 
-            toastify.Information("Bonjour !");
-            return router.push("/profil");
         } else {
 
             console.log("Email or password wrong");
@@ -98,6 +113,11 @@ export default function SignIn(){
 
     }
 
+    /**
+     * Change value when form change
+     *
+     * @param {string} evt Value of field.
+     */
     function handleChange(evt)
     {
 

@@ -12,6 +12,12 @@ export const CurrentUserContext = React.createContext()
 export const CurrentUserProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState({connected: false})
 
+
+    /**
+     * Fetch if current user is logged and store it.
+     * Launch this every login/logout
+     *
+     */
     const fetchCurrentUser = async () => {
 
         const server = checkServer();

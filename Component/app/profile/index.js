@@ -22,6 +22,11 @@ export default function Profile(){
     const [content, setContent] = useState("home")
 
     // API FUNCTION
+
+    /**
+     * Logout user
+     *
+     */
     async function handleLogout(){
 
         const response = await fetch("../api/auth/logout", {
@@ -36,6 +41,11 @@ export default function Profile(){
         }
     }
 
+
+    /**
+     * Render the good view
+     *
+     */
     function RenderContent()
     {
         switch (content)
@@ -54,42 +64,72 @@ export default function Profile(){
     function Home()
     {
         return (
-            <div className={styles.cases}>
+            <div className={styles.home + " container"}>
 
-                <div className={styles.casesitem}>
+                <h1 className={styles.home_contest}>Participation au concours du mois </h1>
 
-                    <img className={styles.casesitem_icon} src="/app/profile/userIcon.png" alt="user icon "/>
+                <div className={styles.progessBar}>
 
-                    <p className={styles.casesitem_text}>Mes infos</p>
+                    <div className={styles.step} style={{backgroundColor: "#EBAA5D"}}>
+
+                        <p className={styles.stepText}>Participation envoyé</p>
+
+                    </div>
+
+                    <div className={styles.step} style={{backgroundColor: "#E88227"}}>
+
+                        <p className={styles.stepText}>Création validée par D-Note</p>
+
+                    </div>
+
+                    <div className={styles.step} style={{backgroundColor: "#DD2D2D"}}>
+
+                        <p className={styles.stepText}>Vote effectué</p>
+
+                    </div>
 
                 </div>
 
-                <div className={styles.casesitem}>
+                <div className={styles.cases}>
 
-                    <img className={styles.casesitem_icon} src="/app/profile/medal.png" alt="user icon "/>
+                    <div className={styles.casesitem}>
 
-                    <p className={styles.casesitem_text}>Mes participations</p>
+                        <img className={styles.casesitem_icon} src="/app/profile/userIcon.png" alt="user icon "/>
 
-                </div>
+                        <p className={styles.casesitem_text}>Mes infos</p>
 
-                <div className={styles.casesitem}>
+                    </div>
 
-                    <img className={styles.casesitem_icon} src="/app/profile/stats.png" alt="user icon "/>
+                    <div className={styles.casesitem}>
 
-                    <p className={styles.casesitem_text}>Mes statistiques</p>
+                        <img className={styles.casesitem_icon} src="/app/profile/medal.png" alt="user icon "/>
 
-                </div>
+                        <p className={styles.casesitem_text}>Mes participations</p>
 
-                <div className={styles.casesitem}>
+                    </div>
 
-                    <img className={styles.casesitem_icon} src="/app/profile/feedback.png" alt="user icon "/>
+                    <div className={styles.casesitem}>
 
-                    <p className={styles.casesitem_text}>Feedback</p>
+                        <img className={styles.casesitem_icon} src="/app/profile/stats.png" alt="user icon "/>
+
+                        <p className={styles.casesitem_text}>Mes statistiques</p>
+
+                    </div>
+
+                    <div className={styles.casesitem}>
+
+                        <img className={styles.casesitem_icon} src="/app/profile/feedback.png" alt="user icon "/>
+
+                        <p className={styles.casesitem_text}>Feedback</p>
+
+                    </div>
+
 
                 </div>
 
 
             </div>
+
         )
     }
 

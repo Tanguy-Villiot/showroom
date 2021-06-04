@@ -8,55 +8,35 @@ import global from './app.module.css'
 import Header from "./header";
 import Footer from "./footer";
 import Creation from "./creation/controler";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useCurrentUser} from "../security/user/userContext";
 import SignIn from "./signin";
 import {useRouter} from "next/router";
+import CompetitionContext from "../competition/competitionContext";
+import Vote from "./vote";
 
 export default function Application(){
 
-    const {currentUser} = useCurrentUser();
-
-    const [page, setPage] = useState("creation")
+    const {competition} = useContext(CompetitionContext)
 
     function RenderPage(){
 
-        switch (page)
+        if(competition.vote)
         {
-            case "creation":
-                return <Creation />
-            case "vote":
-                return <Creation />
-            case "profile":
-                if(currentUser.connected)
-                {
-                    return <Profile />
-                }
-                else
-                {
-                    return <SignIn />
-                }
-            default:
-                return <Creation />
+            return <Vote competition={competition}/>
+        }
+        else
+        {
+            return <Creation />
         }
 
     }
-
-    function changePage(value)
-    {
-        setPage(value)
-    }
-
-
-    useEffect(() => {
-
-    }, [page])
 
 
     return (
         <div className={global.Application}>
 
-            <Header changePage={(value) => changePage(value)}/>
+            <Header/>
 
             <RenderPage />
 
